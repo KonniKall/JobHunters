@@ -2,8 +2,8 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Work_Experience, Reccomendation, Application
+from .models import WorkExperience, Reccomendation, Application
     
-admin.site.register(Work_Experience)
+admin.site.register(WorkExperience)
 admin.site.register(Reccomendation)
 admin.site.register(Application)

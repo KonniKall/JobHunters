@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Contact_Info(models.Model):
+class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -18,7 +18,7 @@ class Contact_Info(models.Model):
     def __str__(self, *args, **kwargs):
         return f'{self.user.username} - {self.address}'
     
-class Job_Seeker(models.Model):
+class JobSeeker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bio = models.TextField(default='')
     files = models.CharField(max_length=100) # Breyta seinna

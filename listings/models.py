@@ -6,7 +6,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-class Work_Experience(models.Model):
+class WorkExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     workplace = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
@@ -33,7 +33,7 @@ class Application(models.Model):
     applied = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=100)
 
-    work_experiences = models.ManyToManyField(Work_Experience)
+    work_experiences = models.ManyToManyField(WorkExperience)
     reccomendations = models.ManyToManyField(Reccomendation)
 
     def __str__(self, *args, **kwargs):

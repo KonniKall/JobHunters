@@ -2,9 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Profile, Contact_Info, Employer, Job_Seeker
+from .models import Profile, ContactInfo, Employer, JobSeeker
     
 admin.site.register(Profile)
-admin.site.register(Contact_Info)
+admin.site.register(ContactInfo)
 admin.site.register(Employer)
-admin.site.register(Job_Seeker)
+admin.site.register(JobSeeker)
