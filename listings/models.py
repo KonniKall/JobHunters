@@ -27,6 +27,28 @@ class Reccomendation(models.Model):
 
     def __str__(self, *args, **kwargs):
         return f'{self.user.username} - {self.workplace}'
+    
+
+
+
+class JobListing(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    title = models.CharField(default='')
+    work_type = models.CharField(default='')
+    location = models.CharField(default='')
+    category = models.CharField(default='')
+
+    work_type = models.TextField(default='')
+
+    due_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(default=timezone.now)
+
+
+    def __str__(self, *args, **kwargs):
+        return f'{self.user.username} - {self.title} - {self.due_date}'
+    
+    
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cover_letter = models.TextField(default='')
@@ -36,8 +58,7 @@ class Application(models.Model):
     work_experiences = models.ManyToManyField(WorkExperience)
     reccomendations = models.ManyToManyField(Reccomendation)
 
+    job_listing = models.ForeignKey(JobListing, on_delete=models.DO_NOTHING, default=None)
+
     def __str__(self, *args, **kwargs):
         return f'{self.user.username} - {self.status}'
-
-    #def __str__(self, *args, **kwargs):
-    #    return f'{self.user.username} Profile'
