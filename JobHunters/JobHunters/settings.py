@@ -73,12 +73,24 @@ WSGI_APPLICATION = 'JobHunters.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+DATABASES = { 'default': 
+             { 'ENGINE': 'django.db.backends.postgresql',
+              'NAME': 'postgres',
+              'USER': 'vln2_assignment_groups_43_user',
+              'PASSWORD': '0Rwa5LD9lY',
+              'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
+              'PORT': '5432', 
+              'OPTIONS': {
+                    'options': '-c search_path=vln2_assignment_groups_43'}
+             } 
+            }
 
 
 # Password validation
