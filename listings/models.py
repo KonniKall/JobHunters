@@ -2,9 +2,9 @@ from django.db import models
 
 # Create your models here.
 
-from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+
 
 class WorkExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -15,8 +15,9 @@ class WorkExperience(models.Model):
     end_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self, *args, **kwargs):
-        return f'{self.user.username} - {self.workplace}'
-    
+        return f"{self.user.username} - {self.workplace}"
+
+
 class Reccomendation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -26,10 +27,12 @@ class Reccomendation(models.Model):
     role = models.CharField(max_length=100)
 
     def __str__(self, *args, **kwargs):
-        return f'{self.user.username} - {self.workplace}'
+        return f"{self.user.username} - {self.workplace}"
+
+
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cover_letter = models.TextField(default='')
+    cover_letter = models.TextField(default="")
     applied = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=100)
 
@@ -37,7 +40,7 @@ class Application(models.Model):
     reccomendations = models.ManyToManyField(Reccomendation)
 
     def __str__(self, *args, **kwargs):
-        return f'{self.user.username} - {self.status}'
+        return f"{self.user.username} - {self.status}"
 
-    #def __str__(self, *args, **kwargs):
+    # def __str__(self, *args, **kwargs):
     #    return f'{self.user.username} Profile'
