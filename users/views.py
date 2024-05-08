@@ -9,7 +9,7 @@ from is_ajax import is_ajax
 # Create your views here.
 
 
-class LoginView(View):
+class SignInView(View):
 
     def get(self, request):
         # listings = list(JobListing.objects.filter(user=request.user).values())
@@ -19,7 +19,7 @@ class LoginView(View):
             print(f"working2")
             # return JsonResponse({'listings': listings}, status=200)
         context = {}
-        return render(request, "users/login.html", context)
+        return render(request, "users/sign-in.html", context)
 
     def post(self, request, name):
         # filter = FilterModel.objects.filter(name=name)

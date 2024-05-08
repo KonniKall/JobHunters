@@ -1,3 +1,7 @@
+body {
+    display: grid;
+}
+
 .loginSection {
     margin-block: 4rem;
     /*
@@ -89,7 +93,7 @@ top: .75rem;
 }
 
 .login_button {
-  background-color: #1cbb54;
+  background-color: #10dbcd;
   border-radius: 8px;
   border: none;
 
@@ -116,7 +120,7 @@ top: .75rem;
   color: #1db954be;
   border: none;
   */
-  background-color: #138a3dea;
+  background-color: #0ea49a;
   }
   
 /*btn btn-outline-info*/

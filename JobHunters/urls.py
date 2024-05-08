@@ -20,7 +20,7 @@ from django.urls import path
 
 from django.urls import path, include
 
-from users.views import LoginView
+from users.views import SignInView
 
 
 urlpatterns = [
