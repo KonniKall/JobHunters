@@ -2,5 +2,13 @@
 
 {% load static %}
 
-{%block content%}
-{%endblock content%}
+{% block content %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <p>Test</p>
+    </body>
+</html>
+{% endblock %}
