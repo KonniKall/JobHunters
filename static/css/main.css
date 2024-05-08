@@ -1,0 +1,8 @@
+body {
+    background: rgb(26, 26, 26);
+    max-height: 100vh;
+  
+    max-width: 100vw;
+
+    overflow: hidden
+}
