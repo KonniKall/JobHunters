@@ -13,10 +13,13 @@
     background-color: yellow;
 }
 
+.profile_button {
+    width: 60px;
+    margin-right: 20px;
+    float: right;
+}
+
 .profile_img {
     width: 50px;
-
-    justify-self: right;
-    margin-right: 20px;
 }
 
