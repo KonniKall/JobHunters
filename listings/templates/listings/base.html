@@ -36,7 +36,9 @@
           <p></p>
         </div>
         {% if user.is_authenticated %}
-          <img src="" alt="" class="profile">
+          <a href="">
+            <img src="" alt="" class="profile">
+          </a>
         {% else %}
           <button href="{% url 'login' %}">Login</button>
         {% endif %}
