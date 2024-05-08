@@ -36,8 +36,8 @@
           <p></p>
         </div>
         {% if user.is_authenticated %}
-          <button class="profile_button">
-            <img src="{% static 'images/default_profile_img.png'%}" alt="profile image" class="profile_img">
+          <button class="profile-button">
+            <img src="{% static 'images/default_profile_img.png'%}" alt="profile image" class="profile-img">
           </button>
         {% else %}
           <button onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
@@ -46,17 +46,24 @@
       <script src="{% static 'scripts/base.js' %}"></script>
       {% block content %}{% endblock %}
 
+      <nav class="profile-dropdown">
+        <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
+        <a href="#" class="profile-dropdown-option">Sent applications</a>
+        <a class="profile-dropdown-option">Sign out</a>
+      </nav>
       <script>
         var out = false;
         $( ".profile-button" ).click(function() {
-          var profileDropdown = $("#profile-dropdown");
+          console.log('pButton clicked')
+
+          var profileDropdown = $(".profile-dropdown");
 
           if (out == true){
-            profileDropdown.animate({width: 5}, 500 );
+            profileDropdown.animate({height: 0}, 500 );
             out = false
           } 
           else {
-            profileDropdown.animate({width: 250}, 500 );
+            profileDropdown.animate({height: 100}, 500 );
             out = true
           }
 
