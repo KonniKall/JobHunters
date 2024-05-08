@@ -26,5 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('listings.urls')),
     path('', include('users.urls')),
-    #path('login/', LoginView.as_view())
+    #path('login/', LoginView.as_view(), name='login')
 ]
