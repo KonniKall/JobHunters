@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+      <title>Job Hunters</title>
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,6 +37,8 @@
         </div>
         {% if user.is_authenticated %}
           <img src="" alt="" class="profile">
+        {% else %}
+          <button href="{% url 'login' %}">Login</button>
         {% endif %}
       </div>
       <script src="{% static 'scripts/base.js' %}"></script>
