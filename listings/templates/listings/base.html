@@ -26,7 +26,7 @@
     </head>
     
     <body>
-      <div class="header">
+      <div id="header">
         <h1 class="logo">Job Hunters</h1>
         <div class="navbar">
           <p></p>
@@ -34,7 +34,9 @@
           <p></p>
           <p></p>
         </div>
-        <img src="" alt="" class="profile">
+        {% if user.is_authenticated %}
+          <img src="" alt="" class="profile">
+        {% endif %}
       </div>
       <script src="{% static 'scripts/base.js' %}"></script>
     </body>

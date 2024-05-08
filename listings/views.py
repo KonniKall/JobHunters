@@ -3,11 +3,24 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
 
+from .models import JobListing
+from django.shortcuts import HttpResponse
+
 # Create your views here.
+
+def is_ajax(request):
+        return request.headers.get('x-requested-with') == 'XMLHttpRequest'
 class ListingsView(View):
+    
     def get(self, request):
+        #listings = list(JobListing.objects.filter(user=request.user).values())
+        #listings = list(JobListing.objects.all)
+
+        if is_ajax(request=request):
+            print(f'working2')
+            #return JsonResponse({'listings': listings}, status=200)
         context = {
-            #'posts': Post.objects.all()
+
     
         }
         return render(request, 'listings/job_listings.html', context)

@@ -1,5 +1,5 @@
 function sendRequest(url, method, data){
-    var req = axios({
+    var r = axios({
       method: method,
       url: url,
       data: data,
@@ -9,21 +9,21 @@ function sendRequest(url, method, data){
         'X-Requested-With': 'XMLHttpRequest'
       }
     })
-    return req
+    return r
 }
 
-var profile = new Vue({
+var header = new Vue({
     delimiters: ["[[", "]]"],
-    el: "#profile",
+    el: "#header",
     data() {
-        return{
+        return {
      
         }
 
     },
     created(){
         var vm = this;
-        var req = sendRequest('', 'get')
+        var r = sendRequest('', 'get')
         .then(function(response){
           console.log('working')
         })
