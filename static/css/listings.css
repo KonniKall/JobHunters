@@ -1,0 +1,16 @@
+#container {
+    width: 80vw;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: aqua;
+}
+#listings-container {
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+.listing {
+    background-color: bisque;
+    width: fit-content;
+}

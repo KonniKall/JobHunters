@@ -6,9 +6,17 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/listings.css' %}">
     </head>
     <body>
-        <p>Test</p>
+        <div id="container">
+            <h1>Job listings</h1>
+            <div id="listings-container">
+                {% for listing in listings %}
+                    <div class="listing">{{ listing.title }}</div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 </html>
 {% endblock %}

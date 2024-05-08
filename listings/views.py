@@ -15,12 +15,12 @@ class ListingsView(View):
 
     def get(self, request):
         # listings = list(JobListing.objects.filter(user=request.user).values())
-        # listings = list(JobListing.objects.all)
+        listings = JobListing.objects.all()
 
         if is_ajax(request=request):
             print(f"working2")
-            # return JsonResponse({'listings': listings}, status=200)
-        context = {}
+            return JsonResponse({"listings": listings}, status=200)
+        context = {"listings": listings}
         return render(request, "listings/job_listings.html", context)
 
     def post(self, request, name):
