@@ -45,5 +45,26 @@
       </div>
       <script src="{% static 'scripts/base.js' %}"></script>
       {% block content %}{% endblock %}
+
+      <script>
+        var out = false;
+        $( ".profile-button" ).click(function() {
+          var profileDropdown = $("#profile-dropdown");
+
+          if (out == true){
+            profileDropdown.animate({width: 5}, 500 );
+            out = false
+          } 
+          else {
+            profileDropdown.animate({width: 250}, 500 );
+            out = true
+          }
+
+          //var profileDropdownTwo = document.querySelector("#sliding-sidebar");
+          //profileDropdownTwo.style.overflow = "auto";
+
+        });
+      
+      </script>
     </body>
 </html>

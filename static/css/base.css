@@ -19,7 +19,7 @@ p, h1 {margin: 0 !important}
     background-color: yellow;
 }
 
-.profile_button {
+.profile-button {
     display: grid;
 
     width: 60px;
@@ -29,11 +29,11 @@ p, h1 {margin: 0 !important}
     border: 0px
 }
 
-.profile_img:hover {
+.profile-img:hover {
     cursor: pointer;
 }
 
-.profile_img {
+.profile-img {
     width: inherit;
 }
 
