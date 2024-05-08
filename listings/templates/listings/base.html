@@ -40,7 +40,7 @@
             <img src="{% static 'images/default_profile_img.png'%}" alt="profile image" class="profile_img">
           </button>
         {% else %}
-          <button onclick="window.location.href = {% url 'login' %}" method="get">Login</button>
+          <button onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
         {% endif %}
       </div>
       <script src="{% static 'scripts/base.js' %}"></script>
