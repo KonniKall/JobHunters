@@ -1,7 +1,10 @@
+p, h1 {margin: 0 !important}  
+
 #header {
     display: grid;
-    grid-template-columns: 100px auto 20vw;
+    grid-template-columns: 200px auto 80px;
     align-items: center;
+    background-color: green;
 }
 
 .logo {
@@ -14,12 +17,20 @@
 }
 
 .profile_button {
+    display: grid;
+
     width: 60px;
     margin-right: 20px;
-    float: right;
+
+    background-color: transparent;
+    border: 0px
+}
+
+.profile_img:hover {
+    cursor: pointer;
 }
 
 .profile_img {
-    width: 50px;
+    width: inherit;
 }
 
