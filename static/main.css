@@ -1,6 +1,7 @@
 #header {
     display: grid;
-    grid-template-columns: 100px 50vw 10vw;
+    grid-template-columns: 100px auto 20vw;
+    align-items: center;
 }
 
 .logo {
@@ -10,5 +11,12 @@
 
 .navbar {
     background-color: yellow;
+}
+
+.profile_img {
+    width: 50px;
+
+    justify-self: right;
+    margin-right: 20px;
 }
 

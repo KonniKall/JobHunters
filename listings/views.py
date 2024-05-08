@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from .models import JobListing
 from django.shortcuts import HttpResponse
 
-from ..is_ajax import is_ajax
+from is_ajax import is_ajax
 
 # Create your views here.
 

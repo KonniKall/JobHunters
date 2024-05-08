@@ -4,7 +4,7 @@ from django.views.generic import View
 from django.http import JsonResponse
 
 
-from ..is_ajax import is_ajax
+from is_ajax import is_ajax
 
 # Create your views here.
 
