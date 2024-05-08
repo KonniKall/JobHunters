@@ -1,0 +1,22 @@
+#header {
+    display: grid;
+    grid-template-columns: 100px auto 20vw;
+    align-items: center;
+}
+
+.logo {
+    background-color: red;
+    color: blue;
+}
+
+.navbar {
+    background-color: yellow;
+}
+
+.profile_img {
+    width: 50px;
+
+    justify-self: right;
+    margin-right: 20px;
+}
+
