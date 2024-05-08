@@ -3,6 +3,7 @@ p, h1 {margin: 0 !important}
 #header {
     display: grid;
     grid-template-columns: 200px auto 80px;
+    height: 60px;
     align-items: center;
     background-color: green;
 }
