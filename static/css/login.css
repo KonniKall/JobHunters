@@ -1,0 +1,350 @@
+.loginSection {
+    margin-block: 4rem;
+    /*
+    padding-block: .5rem;
+    
+    background-color: rgba(66,67,69,1);
+
+    box-shadow: rgb(42, 42, 43) 1.5px 1.5px 3px 0px inset, rgb(81, 82, 83) -1.5px -1.5px 3px 0px inset;
+    */
+    background: linear-gradient(120deg, rgba(24, 24, 24, 0.664), rgba(0, 0, 0, 0.274));
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(4.4px);
+    backdrop-filter: blur(4.4px);
+
+    display: grid;
+    text-align: left;
+    padding-top: .5rem;
+
+    /*
+    padding-left: 5%;
+    padding-right: 5%;
+    */
+
+
+    color: white;
+    border-radius: 15px;
+    width: 50%;
+    max-width: 33rem;
+    min-width: 400px;
+
+    
+    height: max-content;
+    
+
+    justify-self: center;
+    
+    grid-template-rows: 13% 42% 7.5rem auto;
+    font-size: 9pt;
+  }
+
+.loginSectionTitle {
+    font-size: 16pt;
+    text-align: center;
+    justify-self: center;
+    margin-block: 5.5%;
+    width: 100%;
+    height: 100%;
+
+    padding-inline: 17%;
+  }
+  
+.username_field {
+  border-radius: 6px;
+  height: 2.75rem;
+  border: none;
+
+  color: white;
+  background-color: rgb(60, 60, 61);
+}
+
+.username_field:focus {
+  color: white;
+  border: none;
+  background-color: rgb(60, 60, 61);
+}
+
+.password_field {
+  border-radius: 6px;
+  height: 2.75rem;
+  border: none;
+
+  color: white;
+  background-color: rgb(60, 60, 61);
+}
+
+.password_field:focus {
+  color: white;
+  border: none;
+  background-color: rgb(60, 60, 61);
+}
+
+.field span {
+position: absolute;
+right: 1rem;
+top: .75rem;
+}
+.field span:hover {
+  cursor: pointer;
+}
+
+.login_button {
+  background-color: #1cbb54;
+  border-radius: 8px;
+  border: none;
+
+  margin-block: 1rem;
+  height: 3rem;
+  width: 100%;
+
+  font-size: 12pt;
+  font-weight: bold;
+
+  text-align: center;
+  justify-self: center;
+
+  -webkit-transition: 1000ms;
+  -moz-transition: 1000ms;
+  -ms-transition: 1000ms;
+  -o-transition: 1000ms;
+  transition: 1000ms;
+}
+
+.login_button:hover {
+  cursor: pointer; 
+  /*
+  color: #1db954be;
+  border: none;
+  */
+  background-color: #138a3dea;
+  }
+  
+/*btn btn-outline-info*/
+
+.login_form {
+  display: grid;
+  grid-template-rows: 27.5% 30% 34% 15%;
+  height: 98%;
+  padding-inline: 13%;
+}
+
+.label-before, .field input:valid + label::before, .field input:focus + label::before{
+  line-height: 20px;
+  font-size: 12px;
+  top: -10px;
+  padding: 0 6px;
+  left: 9px;
+
+  background: rgb(60, 60, 61);
+  border-radius: 6px;
+  color: white;
+}
+.field {
+  position: relative;
+  margin-bottom: 15px;
+  
+}
+.field label::before {
+  content: attr(title);
+  position: absolute;
+  top: 0;
+  left: 15px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #777;
+  transition: 300ms all;
+  background: rgb(60, 60, 61);
+}
+.field input {
+  width: 100%;
+  line-height: 40px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  /*color: #222;*/
+  border: none;
+  border-radius: 6px;
+
+  color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 100px rgb(60, 60, 61) inset !important;
+    
+}
+input:-webkit-autofill{
+  -webkit-text-fill-color: white !important;
+  caret-color: white;
+}
+
+
+.field input[type="text"], textarea {
+  background: rgb(60, 60, 61);
+}
+.field input[type="email"], textarea {
+  background: rgb(60, 60, 61);
+}
+.field input[type="password"], textarea {
+  background: rgb(60, 60, 61);
+}
+.field input:focus {
+  outline: 0;
+  border-color: white;
+}
+.field input:valid + label::before {
+  content: attr(data-title);
+}
+.field input:focus + label::before {
+  color: white;
+}
+
+.social_logins {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 1rem;
+  
+  padding-inline: 9.5%;
+  padding-bottom: 5.5rem;
+}
+
+.or_split {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 10px;
+  /*margin-block: 1rem;*/
+  padding-inline: 8%;
+}
+
+.or_split_line {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.login_error {
+  background-color: rgb(199, 37, 37);
+  width: 100%;
+  height: 45%;
+  /*border-radius: 4px;*/
+
+  padding-left: 48px;
+  padding-top: 4px;
+
+  padding-right: 30px;
+
+  font-size: 10pt;
+  font-weight: bold;
+  text-align: left;
+}
+
+.login_error span {
+  position: relative;
+  left: -21%;
+  padding-left: 1vw;
+  top: -208%;
+}
+
+.errorMessage {
+  color: rgb(199, 37, 37);
+  font-size: 10pt;
+  font-weight: bold;
+
+  padding-left: 35px;
+  padding-right: 30px;
+
+  height: 20px;
+}
+.errorMessage span {
+  position: relative;
+  left: -19.5%;
+  padding-left: 1vw;
+  top: -30px;
+}
+
+.social_button {
+  display: grid;
+  grid-template-rows: 10% 90%;
+
+  border-radius: 5px;
+  width: 100%;
+
+  border: none;
+  color: white;
+
+  font-size: 10pt;
+  font-weight: bold;
+
+  padding-top: 10px;
+
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  -ms-transition: 200ms;
+  -o-transition: 200ms;
+  transition: 200ms;
+}
+
+.signUpSection {
+  margin-block: 4rem;
+
+  /*
+  padding-block: .5rem;
+  
+  background-color: rgba(66,67,69,1);
+
+  box-shadow: rgb(42, 42, 43) 1.5px 1.5px 3px 0px inset, rgb(81, 82, 83) -1.5px -1.5px 3px 0px inset;
+  */
+  background: linear-gradient(120deg, rgba(24, 24, 24, 0.664), rgba(0, 0, 0, 0.274));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(4.4px);
+  backdrop-filter: blur(4.4px);
+
+  display: grid;
+  text-align: left;
+  padding-top: .5rem;
+
+  color: white;
+  border-radius: 15px;
+  width: 50%;
+  max-width: 33rem;
+  min-width: 400px;
+
+  height: max-content;
+
+  justify-self: center;
+  
+  grid-template-rows: 11.5% max-content 5% 10% 13rem 12% auto;
+  font-size: 9pt;
+
+}
+
+.field input:-webkit-autofill + label::before {
+  line-height: 20px;
+  font-size: 12px;
+  top: -10px;
+  padding: 0 6px;
+  left: 9px;
+
+  background: rgb(60, 60, 61);
+  border-radius: 6px;
+  color: white;
+}
+
+/*
+.field input:-webkit-autofill + input {
+  line-height: 20px;
+  font-size: 12px;
+  top: -10px;
+  padding: 0 6px;
+  left: 9px;
+
+  background: rgb(60, 60, 61);
+  border-radius: 6px;
+  color: white;
+}
+*/
+
+.GUI {
+  overflow-y: auto;
+}
