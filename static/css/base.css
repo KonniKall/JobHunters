@@ -3,7 +3,7 @@ p, h1 {margin: 0 !important}
 #header {
     display: grid;
     grid-template-columns: 200px auto 80px;
-    height: 60px;
+    height: 80px;
     align-items: center;
     background-color: green;
 
@@ -19,7 +19,7 @@ p, h1 {margin: 0 !important}
     background-color: yellow;
 }
 
-.profile_button {
+.profile-button {
     display: grid;
 
     width: 60px;
@@ -29,11 +29,44 @@ p, h1 {margin: 0 !important}
     border: 0px
 }
 
-.profile_img:hover {
+.profile-img:hover {
     cursor: pointer;
 }
 
-.profile_img {
+.profile-img {
     width: inherit;
 }
 
+.profile-dropdown {
+    background: rgb(49, 49, 49);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    height: 0px;
+    width: 125px;
+    overflow: hidden;
+
+    position: absolute;
+    top: 80px;
+    right: 15px;
+    
+    font-size: 10pt;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-dropdown-option {
+    color: rgb(189, 189, 197);
+    background-color: transparent;
+    border: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-dropdown-option:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 173);
+}
