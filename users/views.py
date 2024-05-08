@@ -26,3 +26,18 @@ class LoginView(View):
         # filter.delete()
 
         return JsonResponse({"result": "ok"}, status=200)
+
+class ProfileView(View):
+
+    def get(self, request):
+        if is_ajax(request=request):
+            print(f"working2")
+
+        context = {}
+        return render(request, "users/profile.html", context)
+
+    def post(self, request, name):
+        # filter = FilterModel.objects.filter(name=name)
+        # filter.delete()
+
+        return JsonResponse({"result": "ok"}, status=200)
