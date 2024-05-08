@@ -19,9 +19,12 @@ from django.urls import path
 
 from django.urls import path, include
 
+from users.views import LoginView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('listings.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    #path('login/', LoginView.as_view())
 ]
