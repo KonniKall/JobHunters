@@ -4,19 +4,40 @@
 
 {% block content %}
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/listings.css' %}">
-    </head>
-    <body>
-        <div id="container">
-            <h1>Job listings</h1>
-            <div id="listings-container">
-                {% for listing in listings %}
-                    <div class="listing">{{ listing.title }}</div>
-                {% endfor %}
-            </div>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/listings.css' %}">
+</head>
+
+<body>
+    <div id="container">
+        <div id="menu">Menu</div>
+        <div id="listings-container">
+            <!-- {% for listing in listings %}
+            <div class="listing">{{ listing.title }}</div>
+            {% endfor %} -->
+            <div class="listing">1</div>
+            <div class="listing">2</div>
+            <div class="listing">3</div>
+            <div class="listing">4</div>
+            <div class="listing">5</div>
+            <div class="listing">6</div>
+            <div class="listing">7</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
+            <div class="listing">8</div>
         </div>
-    </body>
+    </div>
+    <div class="footer">feet</div>
+</body>
+
 </html>
 {% endblock %}
