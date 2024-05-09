@@ -1,24 +1,55 @@
 html {
     overflow-y: scroll;
 }
+
 #container {
     width: 80vw;
-    height: 70vh;
-    margin-left: 10px;
+    height: 100%;
+    margin-left: auto;
     margin-right: auto;
     background-color: aqua;
     display: flex;
     overflow: hidden;
 }
+
 #menu {
     flex: 1;
     background-color: darkcyan;
 }
 
+#menu-subcontainer {
+    width: 80%;
+    background-color: brown;
+    padding: 30px;
+    margin: auto auto;
+    margin-top: 40px;
+}
+
+.menu-seperator {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#searches>input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* set space between searches but not after last */
+#searches>:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+#filters>:not(:last-child) {
+    margin-bottom: 15px;
+}
+
 #listings-container {
-    min-height: 100%;
-    background-color: aquamarine;
+    flex: 3;
+    background-color: grey;
     overflow-y: scroll;
+    scrollbar-color: cyan darkslategrey;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -29,15 +60,9 @@ html {
     height: 200px;
     width: auto;
     margin: 30px;
-    background-color: blue;
+    background-color: crimson;
 }
+
 .listing:hover {
     cursor: pointer;
 }
-
-.footer {
-    background-color: bisque;
-    height: 50px;
-    width: 100%;
-}
-
