@@ -89,7 +89,7 @@ class ApplicationView(View):
         application = Application.objects.filter(user=request.user, pk=application).first()
         if application == None:
             # Appendar við URL-in sem þarf að laga
-            return redirect('users.views.custom_page_not_found_view')
+            return redirect('/users.views.custom_page_not_found_view')
         context = {'application': application}
         return render(request, "users/application.html", context)
 
