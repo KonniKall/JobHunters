@@ -98,6 +98,35 @@ class ApplicationView(View):
         return JsonResponse({"result": "ok"}, status=200)
 
 
+class JobListingsView(View):
+
+    def get(self, request):
+        job_listings = JobListing.objects.filter(user=request.user)
+        context = {'job_listings': job_listings}
+        return render(request, "users/job-listings.html", context)
+
+    def post(self, request, name):
+
+        return JsonResponse({"result": "ok"}, status=200)
+    
+class JobListingView(View):
+
+    def get(self, request, job_listing):
+        #Nota mögulega ehv annað en pk seinna
+        job_listing = JobListing.objects.filter(user=request.user, pk=job_listing).first()
+        if job_listing == None:
+            # Appendar við URL-in sem þarf að laga
+            return redirect('/users.views.custom_page_not_found_view')
+        context = {'job_listing': job_listing}
+        return render(request, "users/job-listing.html", context)
+
+    def post(self, request, name):
+
+        return JsonResponse({"result": "ok"}, status=200)
+
+
 def custom_page_not_found_view(request, exception=None):
 
     return render(request, "listings/404.html")
+
+
