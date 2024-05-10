@@ -1,7 +1,10 @@
+h1 {margin: 0 !important;}
+
 #header {
     display: grid;
     grid-template-columns: 200px auto 80px;
-    height: 80px;
+
+    height: 80px;    
     align-items: center;
     background-color: green;
 
@@ -18,10 +21,11 @@
 }
 
 .profile-button {
+    justify-self: right;
     display: grid;
+    justify-content: center;
 
     width: 60px;
-    margin-right: 20px;
 
     background-color: transparent;
     border: 0px

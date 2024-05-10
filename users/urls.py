@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import SignInView, ProfileView
+from .views import SignInView, ProfileView, ApplicationsView, ApplicationView
 
 from django.contrib.auth import views as auth_views
 
@@ -8,5 +8,7 @@ urlpatterns = [
     #path('', views.listings, name='listings-page'),
     path("sign-in/", SignInView.as_view(), name="sign-in"),
     path('sign-out/', auth_views.LogoutView.as_view(template_name='users/sign-out.html'), name='sign-out'),
-    path('profile/', ProfileView.as_view(), name='profile')
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('profile/applications/', ApplicationsView.as_view(), name='sent-applications'),
+    path('profile/applications/<str:application>/', ApplicationView.as_view(), name='sent-applications'),
 ]

@@ -48,7 +48,7 @@
 
       <nav class="profile-dropdown">
         <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
-        <a href="#" class="profile-dropdown-option">Sent applications</a>
+        <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
         <form method="post" action="{% url 'sign-out' %}">
           {% csrf_token %}
           <button type="submit" class="profile-dropdown-option">Sign out</button>

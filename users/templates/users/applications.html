@@ -1,0 +1,30 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+    </head>
+    <body>
+        <div class="applications">
+            {% for application in applications %}
+                <a class="application-small" href="{% url 'sent-applications' application=application.pk %}">
+                    <div>
+                        <p class="application-small-employer">{{ application.job_listing.user }}</p>
+                        <p class="application-small-title">{{ application.job_listing.title }}</p>
+                    </div>
+                    {% if application.status == "Approved" %}
+                        <p class="application-small-status approved">{{ application.status }}</p>
+                    {% elif application.status == "Denied" %}
+                        <p class="application-small-status denied">{{ application.status }}</p>
+                    {% elif application.status == "Pending" %}
+                        <p class="application-small-status pending">{{ application.status }}</p>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+{% endblock content %}

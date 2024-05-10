@@ -53,8 +53,8 @@ class Application(models.Model):
     applied = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=100)
 
-    work_experiences = models.ManyToManyField(WorkExperience)
-    recommendations = models.ManyToManyField(Recommendation)
+    work_experiences = models.ManyToManyField(WorkExperience, blank=True)
+    recommendations = models.ManyToManyField(Recommendation, blank=True)
 
     job_listing = models.ForeignKey(
         JobListing, on_delete=models.DO_NOTHING, default=None
