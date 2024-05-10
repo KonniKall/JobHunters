@@ -29,3 +29,5 @@ urlpatterns = [
     path("", include("users.urls")),
     # path('login/', LoginView.as_view(), name='login')
 ]
+
+handler404 = 'users.views.custom_page_not_found_view'

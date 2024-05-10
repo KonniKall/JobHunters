@@ -18,6 +18,8 @@ import json
 from listings.models import Application, JobListing
 from django.contrib.auth.models import User
 
+from django.shortcuts import redirect
+
 # Create your views here.
 
 
@@ -52,7 +54,7 @@ class SignInView(View):
                 print(form.error_messages)
                 print(form.error_messages['invalid_login'])
                 print("AJAX")
-                
+
         return HttpResponse(json.dumps({'message': "Incorrect username or password. Try again."}))
 
 class ProfileView(View):
@@ -85,9 +87,17 @@ class ApplicationView(View):
     def get(self, request, application):
         #Nota mögulega ehv annað en pk seinna
         application = Application.objects.filter(user=request.user, pk=application).first()
+        if application == None:
+            # Appendar við URL-in sem þarf að laga
+            return redirect('users.views.custom_page_not_found_view')
         context = {'application': application}
         return render(request, "users/application.html", context)
 
     def post(self, request, name):
 
         return JsonResponse({"result": "ok"}, status=200)
+
+
+def custom_page_not_found_view(request, exception=None):
+
+    return render(request, "listings/404.html")
