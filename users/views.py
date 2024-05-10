@@ -16,6 +16,7 @@ from django.http import HttpResponse
 import json
 
 from listings.models import Application, JobListing
+from .models import Employer, JobSeeker
 from django.contrib.auth.models import User
 
 from django.shortcuts import redirect
@@ -74,6 +75,9 @@ class ProfileView(View):
 class ApplicationsView(View):
 
     def get(self, request):
+        #Job seeker check
+        if JobSeeker.objects.filter(user=request.user).first() == None:
+            return redirect('/users.views.custom_page_not_found_view')
         applications = Application.objects.filter(user=request.user)
         context = {'applications': applications}
         return render(request, "users/applications.html", context)
@@ -85,6 +89,9 @@ class ApplicationsView(View):
 class ApplicationView(View):
 
     def get(self, request, application):
+        #Job seeker check
+        if JobSeeker.objects.filter(user=request.user).first() == None:
+            return redirect('/users.views.custom_page_not_found_view')
         #Nota mögulega ehv annað en pk seinna
         application = Application.objects.filter(user=request.user, pk=application).first()
         if application == None:
@@ -101,6 +108,10 @@ class ApplicationView(View):
 class JobListingsView(View):
 
     def get(self, request):
+        #Employer check
+        if Employer.objects.filter(user=request.user).first() == None:
+            return redirect('/users.views.custom_page_not_found_view')
+        
         job_listings = JobListing.objects.filter(user=request.user)
         context = {'job_listings': job_listings}
         return render(request, "users/job-listings.html", context)
@@ -112,6 +123,10 @@ class JobListingsView(View):
 class JobListingView(View):
 
     def get(self, request, job_listing):
+        #Employer check
+        if Employer.objects.filter(user=request.user).first() == None:
+            return redirect('/users.views.custom_page_not_found_view')
+
         #Nota mögulega ehv annað en pk seinna
         job_listing = JobListing.objects.filter(user=request.user, pk=job_listing).first()
         if job_listing == None:
