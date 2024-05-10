@@ -6,6 +6,6 @@ from django.conf.urls import handler404
 
 urlpatterns = [
     #path('', views.listings, name='listings-page'),
-    path('', ListingsView.as_view(), name='index'),
+    path('', ListingsView.as_view(), name='index')
     
 ]
