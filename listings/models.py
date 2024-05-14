@@ -31,6 +31,7 @@ class Recommendation(models.Model):
 
 
 class JobListing(models.Model):
+
     LOCATION_CHOICES =( 
     ("1", "One"), 
     ("2", "Two"), 
@@ -46,14 +47,20 @@ class JobListing(models.Model):
         ("4", "Four"), 
         ("5", "Five"), 
     )
+
+    WORK_TYPE_CHOICES =( 
+        ("1", "Full time"), 
+        ("2", "Part time"), 
+        ("3", "Summer job"), 
+    )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     title = models.CharField(default="")
-    work_type = models.CharField(default="")
+
+    work_type = models.CharField(choices=WORK_TYPE_CHOICES)
     location = models.CharField(choices=LOCATION_CHOICES)
     category = models.CharField(choices=CATEGORY_CHOICES)
-
-    work_type = models.TextField(default="")
 
     due_date = models.DateTimeField(default=timezone.now)
     start_date = models.DateTimeField(default=timezone.now)

@@ -52,6 +52,9 @@ class CreateJobListingView(View):
 
     def post(self, request):
         form = JobListingCreationForm(data=request.POST)
+        #start_date = form('start_date')
+        start_date = request.POST['start_date']
+        print(start_date)
         if form.is_valid():
             print('working?')
 
