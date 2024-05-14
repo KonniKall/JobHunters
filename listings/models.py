@@ -49,9 +49,9 @@ class JobListing(models.Model):
     )
 
     WORK_TYPE_CHOICES =( 
-        ("1", "Full time"), 
-        ("2", "Part time"), 
-        ("3", "Summer job"), 
+        ("Full time", "Full time"), 
+        ("Part time", "Part time"), 
+        ("Summer job", "Summer job"), 
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
