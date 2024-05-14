@@ -51,7 +51,7 @@
         </div>
         <div id="listings-container">
             {% for listing in listings %}
-            <div class="listing">
+            <a class="listing" href="{% url 'listing' listing=listing.pk %}">
                 <h5 class="company-name">{{ listing.user }}</h5>
                 <h4 class="job-title">{{ listing.title }}</h4>
                 <div class="dates">
@@ -60,7 +60,7 @@
                     {{ listing.start_date.day }}
                     {{ listing.start_date.month }}
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
     </div>

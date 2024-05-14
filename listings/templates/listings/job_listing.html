@@ -1,0 +1,13 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <p>{{ listing.title }}</p>
+    </body>
+</html>
+{% endblock %}
