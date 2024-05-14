@@ -8,6 +8,8 @@ from django.shortcuts import HttpResponse, redirect
 
 from is_ajax import is_ajax
 
+from .forms import JobListingCreationForm
+
 # Create your views here.
 
 
@@ -39,3 +41,18 @@ class JobListingView(View):
             return redirect('/users.views.custom_page_not_found_view')
         context = {'listing': listing}
         return render(request, "listings/job_listing.html", context)
+    
+
+class CreateJobListingView(View):
+
+    def get(self, request):
+        context = {}
+        context['form'] = JobListingCreationForm()
+        return render(request, "listings/create-job-listing.html", context)
+
+    def post(self, request):
+        form = JobListingCreationForm(data=request.POST)
+        if form.is_valid():
+            print('working?')
+
+        return JsonResponse({"result": "ok"}, status=200)

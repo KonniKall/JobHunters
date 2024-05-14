@@ -49,7 +49,7 @@
         {% if user_type.bio %}
           <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
         {% elif user_type.description %}
-        <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
+          <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
         {% endif %}
         <form method="post" action="{% url 'sign-out' %}">
           {% csrf_token %}
