@@ -88,6 +88,27 @@ class JobListingApplicationView(View):
             'recommendations': recommendations
         }
         context['application_form'] = ApplicationForm()
-        context['contact_form'] = ContactInfoForm()
+        context['contact_form'] = ContactInfoForm(initial={'full_name': contact_info.full_name, 'address': contact_info.address, 'country': contact_info.country, 'city': contact_info.city, 'zip_code': contact_info.zip_code})
         context['experience_form'] = ExperienceForm()
         return render(request, "listings/job_listing_application.html", context)
+    
+    def post(self, request, listing):
+        form = ExperienceForm(data=request.POST)
+        context = {}
+        return JsonResponse({"error": "Not AJAX request."})
+    
+
+class ApplicationContactView(View):
+    #def get(self, request, full_name, addres, country, city, zip):
+    #    listing = JobListing.objects.filter(pk=listing).first()
+    #    return render(request, "listings/job_listing_application.html", context)
+    
+    def post(self, request, full_name, address, country, city, zip_code):
+        form = ContactInfoForm(data=request.POST)
+        context = {}
+        
+        if is_ajax(request=request) and form.is_valid:
+            print(full_name)
+            CI = ContactInfo.objects.filter(user=request.user).update(full_name=full_name, address=address, country=country, city=city, zip_code=zip_code)
+        return JsonResponse({"error": "Not AJAX request."})
+    

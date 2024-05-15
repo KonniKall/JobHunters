@@ -10,30 +10,32 @@
     <body>
         <div class="content">
             <h1>{{ listing.title }}</h1>
-            <div class="application-form">
-                <form method="POST" class="sub-form" action="">
+            <form method="POST" action="" class="application-form" id="application">
+                <div class="sub-form">
                         <p class="application-header">Contact Information</p>
                         <div class="application-fields">
                             {% csrf_token %} 
-                            {{ contact_form.as_p }} 
+                            {{ contact_form.as_p }}
+                            {% comment %} <input name="full_name" v-model="full_name" id="full_name">{% endcomment %}
                         </div>
                         {% comment %} { form.title }}{% endcomment %}
                         <nav class="application-nav">
                             <none></none>
-                            <input class="nav-button right" type="submit" value="Next"> 
+                            <button class="nav-button right" @click.prevent="contactNext('{{ contact_form.full_name.value }}', '{{ contact_form.address.value }}', '{{ contact_form.country.value }}', '{{ contact_form.city.value }}', '{{ contact_form.zip_code.value }}');">Next</button>
                         </nav>
-                    </form>
-                <form method="POST" class="sub-form" action="">
+                    </div>
+                <div class="sub-form">
                     <p class="application-header">Work Experiences</p>
                     {% csrf_token %} 
                     {{ experience_form.as_p }} 
                     <nav class="application-nav">
-                        <input class="nav-button left" type="submit" value="Previous">
-                        <input class="nav-button right" type="submit" value="Next">
+                        <button class="nav-button left" @click="workExperiencesPrev();">Previous</button>
+                        <button class="nav-button right" @click="workExperiencesNext();">Next</button>
                     </nav>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+        <script src="{% static 'scripts/application.js' %}"></script>
     </body>
 </html>
 {% endblock %}

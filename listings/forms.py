@@ -36,6 +36,8 @@ class JobListingCreationForm(ModelForm):
         fields = ['title', 'work_type', 'location', 'category']#, 'due_date', 'start_date']
 
 class ContactInfoForm(ModelForm):
+    #full_name = forms.CharField(
+    #    widget= forms.TextInput(attrs={'v-model':'full_name'}))
     class Meta:
         model = ContactInfo
         fields = ['full_name', 'address', 'country', 'city', 'zip_code']
