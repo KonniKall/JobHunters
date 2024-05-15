@@ -21,11 +21,11 @@ class ContactInfo(models.Model):
 
 class JobSeeker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bio = models.TextField(default="")
-    files = models.CharField(max_length=100)  # Breyta seinna
+    bio = models.TextField(default="", blank=True)
+    files = models.CharField(max_length=100, blank=True)  # Breyta seinna
 
     def __str__(self, *args, **kwargs):
-        return f"{self.user.username} - {self.bio}"
+        return f"JobSeeker"
 
 
 class Employer(models.Model):
@@ -35,8 +35,9 @@ class Employer(models.Model):
 
     cover_img = models.ImageField(default="default_cover.png")
 
+
     def __str__(self, *args, **kwargs):
-        return f"{self.user.username} - {self.description}"
+        return f"Employer"
 
 
 class Profile(models.Model):

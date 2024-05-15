@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import SignInView, ProfileView, ApplicationsView, ApplicationView, JobListingsView, JobListingView, WorkplacesView, WorkplaceView, CreateJobListingView
+from .views import SignInView, ProfileView, ApplicationsView, ApplicationView, JobListingsView, JobListingView, WorkplacesView, WorkplaceView
 
 from django.contrib.auth import views as auth_views
 
@@ -15,7 +15,6 @@ urlpatterns = [
 
     path('profile/job-listings/', JobListingsView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/', JobListingView.as_view(), name='my-job-listings'),
-    path('profile/job-listings/create/', CreateJobListingView.as_view(), name='create-job-listing'),
 
     path('workplaces/', WorkplacesView.as_view(), name='workplaces'),
     path('workplaces/<str:workplace>/', WorkplaceView.as_view(), name='workplaces'),

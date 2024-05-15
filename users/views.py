@@ -9,7 +9,7 @@ from is_ajax import is_ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 
-from .forms import UserSignInForm#, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserSignInForm #, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -164,14 +164,7 @@ class WorkplaceView(View):
 
         return JsonResponse({"result": "ok"}, status=200)
     
-class CreateJobListingView(View):
 
-    def get(self, request):
-        return render(request, "users/workplace.html")
-
-    def post(self, request, name):
-
-        return JsonResponse({"result": "ok"}, status=200)
 
 
 def custom_page_not_found_view(request, exception=None):
