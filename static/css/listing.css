@@ -1,0 +1,79 @@
+.container {
+    width: 80vw;
+    background-color: crimson;
+    margin: auto;
+}
+
+.listing {
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr) auto;
+}
+
+.listing-info{
+    background-color: brown;
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    height: fit-content;
+    border-radius: 20px;
+}
+
+.company {
+    background-color: crimson;
+    grid-row: 1 / 3;
+    grid-column: 2 / 3;
+    width: 75%;
+    height: fit-content;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 20px;
+}
+
+.apply {
+    background-color: brown;
+    border-color: black;
+    border-radius: 20px;
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+    width: 40%;
+    height: 80%;
+    padding: 20px;
+    margin: auto auto;
+    transition-duration: 0.2s;
+}
+
+.apply:hover {
+    cursor: pointer;
+    background-color: pink;
+}
+
+.description {
+    background-color: slategray;
+    grid-row: 4 / 5;
+    grid-column: 1 / 4;
+    margin: 30px;
+}
+
+.extra-listings-container {
+    background-color: blueviolet;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.extra-listing {
+    height: 200px;
+    width: 300px;
+    margin: 30px 15px;
+    padding: 20px;
+    background-color: #8BA6A9;
+    border: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    border-color: #5a696b;
+}
