@@ -34,13 +34,6 @@ class ListingsView(View):
 
         return JsonResponse({"result": "ok"}, status=200)
 
-<<<<<<< HEAD
-"""class MockDataView(View):
-    def post(self, request, x):
-        blabalb ef x er y
-        JL = JobListing(user=self.user, )
-        JL.save()"""
-=======
 
 class JobListingView(View):
     def get(self, request, listing):
@@ -75,4 +68,3 @@ class CreateJobListingView(View):
             instance.save()
 
         return redirect('my-job-listings')
->>>>>>> origin/main
