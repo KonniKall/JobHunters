@@ -6,13 +6,21 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+COUNTRY_CHOICES =( 
+    ("Iceland", "Iceland"), 
+    ("Denmark", "Denmark"), 
+    ("England", "England"), 
+    ("United States", "United States"), 
+    ("Bolivia", "Bolivia"), 
+    ) 
+
 
 class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    country = models.CharField(choices=COUNTRY_CHOICES)
     zip_code = models.CharField(max_length=100)
 
     def __str__(self, *args, **kwargs):

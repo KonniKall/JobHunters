@@ -1,0 +1,120 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+    </head>
+    <body>
+        <div class="content">
+            <h1>{{ listing.title }}</h1>
+            <form method="POST" action="" class="application-form" id="application">
+                <div class="sub-form 1">
+                    <p class="application-header">Contact Information</p>
+                    <div class="application-fields">
+                        {% csrf_token %} 
+                        {% comment %} {{ contact_form.as_p }}
+                        [[ contactForm.fullName ]] {% endcomment %}
+                        <label for="full_name">Full name:</label>
+                        <input name="full_name" type="text" v-model="contactForm.fullName">
+                        
+                        <label for="address">Address:</label>
+                        <input name="address" type="text" v-model="contactForm.address">
+
+                        <label for="country">Country:</label>
+                        <select name="country" type="text" v-model="contactForm.country">
+                            {% for option in country_choices %}
+                                <option value="{{ option.country }}">{{ option.country }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="city">City:</label>
+                        <input name="city" type="text" v-model="contactForm.city">
+
+                        <label for="zip_code">Zip code:</label>
+                        <input name="zip_code" type="text" v-model="contactForm.zipCode">
+                        {% comment %} <input name="full_name" v-model="full_name" id="full_name">{% endcomment %}
+                    </div>
+                    {% comment %} { form.title }} @click.prevent="contactNext('{{ contact_form.full_name.value }}', '{{ contact_form.address.value }}', '{{ contact_form.country.value }}', '{{ contact_form.city.value }}', '{{ contact_form.zip_code.value }}');"{% endcomment %}
+                    <nav class="application-nav">
+                        <none></none>
+                        <button @click.prevent="contactNext()" class="nav-button right">Next</button>
+                    </nav>
+                </div>
+                <div class="sub-form">
+                    <p class="application-header">Cover letter</p>
+                    <div class="application-fields">
+                        <textarea name="coverLetter" rows="4" cols="50" v-model="coverLetter"></textarea>
+                    </div>
+                    <nav class="application-nav">
+                        <button class="nav-button left" @click.prevent="coverLetter()">Previous</button>
+                        <button class="nav-button right" @click.prevent="coverLetter()">Next</button>
+                    </nav>
+                </div>
+                <div class="sub-form">
+                    <p class="application-header">Work Experiences</p>
+                    <div class="application-fields">
+                        <div class="application-selection">
+                            <div class="experiences" v-for="experience in experiences">
+                                    <div class="experience">
+                                        <p>[[ experience.workplace ]] - [[ experience.role ]]</p>
+                                        <p>From: [[ experience.start_date ]] To: [[ experience.end_date ]]</p>
+                                    </div>
+                                    <div class="experience-buttons">
+                                        <checkbox>Selected</checkbox>
+                                        <button>Remove</button>
+                                    </div>
+                                    
+                            </div>
+                            <div class="application-selection-bottom">
+                                <button>Add work experience</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav class="application-nav">
+                        <button class="nav-button left" @click.prevent="workExperiencesPrev()">Previous</button>
+                        <button class="nav-button right" @click.prevent="workExperiencesNext()">Next</button>
+                    </nav>
+                </div>
+                <div class="sub-form">
+                    <p class="application-header">Recommendations</p>
+                    <nav class="application-nav">
+                        <button class="nav-button left" @click.prevent="Recommendations()">Previous</button>
+                        <button class="nav-button right" @click.prevent="Recommendations()">Next</button>
+                    </nav>
+                </div>
+            </form>
+        </div>
+        <script src="{% static 'scripts/application.js' %}"></script>
+
+        <script>
+            let position = 0
+            $( ".nav-button.right" ).click(function() {
+                position += 1;
+                console.log(position)
+                var application = $(".sub-form");
+                application.css({
+                    "-webkit-transform":"translateX(calc(" + position + "*-400px))",
+                    "-ms-transform":"translateX(calc(" + position + "*-400px))",
+                    "transform":"translateX(calc(" + position + "*-400px))"
+                });
+            });
+
+            $( ".nav-button.left" ).click(function() {
+                position -= 1;
+                console.log(position)
+                var application = $(".sub-form");
+                application.css({
+                    "-webkit-transform":"translateX(calc(" + position + "*-400px))",
+                    "-ms-transform":"translateX(calc(" + position + "*-400px))",
+                    "transform":"translateX(calc(" + position + "*-400px))"
+                });
+            });
+        
+        </script>
+    </body>
+</html>
+{% endblock %}
