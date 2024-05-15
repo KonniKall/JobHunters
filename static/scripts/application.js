@@ -16,33 +16,59 @@ function sendRequest(url, method, data) {
     delimiters: ["[[", "]]"],
     el: "#application",
     data() {
-      return {};
+      return {
+        contactForm: {
+            fullName: '',
+            address: '',
+            country: '',
+            city: '',
+            zipCode: ''
+        },
+        coverLetter: '',
+        experiences: []
+      };
     },
     created() {
       var vm = this;
-      var r = sendRequest("", "get").then(function (response) {
-        console.log("working");
+      var r = sendRequest("/application/contact/", "get").then(function (response) {
+        console.log(response.data.contact)
+        console.log(response.data.contact[0]['full_name'])
+        vm.contactForm['fullName'] = response.data.contact[0]['full_name']
+        vm.contactForm['address'] = response.data.contact[0]['address']
+        vm.contactForm['country'] = response.data.contact[0]['country']
+        vm.contactForm['city'] = response.data.contact[0]['city']
+        vm.contactForm['zipCode'] = response.data.contact[0]['zip_code']
+      });
+      var r = sendRequest("/application/experiences/", "get").then(function (response) {
+        console.log(response.data.experiences)
+        console.log(vm.experiences)
+        for (experience in response.data.experiences){
+            //console.log(experience.role)
+            //experience['start_date'] = experience['start_date'].split("T")
+            vm.experiences.push(response.data.experiences[experience])
+        }
+        console.log(vm.experiences)
+        
       });
     },
     methods: {
-        contactNext(fullName, address, country, city, zipCode){
+        contactNext(){
             //contactForm = this.$route.params.contact_form
             console.log('w2')
             //this.contactForm = JSON.parse(document.getElementById('json_data').textContent)
-            console.log(fullName)
-            console.log(address)
-            console.log(country)
-            console.log(city)
-            console.log(zipCode)
             var vm = this;
-            sendRequest('/application/contact/' + fullName + '/' + address + '/' + country + '/' + city + '/' + zipCode + '/', 'post')
+            sendRequest('/application/contact/' + vm.contactForm['fullName'] + '/' + vm.contactForm['address'] + '/' + vm.contactForm['country'] + '/' + vm.contactForm['city'] + '/' + vm.contactForm['zipCode'] + '/', 'post')
               .then(function(response){
                 console.log(response)
-                vm.sortby_data = sortby
-                vm.opps['opportunities'] = response.data.opportunities
-                //vm.opportunities.push(response.data.opportunities);
               })
-          },
+        },
+        coverLetter(){
+            var vm = this;
+            sendRequest('/application/cover-letter/' + vm.coverLetter + '/', 'post')
+              .then(function(response){
+                console.log(response)
+              })
+        },
     },
   });
   

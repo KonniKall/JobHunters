@@ -92,14 +92,23 @@ class JobListingApplicationView(View):
         work_experiences = WorkExperience.objects.filter(user=request.user)
         recommendations = Recommendation.objects.filter(user=request.user)
 
+        COUNTRY_CHOICES = [
+        {"country": "Iceland"}, 
+        {"country": "Denmark"}, 
+        {"country": "England"}, 
+        {"country": "United States"}, 
+        {"country": "Bolivia"}, 
+        ]
+
         context = {
             'listing': listing,
             'contact_info': contact_info,
             'work_experiences': work_experiences,
-            'recommendations': recommendations
+            'recommendations': recommendations,
+            'country_choices': COUNTRY_CHOICES
         }
         context['application_form'] = ApplicationForm()
-        context['contact_form'] = ContactInfoForm(initial={'full_name': contact_info.full_name, 'address': contact_info.address, 'country': contact_info.country, 'city': contact_info.city, 'zip_code': contact_info.zip_code})
+        #context['contact_form'] = ContactInfoForm(initial={'full_name': contact_info.full_name, 'address': contact_info.address, 'country': contact_info.country, 'city': contact_info.city, 'zip_code': contact_info.zip_code})
         context['experience_form'] = ExperienceForm()
         return render(request, "listings/job_listing_application.html", context)
     
@@ -110,16 +119,53 @@ class JobListingApplicationView(View):
     
 
 class ApplicationContactView(View):
-    #def get(self, request, full_name, addres, country, city, zip):
-    #    listing = JobListing.objects.filter(pk=listing).first()
-    #    return render(request, "listings/job_listing_application.html", context)
+    def get(self, request):
+        contact = list(ContactInfo.objects.filter(user=request.user).values())
+        #application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
+        context = {'contact': contact}
+        return JsonResponse(context, status=200)
     
     def post(self, request, full_name, address, country, city, zip_code):
-        form = ContactInfoForm(data=request.POST)
-        context = {}
+        form = ContactInfoForm(data={
+            'full_name': full_name, 'address': address, 'country': country,
+            'city': city, 'zip_code': zip_code
+        })
+
+        """print(form.is_valid())
+        for field in form:
+            print("Field Error:", field.name,  field.errors)"""
         
-        if is_ajax(request=request) and form.is_valid:
-            print(full_name)
-            CI = ContactInfo.objects.filter(user=request.user).update(full_name=full_name, address=address, country=country, city=city, zip_code=zip_code)
+        if is_ajax(request=request) and form.is_valid():
+
+            obj, created = ContactInfo.objects.filter(user=request.user).update_or_create(
+                user=request.user,
+                defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code},
+                create_defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code})
+            try: obj.save()
+            except: created.save()
+            print(obj.zip_code)
+        return JsonResponse({"error": "Not AJAX request."})
+    
+class ApplicationExperiencesView(View):
+    def get(self, request):
+        experiences = list(WorkExperience.objects.filter(user=request.user).values())
+        #application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
+        context = {'experiences': experiences}
+        return JsonResponse(context, status=200)
+    def post(self, request, experiences):
+        for experience in experiences:
+            form = ExperienceForm(data={
+                
+            })
+
+            if is_ajax(request=request) and form.is_valid():
+                
+                """obj, created = ContactInfo.objects.filter(user=request.user).update_or_create(
+                    user=request.user,
+                    defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code},
+                    create_defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code})
+                try: obj.save()
+                except: created.save()
+                print(obj.zip_code)"""
         return JsonResponse({"error": "Not AJAX request."})
     

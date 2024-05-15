@@ -23,12 +23,42 @@
     display: grid;
     grid-template-rows: auto;
     gap: 6px;
+    min-height: 263px;
+}
+
+.application-selection {
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto;
+
+}
+.experiences {
+    background-color: aqua;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.experience {
+    background-color: aqua;
+    height: 30px;
+}
+.experience-buttons {
+    background-color: darkolivegreen;
+}
+
+.application-selection-bottom {
+    background-color: rgb(227, 0, 0);
+    display: grid;
+    grid-template-columns: auto;
+    height: 60px;
+
 }
 
 .application-nav{
     background-color: violet;
     display: grid;
     grid-template-columns: repeat(2, 50%);
+
 }
 
 .sub-form {
