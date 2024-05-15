@@ -18,4 +18,7 @@ urlpatterns = [
 
     path('workplaces/', WorkplacesView.as_view(), name='workplaces'),
     path('workplaces/<str:workplace>/', WorkplaceView.as_view(), name='workplaces'),
+
+    # path('workplaces/<int:id>/', WorkplaceView.as_view(), name='workplace-detail'),
+
 ]
