@@ -46,9 +46,9 @@
 
       <nav class="profile-dropdown">
         <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
-        {% if user_type.bio %}
+        {% if user_type == 'JobSeeker' %}
           <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
-        {% elif user_type.description %}
+        {% elif user_type == 'Employer' %}
           <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
         {% endif %}
         <form method="post" action="{% url 'sign-out' %}">
