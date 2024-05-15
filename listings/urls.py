@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ListingsView, JobListingView, CreateJobListingView
+from .views import ListingsView, JobListingView, CreateJobListingView, JobListingApplicationView
 
 from django.conf.urls import handler404
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('listing/<str:listing>/', JobListingView.as_view(), name='listing'),
 
     path('create/job-listing/', CreateJobListingView.as_view(), name='create-job-listing'),
+    path('apply/<str:listing>/', JobListingApplicationView.as_view(), name='job-listing-application'),
 
 ]

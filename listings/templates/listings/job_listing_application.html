@@ -1,0 +1,39 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+    </head>
+    <body>
+        <div class="content">
+            <h1>{{ listing.title }}</h1>
+            <div class="application-form">
+                <form method="POST" class="sub-form" action="">
+                        <p class="application-header">Contact Information</p>
+                        <div class="application-fields">
+                            {% csrf_token %} 
+                            {{ contact_form.as_p }} 
+                        </div>
+                        {% comment %} { form.title }}{% endcomment %}
+                        <nav class="application-nav">
+                            <none></none>
+                            <input class="nav-button right" type="submit" value="Next"> 
+                        </nav>
+                    </form>
+                <form method="POST" class="sub-form" action="">
+                    <p class="application-header">Work Experiences</p>
+                    {% csrf_token %} 
+                    {{ experience_form.as_p }} 
+                    <nav class="application-nav">
+                        <input class="nav-button left" type="submit" value="Previous">
+                        <input class="nav-button right" type="submit" value="Next">
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}

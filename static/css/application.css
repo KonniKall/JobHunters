@@ -1,0 +1,49 @@
+.content {
+    display: grid;
+    justify-content: center;
+}
+
+.application-form {
+    background-color: green;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    overflow-x: hidden;
+    width: 400px;
+    
+}
+.application-header {
+    background-color: blueviolet;
+    font-size: 16pt;
+    padding-inline: 5%;
+}
+
+.application-fields {
+    padding-inline: 5%;
+    margin-block: 10%;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 6px;
+}
+
+.application-nav{
+    background-color: violet;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
+.sub-form {
+    width: 400px;
+}
+
+.nav-button {
+    width: 35%;
+    margin: 5%;
+}
+
+.right {
+    justify-self: right;
+}
+
+.left {
+    justify-self: left;
+}

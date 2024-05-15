@@ -3,12 +3,12 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
 
-from .models import JobListing
+from .models import JobListing, Application, Recommendation, WorkExperience
 from django.shortcuts import HttpResponse, redirect
 
 from is_ajax import is_ajax
 
-from .forms import JobListingCreationForm
+from .forms import JobListingCreationForm, ContactInfoForm, ApplicationForm, ExperienceForm
 
 import datetime
 
@@ -68,3 +68,26 @@ class CreateJobListingView(View):
             instance.save()
 
         return redirect('my-job-listings')
+    
+from users.models import ContactInfo
+
+class JobListingApplicationView(View):
+    def get(self, request, listing):
+        listing = JobListing.objects.filter(pk=listing).first()
+        if listing == None:
+            # Appendar við URL-in sem þarf að laga
+            return redirect('/users.views.custom_page_not_found_view')
+        contact_info = ContactInfo.objects.filter(user=request.user).first()
+        work_experiences = WorkExperience.objects.filter(user=request.user)
+        recommendations = Recommendation.objects.filter(user=request.user)
+
+        context = {
+            'listing': listing,
+            'contact_info': contact_info,
+            'work_experiences': work_experiences,
+            'recommendations': recommendations
+        }
+        context['application_form'] = ApplicationForm()
+        context['contact_form'] = ContactInfoForm()
+        context['experience_form'] = ExperienceForm()
+        return render(request, "listings/job_listing_application.html", context)
