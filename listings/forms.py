@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import models
 from django.forms import fields, ModelForm
-from .models import JobListing, Application, WorkExperience
+from .models import JobListing, Application, WorkExperience, Recommendation
 from users.models import ContactInfo
 
 #from crispy_forms.helper import FormHelper
@@ -51,3 +51,8 @@ class ExperienceForm(ModelForm):
     class Meta:
         model = WorkExperience
         fields = ['workplace', 'role', 'start_date', 'end_date']
+
+class RecommendationForm(ModelForm):
+    class Meta:
+        model = Recommendation
+        fields = ['name', 'email', 'phone_nr', 'role', 'contact_allowed']

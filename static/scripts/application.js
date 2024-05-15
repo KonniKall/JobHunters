@@ -31,7 +31,15 @@ function sendRequest(url, method, data) {
             role: '',
             startDate: '',
             endDate: ''
-        }
+        },
+        recommendations: [],
+        newRecommendation: {
+            name: '',
+            email: '',
+            phone: '',
+            role: '',
+            contactAllowed: ''
+        },
       };
     },
     created() {
@@ -46,6 +54,7 @@ function sendRequest(url, method, data) {
         vm.contactForm['zipCode'] = response.data.contact[0]['zip_code']
       });
       vm.getExperiences()
+      vm.getRecommendations()
     },
     methods: {
         contactNext(){
@@ -113,6 +122,7 @@ function sendRequest(url, method, data) {
         getRecommendations(){
             var vm = this;
             var r = sendRequest("/application/recommendations/", "get").then(function (response) {
+                console.log(response.data.recommendations)
                 for (recommendation in response.data.recommendations){
                     let contains = vm.recommendations.some(elem =>{
                         return JSON.stringify(response.data.recommendations[recommendation]) === JSON.stringify(elem);
@@ -123,7 +133,25 @@ function sendRequest(url, method, data) {
                     }
                 }                    
             });
-        }
+        },
+        addRecommendation(){
+            var vm = this;
+            if (vm.newRecommendation['contactAllowed'] == '') {
+                vm.newRecommendation['contactAllowed'] = false
+            }
+            sendRequest('/add/recommendation/' + vm.newRecommendation['name'] + '/' + vm.newRecommendation['email'] + '/' + vm.newRecommendation['phone'] + '/' + vm.newRecommendation['role'] + '/' + vm.newRecommendation['contactAllowed'] + '/', 'post')
+              .then(function(response){
+                vm.newRecommendation = {
+                    name: '',
+                    email: '',
+                    phone: '',
+                    role: '',
+                    contactAllowed: false
+                }
+                vm.getRecommendations()
+              })
+            
+        },
     },
   });
   

@@ -9,7 +9,7 @@ from users.models import Employer
 
 from is_ajax import is_ajax
 
-from .forms import JobListingCreationForm, ContactInfoForm, ApplicationForm, ExperienceForm
+from .forms import JobListingCreationForm, ContactInfoForm, ApplicationForm, ExperienceForm, RecommendationForm
 
 import datetime
 
@@ -169,7 +169,7 @@ class ApplicationExperiencesView(View):
         })
 
         if is_ajax(request=request) and form.is_valid():
-            obj = WorkExperience.objects.filter(user=request.user).create(
+            obj = WorkExperience.objects.create(
                 user=request.user, workplace=workplace, role=role, start_date=start_date, end_date=end_date)
             obj.save()
             return JsonResponse({"response": "201"})
@@ -184,33 +184,35 @@ class ApplicationExperiencesView(View):
 
 class ApplicationRecommendationsView(View):
     def get(self, request):
-        experiences = list(WorkExperience.objects.filter(user=request.user).values())
+        recommendations = list(Recommendation.objects.filter(user=request.user).values())
+        print(recommendations)
         #application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
-        context = {'experiences': experiences}
+        context = {'recommendations': recommendations}
         return JsonResponse(context, status=200)
-    def post(self, request, workplace, role, start_date, end_date):
-        start_date = datetime.datetime.strptime(
-            start_date, "%m-%d-%Y"
-        ).date()
-        end_date = datetime.datetime.strptime(
-            end_date, "%m-%d-%Y"
-        ).date()
+    def post(self, request, name, email, phone, role, contact_allowed):
 
-        form = ExperienceForm(data={
-            'workplace': workplace, 'role': role,
-            'start_date': start_date, 'end_date': end_date
+        if contact_allowed == 'true':
+            contact_allowed = True
+        else:
+            contact_allowed = False
+
+        form = RecommendationForm(data={
+            'name': name, 'email': email,
+            'phone_nr': phone, 'role': role, 'contact_allowed': contact_allowed
         })
 
+        print(form.is_valid())
+
         if is_ajax(request=request) and form.is_valid():
-            obj = WorkExperience.objects.filter(user=request.user).create(
-                user=request.user, workplace=workplace, role=role, start_date=start_date, end_date=end_date)
+            obj = Recommendation.objects.create(
+                user=request.user, name=name, email=email, phone_nr=phone, role=role, contact_allowed=contact_allowed)
             obj.save()
             return JsonResponse({"response": "201"})
         
         return JsonResponse({"error": "Not AJAX request."})
     
-    def delete(self, request, experience):
-        experience = WorkExperience.objects.filter(user=request.user, pk=experience)
+    def delete(self, request, recommendation):
+        experience = Recommendation.objects.filter(user=request.user, pk=recommendation)
         experience.delete()
         return JsonResponse({"response": "deleted."})
     

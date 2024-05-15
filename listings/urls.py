@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ListingsView, JobListingView, CreateJobListingView, JobListingApplicationView, ApplicationContactView, ApplicationExperiencesView
+from .views import ListingsView, JobListingView, CreateJobListingView, JobListingApplicationView, ApplicationContactView, ApplicationExperiencesView, ApplicationRecommendationsView
 
 from django.conf.urls import handler404
 
@@ -18,7 +18,7 @@ urlpatterns = [
     path('add/experience/<str:workplace>/<str:role>/<str:start_date>/<str:end_date>/', ApplicationExperiencesView.as_view(), name='application-experience-add'),
     path('delete/experience/<str:experience>/', ApplicationExperiencesView.as_view(), name='application-experience'),
     
-    path('application/recommendations/', ApplicationExperiencesView.as_view(), name='application-recommendations'),
-    path('add/recommendation/<str:workplace>/<str:role>/<str:start_date>/<str:end_date>/', ApplicationExperiencesView.as_view(), name='application-recommendation-add'),
-    path('delete/recommendation/<str:recommendation>/', ApplicationExperiencesView.as_view(), name='application-recommendation'),
+    path('application/recommendations/', ApplicationRecommendationsView.as_view(), name='application-recommendations'),
+    path('add/recommendation/<str:name>/<str:email>/<str:phone>/<str:role>/<str:contact_allowed>/', ApplicationRecommendationsView.as_view(), name='application-recommendation-add'),
+    path('delete/recommendation/<str:recommendation>/', ApplicationRecommendationsView.as_view(), name='application-recommendation'),
 ]

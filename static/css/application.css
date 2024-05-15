@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     overflow-x: hidden;
-    width: 500px;
+    width: 650px;
     
 }
 .application-header {
@@ -67,7 +67,7 @@ td > input {
 }
 
 .sub-form {
-    width: 500px;
+    width: 650px;
     -webkit-transition: 500ms;
     -moz-transition: 500ms;
     -ms-transition: 500ms;
