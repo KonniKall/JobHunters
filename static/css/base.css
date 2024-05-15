@@ -1,9 +1,8 @@
-p, h1 {margin: 0 !important}  
-
 #header {
     display: grid;
     grid-template-columns: 200px auto 80px;
-    height: 80px;
+
+    height: 80px;    
     align-items: center;
     background-color: green;
 
@@ -11,19 +10,48 @@ p, h1 {margin: 0 !important}
 }
 
 .logo {
-    background-color: red;
     color: blue;
+    background-color: transparent;
+    
+    width: fit-content;
+    border: 0;
+    
+    font-size: 22pt;
+}
+.logo:hover {
+    cursor: pointer;
 }
 
 .navbar {
-    background-color: yellow;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 15%;
+
+    width: 100%;
+    margin-inline: 5%;
+    margin-top: 6pt;
+    justify-self: center;
+
+    font-size: 14pt;
+}
+
+@media screen and (max-width: 560px) {
+    .navbar {
+        width: 0;
+        font-size: 0;
+    }
+}
+
+.navbar > a {
+    color: rgb(232, 41, 41) !important;
 }
 
 .profile-button {
+    justify-self: right;
     display: grid;
+    justify-content: center;
 
     width: 60px;
-    margin-right: 20px;
 
     background-color: transparent;
     border: 0px

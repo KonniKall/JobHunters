@@ -1,0 +1,103 @@
+html {
+    overflow-y: scroll;
+}
+
+#container {
+    width: 80vw;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    overflow: hidden;
+}
+
+#menu {
+    flex: 1;
+    background-color: #011936;
+}
+
+#menu-subcontainer {
+    width: 80%;
+    background-color: #8BA6A9;
+    padding: 30px;
+    margin: auto auto;
+    margin-top: 40px;
+    border: solid;
+    border-color: #5a696b;
+    border-radius: 20px;
+}
+/* #menu-subcontainer>label {
+    font-size: 24px;
+} */
+
+.menu-seperator {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.search {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/* Add space between searches (only between) */
+#searches>:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+#filters>:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+#listings-container {
+    flex: 3;
+    background-color: #465362;
+    overflow-y: scroll;
+    scrollbar-color: cyan darkslategrey;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.listing {
+    height: 200px;
+    width: auto;
+    margin: 30px 15px;
+    padding: 20px;
+    background-color: #8BA6A9;
+    border: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    border-color: #5a696b;
+}
+
+.listing:hover {
+    cursor: pointer;
+}
+
+.listing>* {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.company-name {
+    background-color: #afc2db;
+    text-align: center;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.job-title {
+    text-align: center;
+    width: fit-content;
+}
+
+.dates {
+    text-align: center;
+    width: fit-content;
+}

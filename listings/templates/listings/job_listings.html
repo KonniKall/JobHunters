@@ -4,11 +4,67 @@
 
 {% block content %}
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    </head>
-    <body>
-        <p>Test</p>
-    </body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/listings.css' %}">
+</head>
+
+<body>
+    <div id="container">
+        <div id="menu">
+            <div id="menu-subcontainer">
+                <div id="searches">
+                    <input type="search" class="search" id="job_search" name="job_search"
+                        placeholder="Search by job name" aria-label="Search by job name">
+                    <input type="search" class="search" id="company_search" name="company_search"
+                        placeholder="Search by company name" aria-label="Search by company name">
+                </div>
+                <hr class="menu-seperator">
+                <div id="order_by">
+                    <label for="date_order">Order by</label>
+                    <select name="date_order" id="date_order">
+                        <option value="due_date">Due date of offering</option>
+                        <option value="by_offering">Date of offering</option>
+                    </select>
+                </div>
+                <hr class="menu-seperator">
+                <div id="filters">
+                    <h4>Filters:</h4>
+                    <div>
+                        <label for="category">Category</label>
+                        <select name="category" id="category">
+                            <option value="cate1">Make categories</option>
+                            <option value="cate2">Make more categories</option>
+                            <option value="cate2">Make more categories</option>
+                            <option value="cate3">ABCD</option>
+                            <option value="cate4">EFGH</option>
+                            <option value="cate5">IJKL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="already_applied">Already applied</label>
+                        <input type="checkbox" id="already_applied" name="already_applied">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="listings-container">
+            {% for listing in listings %}
+            <a class="listing" href="{% url 'listing' listing=listing.pk %}">
+                <h5 class="company-name">{{ listing.user }}</h5>
+                <h4 class="job-title">{{ listing.title }}</h4>
+                <div class="dates">
+                    <!-- {{ listing.due_date.day }}
+                    {{ listing.due_date.month }} -->
+                    {{ listing.start_date.day }}
+                    {{ listing.start_date.month }}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
 </html>
 {% endblock %}

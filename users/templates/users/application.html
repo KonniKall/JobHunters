@@ -1,0 +1,20 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+    </head>
+    <body>
+        <div class="application">
+            <div class="application-header">
+                <p>{{ application.job_listing.title }}</p>
+                <p>{{ application.status }}</p>
+            </div>
+            <p></p>
+        </div>
+    </body>
+</html>
+{% endblock content %}

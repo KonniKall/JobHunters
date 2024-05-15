@@ -1,0 +1,33 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <title>Job Hunters - My job listings</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/your-job-listings.css' %}">
+    </head>
+    <body>
+        <div class="job-listings-top">
+            <button class="create-button" onclick="window.location.href = '{% url 'create-job-listing' %}'">
+                Create new job listing
+            </button>
+        </div>
+        <div class="job-listings">
+            {% for listing in job_listings %}
+                <a class="job-listing-small" href="{% url 'my-job-listings' job_listing=listing.pk %}">
+                    <div class="job-listing-small-header">
+                        <p>{{ listing.title }} - {{ listing.category }}</p>
+                    </div>
+                    <div class="job-listing-small-details">
+                        <p>Due date: {{ listing.due_date.day }}/{{ listing.due_date.month }}/{{ listing.due_date.year }}</p>
+                        <p>Start date: {{ listing.start_date.day }}/{{ listing.start_date.month }}/{{ listing.start_date.year }}</p>
+                        <p>Type: {{ listing.work_type }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+{% endblock %}

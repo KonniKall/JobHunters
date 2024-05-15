@@ -1,0 +1,9 @@
+.content {
+    display: grid;
+}
+
+.job_listing_form {
+    background-color: red;
+    width: 65vw;
+    justify-self: center;
+}

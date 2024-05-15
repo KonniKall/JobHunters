@@ -8,9 +8,6 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- Main -->
-      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-
       <!-- Vue and Axios -->
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
@@ -23,17 +20,18 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
       <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
 
+      <!-- Base css -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
 
     </head>
     
     <body>
       <div id="header">
-        <h1 class="logo">Job Hunters</h1>
+        <button class="logo" onclick="window.location.href = '/'" method="get">Job Hunters</button>
         <div class="navbar">
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
+          <a href="/">Job listings</a>
+          <a href="{% url 'workplaces' %}">Workplaces</a>
         </div>
         {% if user.is_authenticated %}
           <button class="profile-button">
@@ -48,7 +46,11 @@
 
       <nav class="profile-dropdown">
         <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
-        <a href="#" class="profile-dropdown-option">Sent applications</a>
+        {% if user_type == 'JobSeeker' %}
+          <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
+        {% elif user_type == 'Employer' %}
+          <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
+        {% endif %}
         <form method="post" action="{% url 'sign-out' %}">
           {% csrf_token %}
           <button type="submit" class="profile-dropdown-option">Sign out</button>
