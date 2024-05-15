@@ -3,11 +3,24 @@
 
 {%block content%}
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    </head>
-    <body>
-        <p>{{ listing.title }}</p>
-    </body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/listing.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="listing">
+            <div class="listing-info">
+                <h1 class="job-name">{{ listing.title }}</h1>
+            </div>
+            <div class="company">{{ listing.user }}</div>
+            <button class="apply">Apply</button>
+            <div class="description">{{ listing.work_type }}</div>
+        </div>
+    </div>
+</body>
+
 </html>
 {% endblock %}
