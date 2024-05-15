@@ -27,7 +27,7 @@ class Recommendation(models.Model):
     role = models.CharField(max_length=100)
 
     def __str__(self, *args, **kwargs):
-        return f"{self.user.username} - {self.workplace}"
+        return f"{self.user.username} - {self.name}"
 
 
 class JobListing(models.Model):

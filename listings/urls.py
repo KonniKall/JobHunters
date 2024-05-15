@@ -14,5 +14,11 @@ urlpatterns = [
     path('application/contact/', ApplicationContactView.as_view(), name='application-contact'),
     path('application/contact/<str:full_name>/<str:address>/<str:country>/<str:city>/<str:zip_code>/', ApplicationContactView.as_view(), name='application-contact'),
     #path('application/contact/', ApplicationContactView.as_view(), name='application-contact'),
-    path('application/experiences/', ApplicationExperiencesView.as_view(), name='application-contact'),
+    path('application/experiences/', ApplicationExperiencesView.as_view(), name='application-experience'),
+    path('add/experience/<str:workplace>/<str:role>/<str:start_date>/<str:end_date>/', ApplicationExperiencesView.as_view(), name='application-experience-add'),
+    path('delete/experience/<str:experience>/', ApplicationExperiencesView.as_view(), name='application-experience'),
+    
+    path('application/recommendations/', ApplicationExperiencesView.as_view(), name='application-recommendations'),
+    path('add/recommendation/<str:workplace>/<str:role>/<str:start_date>/<str:end_date>/', ApplicationExperiencesView.as_view(), name='application-recommendation-add'),
+    path('delete/recommendation/<str:recommendation>/', ApplicationExperiencesView.as_view(), name='application-recommendation'),
 ]

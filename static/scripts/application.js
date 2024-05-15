@@ -25,7 +25,13 @@ function sendRequest(url, method, data) {
             zipCode: ''
         },
         coverLetter: '',
-        experiences: []
+        experiences: [],
+        newExperience: {
+            workplace: '',
+            role: '',
+            startDate: '',
+            endDate: ''
+        }
       };
     },
     created() {
@@ -39,17 +45,7 @@ function sendRequest(url, method, data) {
         vm.contactForm['city'] = response.data.contact[0]['city']
         vm.contactForm['zipCode'] = response.data.contact[0]['zip_code']
       });
-      var r = sendRequest("/application/experiences/", "get").then(function (response) {
-        console.log(response.data.experiences)
-        console.log(vm.experiences)
-        for (experience in response.data.experiences){
-            //console.log(experience.role)
-            //experience['start_date'] = experience['start_date'].split("T")
-            vm.experiences.push(response.data.experiences[experience])
-        }
-        console.log(vm.experiences)
-        
-      });
+      vm.getExperiences()
     },
     methods: {
         contactNext(){
@@ -69,6 +65,65 @@ function sendRequest(url, method, data) {
                 console.log(response)
               })
         },
+        addExperience(){
+            var vm = this;
+            sendRequest('/add/experience/' + vm.newExperience['workplace'] + '/' + vm.newExperience['role'] + '/' + vm.newExperience['startDate'].replace(/\//g, '-') + '/' + vm.newExperience['endDate'].replace(/\//g, '-') + '/', 'post')
+              .then(function(response){
+                vm.newExperience = {
+                    workplace: '',
+                    role: '',
+                    startDate: '',
+                    endDate: ''
+                }
+                vm.getExperiences()
+              })
+            
+        },
+        removeExperience(experience){
+            var vm = this;
+            sendRequest('/delete/experience/' + experience + '/', 'delete')
+              .then(function(response){
+                for (exper in vm.experiences) {
+                    //console.log(experience)
+                    //console.log()
+                    //console.log(vm.experiences)
+                    if (vm.experiences[exper].id == experience){
+                        //console.log(vm.experiences[exper].id)
+                        //console.log(vm.experiences.indexOf(vm.experiences[exper]))
+                        vm.experiences.pop(exper)
+                    }
+                }
+              })
+            
+        },
+        getExperiences(){
+            var vm = this;
+            var r = sendRequest("/application/experiences/", "get").then(function (response) {
+                for (experience in response.data.experiences){
+                    let contains = vm.experiences.some(elem =>{
+                        return JSON.stringify(response.data.experiences[experience]) === JSON.stringify(elem);
+                    });
+                    
+                    if (!contains){
+                        vm.experiences.push(response.data.experiences[experience])
+                    }
+                }                    
+            });
+        },
+        getRecommendations(){
+            var vm = this;
+            var r = sendRequest("/application/recommendations/", "get").then(function (response) {
+                for (recommendation in response.data.recommendations){
+                    let contains = vm.recommendations.some(elem =>{
+                        return JSON.stringify(response.data.recommendations[recommendation]) === JSON.stringify(elem);
+                    });
+                    
+                    if (!contains){
+                        vm.recommendations.push(response.data.recommendations[recommendation])
+                    }
+                }                    
+            });
+        }
     },
   });
   

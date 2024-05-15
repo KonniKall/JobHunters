@@ -84,33 +84,36 @@ from users.models import ContactInfo
 
 class JobListingApplicationView(View):
     def get(self, request, listing):
-        listing = JobListing.objects.filter(pk=listing).first()
-        if listing == None:
-            # Appendar við URL-in sem þarf að laga
-            return redirect('/users.views.custom_page_not_found_view')
-        contact_info = ContactInfo.objects.filter(user=request.user).first()
-        work_experiences = WorkExperience.objects.filter(user=request.user)
-        recommendations = Recommendation.objects.filter(user=request.user)
+        if request.user.is_authenticated:
+            listing = JobListing.objects.filter(pk=listing).first()
+            if listing == None:
+                # Appendar við URL-in sem þarf að laga
+                return redirect('/users.views.custom_page_not_found_view')
+            contact_info = ContactInfo.objects.filter(user=request.user).first()
+            work_experiences = WorkExperience.objects.filter(user=request.user)
+            recommendations = Recommendation.objects.filter(user=request.user)
 
-        COUNTRY_CHOICES = [
-        {"country": "Iceland"}, 
-        {"country": "Denmark"}, 
-        {"country": "England"}, 
-        {"country": "United States"}, 
-        {"country": "Bolivia"}, 
-        ]
+            COUNTRY_CHOICES = [
+            {"country": "Iceland"}, 
+            {"country": "Denmark"}, 
+            {"country": "England"}, 
+            {"country": "United States"}, 
+            {"country": "Bolivia"}, 
+            ]
 
-        context = {
-            'listing': listing,
-            'contact_info': contact_info,
-            'work_experiences': work_experiences,
-            'recommendations': recommendations,
-            'country_choices': COUNTRY_CHOICES
-        }
-        context['application_form'] = ApplicationForm()
-        #context['contact_form'] = ContactInfoForm(initial={'full_name': contact_info.full_name, 'address': contact_info.address, 'country': contact_info.country, 'city': contact_info.city, 'zip_code': contact_info.zip_code})
-        context['experience_form'] = ExperienceForm()
-        return render(request, "listings/job_listing_application.html", context)
+            context = {
+                'listing': listing,
+                'contact_info': contact_info,
+                'work_experiences': work_experiences,
+                'recommendations': recommendations,
+                'country_choices': COUNTRY_CHOICES
+            }
+            context['application_form'] = ApplicationForm()
+            #context['contact_form'] = ContactInfoForm(initial={'full_name': contact_info.full_name, 'address': contact_info.address, 'country': contact_info.country, 'city': contact_info.city, 'zip_code': contact_info.zip_code})
+            context['experience_form'] = ExperienceForm()
+            return render(request, "listings/job_listing_application.html", context)
+        else:
+            return redirect('index')
     
     def post(self, request, listing):
         form = ExperienceForm(data=request.POST)
@@ -152,20 +155,62 @@ class ApplicationExperiencesView(View):
         #application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
         context = {'experiences': experiences}
         return JsonResponse(context, status=200)
-    def post(self, request, experiences):
-        for experience in experiences:
-            form = ExperienceForm(data={
-                
-            })
+    def post(self, request, workplace, role, start_date, end_date):
+        start_date = datetime.datetime.strptime(
+            start_date, "%m-%d-%Y"
+        ).date()
+        end_date = datetime.datetime.strptime(
+            end_date, "%m-%d-%Y"
+        ).date()
 
-            if is_ajax(request=request) and form.is_valid():
-                
-                """obj, created = ContactInfo.objects.filter(user=request.user).update_or_create(
-                    user=request.user,
-                    defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code},
-                    create_defaults={'user': request.user, 'full_name': full_name, 'address': address, 'country': country, 'city': city, 'zip_code': zip_code})
-                try: obj.save()
-                except: created.save()
-                print(obj.zip_code)"""
+        form = ExperienceForm(data={
+            'workplace': workplace, 'role': role,
+            'start_date': start_date, 'end_date': end_date
+        })
+
+        if is_ajax(request=request) and form.is_valid():
+            obj = WorkExperience.objects.filter(user=request.user).create(
+                user=request.user, workplace=workplace, role=role, start_date=start_date, end_date=end_date)
+            obj.save()
+            return JsonResponse({"response": "201"})
+        
         return JsonResponse({"error": "Not AJAX request."})
+    
+    def delete(self, request, experience):
+        experience = WorkExperience.objects.filter(user=request.user, pk=experience)
+        experience.delete()
+        return JsonResponse({"response": "deleted."})
+    
+
+class ApplicationRecommendationsView(View):
+    def get(self, request):
+        experiences = list(WorkExperience.objects.filter(user=request.user).values())
+        #application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
+        context = {'experiences': experiences}
+        return JsonResponse(context, status=200)
+    def post(self, request, workplace, role, start_date, end_date):
+        start_date = datetime.datetime.strptime(
+            start_date, "%m-%d-%Y"
+        ).date()
+        end_date = datetime.datetime.strptime(
+            end_date, "%m-%d-%Y"
+        ).date()
+
+        form = ExperienceForm(data={
+            'workplace': workplace, 'role': role,
+            'start_date': start_date, 'end_date': end_date
+        })
+
+        if is_ajax(request=request) and form.is_valid():
+            obj = WorkExperience.objects.filter(user=request.user).create(
+                user=request.user, workplace=workplace, role=role, start_date=start_date, end_date=end_date)
+            obj.save()
+            return JsonResponse({"response": "201"})
+        
+        return JsonResponse({"error": "Not AJAX request."})
+    
+    def delete(self, request, experience):
+        experience = WorkExperience.objects.filter(user=request.user, pk=experience)
+        experience.delete()
+        return JsonResponse({"response": "deleted."})
     
