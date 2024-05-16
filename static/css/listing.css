@@ -2,6 +2,8 @@
     width: 80vw;
     background-color: crimson;
     margin: auto;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .listing {
