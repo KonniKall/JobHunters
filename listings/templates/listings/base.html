@@ -45,6 +45,7 @@
       {% block content %}{% endblock %}
 
       <nav class="profile-dropdown">
+        <p class="profile-dropdown-option" style="color: red; cursor: default;">{{ user.username }}</p>
         <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
         {% if user_type == 'JobSeeker' %}
           <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
@@ -68,7 +69,7 @@
             out = false
           } 
           else {
-            profileDropdown.animate({height: 100}, 500 );
+            profileDropdown.animate({height: 120}, 500 );
             out = true
           }
 
