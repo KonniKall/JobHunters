@@ -5,6 +5,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+from users.models import ContactInfo
+
 
 class WorkExperience(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,7 +29,7 @@ class Recommendation(models.Model):
     role = models.CharField(max_length=100)
 
     def __str__(self, *args, **kwargs):
-        return f"{self.user.username} - {self.workplace}"
+        return f"{self.user.username} - {self.name}"
 
 
 class JobListing(models.Model):
@@ -73,8 +75,9 @@ class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cover_letter = models.TextField(default="")
     applied = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=100)
+    status = models.CharField(default='Pending')
 
+    contact_information = models.ForeignKey(ContactInfo, on_delete=models.DO_NOTHING, default=None)
     work_experiences = models.ManyToManyField(WorkExperience, blank=True)
     recommendations = models.ManyToManyField(Recommendation, blank=True)
 

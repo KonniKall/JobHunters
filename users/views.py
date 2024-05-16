@@ -86,23 +86,7 @@ class ApplicationsView(View):
 
         return JsonResponse({"result": "ok"}, status=200)
     
-class ApplicationView(View):
 
-    def get(self, request, application):
-        #Job seeker check
-        if JobSeeker.objects.filter(user=request.user).first() == None:
-            return redirect('/users.views.custom_page_not_found_view')
-        #Nota mögulega ehv annað en pk seinna
-        application = Application.objects.filter(user=request.user, pk=application).first()
-        if application == None:
-            # Appendar við URL-in sem þarf að laga
-            return redirect('/users.views.custom_page_not_found_view')
-        context = {'application': application}
-        return render(request, "users/application.html", context)
-
-    def post(self, request, name):
-
-        return JsonResponse({"result": "ok"}, status=200)
 
 
 class JobListingsView(View):

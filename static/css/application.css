@@ -1,0 +1,96 @@
+.content {
+    display: grid;
+    justify-content: center;
+}
+
+.application-form {
+    background-color: green;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    overflow-x: hidden;
+    width: 650px;
+    overflow: hidden;
+    
+}
+.application-header {
+    background-color: blueviolet;
+    font-size: 16pt;
+    padding-inline: 5%;
+}
+
+.application-fields {
+    padding-inline: 5%;
+    margin-block: 10%;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 6px;
+    min-height: 263px;
+}
+
+.application-selection {
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto;
+
+}
+.experiences {
+    background-color: aqua;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+.experience {
+    background-color: aqua;
+    height: 30px;
+}
+
+td > input {
+    width: 80px;
+}
+
+.experience-buttons {
+    background-color: darkolivegreen;
+}
+
+.application-selection-bottom {
+    background-color: rgb(227, 0, 0);
+    display: grid;
+    grid-template-columns: auto;
+    height: 60px;
+
+}
+
+.application-nav{
+    background-color: violet;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+
+}
+
+.sub-form {
+    width: 650px;
+    -webkit-transition: 500ms;
+    -moz-transition: 500ms;
+    -ms-transition: 500ms;
+    -o-transition: 500ms;
+    transition: 500ms;
+}
+
+.nav-button {
+    width: 35%;
+    margin: 5%;
+}
+
+.right {
+    justify-self: right;
+}
+
+.left {
+    justify-self: left;
+}
+
+.review {
+    max-height: 475px;
+    padding-block: 25px;
+    overflow-y: scroll;
+}

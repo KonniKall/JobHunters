@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import models
 from django.forms import fields, ModelForm
-from .models import JobListing
+from .models import JobListing, Application, WorkExperience, Recommendation
+from users.models import ContactInfo
 
 #from crispy_forms.helper import FormHelper
 
@@ -34,16 +35,24 @@ class JobListingCreationForm(ModelForm):
         model = JobListing
         fields = ['title', 'work_type', 'location', 'category']#, 'due_date', 'start_date']
 
+class ContactInfoForm(ModelForm):
+    #full_name = forms.CharField(
+    #    widget= forms.TextInput(attrs={'v-model':'full_name'}))
+    class Meta:
+        model = ContactInfo
+        fields = ['full_name', 'address', 'country', 'city', 'zip_code']
 
-"""class JobListing(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class ApplicationForm(ModelForm):
+    class Meta:
+        model = Application
+        fields = ['contact_information', 'cover_letter', 'work_experiences', 'recommendations']
 
-    title = models.CharField(default="")
-    work_type = models.CharField(default="")
-    location = models.CharField(default="")
-    category = models.CharField(default="")
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = WorkExperience
+        fields = ['workplace', 'role', 'start_date', 'end_date']
 
-    work_type = models.TextField(default="")
-
-    due_date = models.DateTimeField(default=timezone.now)
-    start_date = models.DateTimeField(default=timezone.now)"""
+class RecommendationForm(ModelForm):
+    class Meta:
+        model = Recommendation
+        fields = ['name', 'email', 'phone_nr', 'role', 'contact_allowed']
