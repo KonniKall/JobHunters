@@ -2,81 +2,83 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <title>Job Hunters</title>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- Vue and Axios -->
-      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-      <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+<head>
+  <title>Job Hunters</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Vue and Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
 
-
-      <!-- You MUST include jQuery before Fomantic -->
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
-
-      <!-- Base css -->
-      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-    </head>
-    
-    <body>
-      <div id="header">
-        <button class="logo" onclick="window.location.href = '/'" method="get">Job Hunters</button>
-        <div class="navbar">
-          <a href="/">Job listings</a>
-          <a href="{% url 'workplaces' %}">Workplaces</a>
-        </div>
-        {% if user.is_authenticated %}
-          <button class="profile-button">
-            <img src="{% static 'images/default_profile_img.png'%}" alt="profile image" class="profile-img">
-          </button>
-        {% else %}
-          <button onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
-        {% endif %}
-      </div>
-      <script src="{% static 'scripts/base.js' %}"></script>
-      {% block content %}{% endblock %}
+  <!-- You MUST include jQuery before Fomantic -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
 
-      <nav class="profile-dropdown">
-        <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
-        {% if user_type == 'JobSeeker' %}
-          <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
-        {% elif user_type == 'Employer' %}
-          <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
-        {% endif %}
-        <form method="post" action="{% url 'sign-out' %}">
-          {% csrf_token %}
-          <button type="submit" class="profile-dropdown-option">Sign out</button>
-      </form>
-      </nav>
-      <script>
-        var out = false;
-        $( ".profile-button" ).click(function() {
-          console.log('pButton clicked')
+  <!-- Base css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 
-          var profileDropdown = $(".profile-dropdown");
 
-          if (out == true){
-            profileDropdown.animate({height: 0}, 500 );
-            out = false
-          } 
-          else {
-            profileDropdown.animate({height: 100}, 500 );
-            out = true
-          }
+</head>
 
-          //var profileDropdownTwo = document.querySelector("#sliding-sidebar");
-          //profileDropdownTwo.style.overflow = "auto";
+<body>
+  <div id="header">
+    <button class="logo" onclick="window.location.href = '/'" method="get">Job Hunters</button>
+    <div class="navbar">
+      <a href="/">Job listings</a>
+      <a href="{% url 'workplaces' %}">Workplaces</a>
+    </div>
+    {% if user.is_authenticated %}
+    <button class="profile-button">
+      <img src="{{ profile.profile_img.url }}" alt="profile image" class="profile-img">
+    </button>
+    {% else %}
+    <button onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
+    {% endif %}
+  </div>
+  <script src="{% static 'scripts/base.js' %}"></script>
+  {% block content %}{% endblock %}
 
-        });
-      
-      </script>
-    </body>
+  <nav class="profile-dropdown">
+    <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
+    {% if user_type == 'JobSeeker' %}
+    <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
+    {% elif user_type == 'Employer' %}
+    <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
+    {% endif %}
+    <form method="post" action="{% url 'sign-out' %}">
+      {% csrf_token %}
+      <button type="submit" class="profile-dropdown-option">Sign out</button>
+    </form>
+  </nav>
+  <script>
+    var out = false;
+    $(".profile-button").click(function () {
+      console.log('pButton clicked')
+
+      var profileDropdown = $(".profile-dropdown");
+
+      if (out == true) {
+        profileDropdown.animate({ height: 0 }, 500);
+        out = false
+      }
+      else {
+        profileDropdown.animate({ height: 100 }, 500);
+        out = true
+      }
+
+      //var profileDropdownTwo = document.querySelector("#sliding-sidebar");
+      //profileDropdownTwo.style.overflow = "auto";
+
+    });
+
+  </script>
+</body>
+
 </html>

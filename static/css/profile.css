@@ -1,0 +1,22 @@
+.profile-container {
+    width: 40vw;
+    height: 100vh;
+    margin: auto auto;
+    padding: 0px 20px;
+    background-color: crimson;
+}
+
+.main-profile-img {
+    margin: 20px;
+    width: 100px;
+}
+
+.edit-btn {
+    width: fit-content;
+    float: right;
+    margin-right: 30px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    background-color: aquamarine;
+    color: black;
+}

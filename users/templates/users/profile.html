@@ -3,11 +3,23 @@
 
 {%block content%}
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    </head>
-    <body>
-        
-    </body>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+</head>
+
+<body>
+    <div class="profile-container">
+        <img src="{{ profile.profile_img.url }}" class="main-profile-img" alt="Profile image">
+        <h1 class="name">{{ contact_info.full_name }}</h1>
+        <h2 class="email">{{ profile.email }}</h2>
+        <h2 class="phone-nr">{{ profile.phone_nr }}</h2>
+        <h2 class="address">{{ contact_info.address }}</h2>
+        <h4 class="location">{{ contact_info.city }}, {{ contact_info.zip_code }}, {{ contact_info.country }}</h4>
+        <a href="{% url 'edit-profile' %}" class="edit-btn">Edit</a>
+    </div>
+</body>
+
 </html>
 {% endblock content %}
