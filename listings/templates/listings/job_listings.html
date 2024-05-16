@@ -51,13 +51,13 @@
         </div>
         <div id="listings-container">
             <a v-for="listing in jobListings" class="listing" v-bind:href="'/listing/'+ listing.id">
-                <h5 class="company-name">[[ listing.user ]]</h5>
+                <h5 class="company-name">[[ listing.username ]]</h5>
                 <h4 class="job-title">[[ listing.title ]]</h4>
                 <div class="dates">
                     <!-- {{ listing.due_date.day }}
                     {{ listing.due_date.month }} -->
-                    [[ listing.start_date.day ]]
-                    [[ listing.start_date.month ]]
+                    [[ listing.start_date ]]
+                    [[ listing.start_date ]]
                 </div>
             </a>
             {% comment %}

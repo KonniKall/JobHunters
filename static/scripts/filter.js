@@ -26,7 +26,8 @@ function sendRequest(url, method, data) {
             category: '',
             alreadyApplied: false,
         },
-        jobListings: []
+        jobListings: [],
+        users: {}
       };
     },
     created() {
@@ -59,13 +60,17 @@ function sendRequest(url, method, data) {
 
         var r = sendRequest("/filter/" + jobName + '/' + companyName+ '/' + orderBy+ '/' + category + '/' + alreadyApplied + '/', "get")
          .then(function (response) {
+            vm.users = response.data.user_list
+
             for (jobListing in response.data.job_listings){
               let contains = vm.jobListings.some(elem =>{
                   return JSON.stringify(response.data.job_listings[jobListing]) === JSON.stringify(elem);
               });
               
               if (!contains){
+                  //console.log(response.data.job_listings[jobListing]['user_id'])
                   vm.jobListings.push(response.data.job_listings[jobListing])
+                  vm.jobListings[jobListing].username = vm.users[response.data.job_listings[jobListing]['user_id']]
               }
             } 
             console.log(vm.jobListings)

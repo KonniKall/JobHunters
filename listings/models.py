@@ -57,7 +57,7 @@ class JobListing(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
     title = models.CharField(default="")
 
     work_type = models.CharField(choices=WORK_TYPE_CHOICES)

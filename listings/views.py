@@ -287,14 +287,26 @@ class FilterView(View):
         if order != 'none':
             job_listings = job_listings.order_by(order)
 
+        user_list = {}
+
+        for job_listing in job_listings:
+            user_list[job_listing.user.pk] = job_listing.user.username
+
         job_listings = list(job_listings.values())
 
         print(job_listings)
+        print(user_list)
+        
+
+        context = {
+            "job_listings": job_listings,
+            "user_list": user_list
+        }
 
         if is_ajax(request=request):
              print(f"working2")
-             return JsonResponse({"job_listings": job_listings}, status=200)
-        context = {"job_listings": job_listings}
+             return JsonResponse(context, status=200)
+        
         return render(request, "listings/job_listings.html", context)
     
 
