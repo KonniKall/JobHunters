@@ -45,33 +45,34 @@
   <script src="{% static 'scripts/base.js' %}"></script>
   {% block content %}{% endblock %}
 
-  <nav class="profile-dropdown">
-    <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
-    {% if user_type == 'JobSeeker' %}
-    <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
-    {% elif user_type == 'Employer' %}
-    <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
-    {% endif %}
-    <form method="post" action="{% url 'sign-out' %}">
-      {% csrf_token %}
-      <button type="submit" class="profile-dropdown-option">Sign out</button>
-    </form>
-  </nav>
-  <script>
-    var out = false;
-    $(".profile-button").click(function () {
-      console.log('pButton clicked')
+      <nav class="profile-dropdown">
+        <p class="profile-dropdown-option" style="color: red; cursor: default;">{{ user.username }}</p>
+        <a href="{% url 'profile' %}" class="profile-dropdown-option">View profile</a>
+        {% if user_type == 'JobSeeker' %}
+          <a href="{% url 'sent-applications' %}" class="profile-dropdown-option">Sent applications</a>
+        {% elif user_type == 'Employer' %}
+          <a href="{% url 'my-job-listings' %}" class="profile-dropdown-option">My job listings</a>
+        {% endif %}
+        <form method="post" action="{% url 'sign-out' %}">
+          {% csrf_token %}
+          <button type="submit" class="profile-dropdown-option">Sign out</button>
+      </form>
+      </nav>
+      <script>
+        var out = false;
+        $( ".profile-button" ).click(function() {
+          console.log('pButton clicked')
 
       var profileDropdown = $(".profile-dropdown");
 
-      if (out == true) {
-        profileDropdown.animate({ height: 0 }, 500);
-        out = false
-      }
-      else {
-        profileDropdown.animate({ height: 100 }, 500);
-        out = true
-      }
+          if (out == true){
+            profileDropdown.animate({height: 0}, 500 );
+            out = false
+          } 
+          else {
+            profileDropdown.animate({height: 120}, 500 );
+            out = true
+          }
 
       //var profileDropdownTwo = document.querySelector("#sliding-sidebar");
       //profileDropdownTwo.style.overflow = "auto";

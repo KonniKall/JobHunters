@@ -20,6 +20,7 @@ from .forms import (
 import datetime
 
 from users.models import JobSeeker
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -30,7 +31,7 @@ class ListingsView(View):
         # listings = list(JobListing.objects.filter(user=request.user).values())
         listings = JobListing.objects.all()
 
-        # if is_ajax(request=request):
+        #if is_ajax(request=request):
         #     print(f"working2")
         #     return JsonResponse({"listings": listings}, status=200)
         #     # return {"listings": listings}
@@ -321,3 +322,72 @@ class ApplicationView(View):
 
         return JsonResponse({"error": "Not AJAX request."})
         return JsonResponse({"result": "ok"}, status=200)
+    
+
+class FilterView(View):
+
+    def get(self, request, job_name, company_name, order, category, applied):
+        filter_dict = {}
+        if applied == 'true': applied = True
+        else: applied = False
+        #category = '4'
+        if applied:
+            filter_dict['application__isnull'] = False
+        else:
+            filter_dict['application__isnull'] = True
+
+        if job_name != 'none':
+            filter_dict['title__icontains'] = job_name
+        if company_name != 'none':
+            #companies = User.objects.filter(username__icontains=company_name)
+            filter_dict['user__username__icontains'] = company_name
+        if category != 'all':
+            filter_dict['category__icontains'] = category
+        #if applied == true:
+        print(filter_dict)
+        if filter_dict == {}:
+            job_listings = JobListing.objects.all()
+        else:
+            job_listings = JobListing.objects.filter(**filter_dict)
+
+        if order != 'none':
+            job_listings = job_listings.order_by(order)
+
+        user_list = {}
+
+        for job_listing in job_listings:
+            user_list[job_listing.user.pk] = job_listing.user.username
+
+        
+
+        
+        
+
+        job_listings = list(job_listings.distinct().values())
+
+        print(job_listings)
+        print(user_list)
+        
+
+        context = {
+            "job_listings": job_listings,
+            "user_list": user_list
+        }
+
+        if is_ajax(request=request):
+             print(f"working2")
+             return JsonResponse(context, status=200)
+        
+        return render(request, "listings/job_listings.html", context)
+    
+
+    """    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    title = models.CharField(default="")
+
+    work_type = models.CharField(choices=WORK_TYPE_CHOICES)
+    location = models.CharField(choices=LOCATION_CHOICES)
+    category = models.CharField(choices=CATEGORY_CHOICES)
+
+    due_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(default=timezone.now)"""

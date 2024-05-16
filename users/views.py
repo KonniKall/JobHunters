@@ -9,9 +9,7 @@ from is_ajax import is_ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 
-from .forms import (
-    UserSignInForm,
-)  # , UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserSignInForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -22,6 +20,7 @@ from .models import Employer, JobSeeker, ContactInfo, Profile
 from django.contrib.auth.models import User
 
 from django.shortcuts import redirect
+
 
 # Create your views here.
 
@@ -71,10 +70,23 @@ class ProfileView(View):
         if is_ajax(request=request):
             print(f"working2")
 
-        context = {"contact_info": contact_info, "profile": profile}
+        u_form = UserUpdateForm(instance=request.user)
+
+        profile = Profile.objects.filter(user=request.user).first()
+        p_form = ProfileUpdateForm(instance=profile)
+
+        profile_additional = Employer.objects.filter(user=request.user).first()
+        if profile_additional == None:
+            profile_additional = JobSeeker.objects.filter(user=request.user).first()
+        context = {
+            "u_form": u_form,
+            "p_form": p_form,
+            "profile": profile,
+            "profile_additional": profile_additional,
+        }
         return render(request, "users/profile.html", context)
 
-    def post(self, request, name):
+    def post(self, request):
 
         return JsonResponse({"result": "ok"}, status=200)
 

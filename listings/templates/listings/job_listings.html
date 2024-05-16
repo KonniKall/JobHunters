@@ -15,17 +15,17 @@
         <div id="menu">
             <div id="menu-subcontainer">
                 <div id="searches">
-                    <input type="search" class="search" id="job_search" name="job_search"
+                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.jobName" type="search" class="search" id="job_search" name="job_search"
                         placeholder="Search by job name" aria-label="Search by job name">
-                    <input type="search" class="search" id="company_search" name="company_search"
+                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.companyName" type="search" class="search" id="company_search" name="company_search"
                         placeholder="Search by company name" aria-label="Search by company name">
                 </div>
                 <hr class="menu-seperator">
                 <div id="order_by">
                     <label for="date_order">Order by</label>
-                    <select name="date_order" id="date_order">
+                    <select v-on:change="filterChange()" v-model="orderBy" name="date_order" id="date_order">
                         <option value="due_date">Due date of offering</option>
-                        <option value="by_offering">Date of offering</option>
+                        <option value="start_date">Date of offering</option>
                     </select>
                 </div>
                 <hr class="menu-seperator">
@@ -33,7 +33,8 @@
                     <h4>Filters:</h4>
                     <div>
                         <label for="category">Category</label>
-                        <select name="category" id="category">
+                        <select v-on:change="filterChange()" v-model="filters.category" name="category" id="category">
+                            <option value="">All</option>
                             <option value="cate1">Make categories</option>
                             <option value="cate2">Make more categories</option>
                             <option value="cate2">Make more categories</option>
@@ -44,12 +45,23 @@
                     </div>
                     <div>
                         <label for="already_applied">Already applied</label>
-                        <input type="checkbox" id="already_applied" name="already_applied">
+                        <input v-on:change="filterChange()" v-model="filters.alreadyApplied" type="checkbox" id="already_applied" name="already_applied">
                     </div>
                 </div>
             </div>
         </div>
         <div id="listings-container">
+            <a v-for="listing in jobListings" class="listing" v-bind:href="'/listing/'+ listing.id">
+                <h5 class="company-name">[[ listing.username ]]</h5>
+                <h4 class="job-title">[[ listing.title ]]</h4>
+                <div class="dates">
+                    <!-- {{ listing.due_date.day }}
+                    {{ listing.due_date.month }} -->
+                    [[ listing.start_date ]]
+                    [[ listing.start_date ]]
+                </div>
+            </a>
+            {% comment %}
             {% for listing in listings %}
             <a class="listing" href="{% url 'listing' listing=listing.pk %}">
                 <h5 class="company-name">{{ listing.user }}</h5>
@@ -63,8 +75,10 @@
                 <h4>{{ listing.work_type }}</h4>
             </a>
             {% endfor %}
+            {% endcomment %}
         </div>
     </div>
+    <script src="{% static 'scripts/filter.js' %}"></script>
 </body>
 
 </html>
