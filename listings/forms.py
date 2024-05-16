@@ -45,7 +45,7 @@ class ContactInfoForm(ModelForm):
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = ['cover_letter', 'work_experiences', 'recommendations']
+        fields = ['contact_information', 'cover_letter', 'work_experiences', 'recommendations']
 
 class ExperienceForm(ModelForm):
     class Meta:

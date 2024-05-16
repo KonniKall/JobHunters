@@ -13,6 +13,8 @@ from .forms import JobListingCreationForm, ContactInfoForm, ApplicationForm, Exp
 
 import datetime
 
+from users.models import JobSeeker
+
 # Create your views here.
 
 
@@ -216,3 +218,45 @@ class ApplicationRecommendationsView(View):
         experience.delete()
         return JsonResponse({"response": "deleted."})
     
+
+class ApplicationView(View):
+
+    def get(self, request, application):
+        #Job seeker check
+        if JobSeeker.objects.filter(user=request.user).first() == None:
+            return redirect('/users.views.custom_page_not_found_view')
+        #Nota mögulega ehv annað en pk seinna
+        application = Application.objects.filter(user=request.user, pk=application).first()
+        if application == None:
+            # Appendar við URL-in sem þarf að laga
+            return redirect('/users.views.custom_page_not_found_view')
+        context = {'application': application}
+        return render(request, "users/application.html", context)
+
+    def post(self, request, listing, cover_letter):
+        contact_information = ContactInfo.objects.filter(user=request.user).first()
+        work_experiences = WorkExperience.objects.filter(user=request.user)
+        recommendations = Recommendation.objects.filter(user=request.user)
+
+        listing = JobListing.objects.filter(pk=listing).first()
+
+        form = ApplicationForm(data={
+            'contact_information': contact_information, 'cover_letter': cover_letter,
+            'work_experiences': work_experiences, 'recommendations': recommendations
+        })
+
+        print(form.is_valid())
+
+        if is_ajax(request=request) and form.is_valid():
+            obj = Application.objects.create(
+                user=request.user, contact_information=contact_information,
+                  job_listing=listing)
+            for experience in work_experiences:
+                obj.work_experiences.add(experience)
+            for recommendation in recommendations:
+                obj.recommendations.add(recommendation)
+            obj.save()
+            return JsonResponse({"response": "201"})
+        
+        return JsonResponse({"error": "Not AJAX request."})
+        return JsonResponse({"result": "ok"}, status=200)

@@ -152,6 +152,10 @@ function sendRequest(url, method, data) {
               })
             
         },
+        SubmitApplication(listing){
+            var vm = this;
+            sendRequest('/add/application/' + listing + '/' + vm.coverLetter + '/', 'post')
+        },
     },
   });
   

@@ -17,7 +17,7 @@
             <h1>{{ listing.title }}</h1>
             <form method="POST" action="" class="application-form" id="application">
                 <div class="sub-form 1">
-                    <p class="application-header">Contact Information</p>
+                    <h2 class="application-header">Contact Information</h2>
                     <div class="application-fields">
                         {% csrf_token %} 
                         {% comment %} {{ contact_form.as_p }}
@@ -49,7 +49,7 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Cover letter</p>
+                    <h2 class="application-header">Cover letter</h2>
                     <div class="application-fields">
                         <textarea name="coverLetter" rows="4" cols="50" v-model="coverLetter"></textarea>
                     </div>
@@ -59,7 +59,7 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Work Experiences</p>
+                    <h2 class="application-header">Work Experiences</h2>
                     <div class="application-fields">
                         <table class="application-selection">
                             <tr>
@@ -94,7 +94,7 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Recommendations</p>
+                    <h2 class="application-header">Recommendations</h2>
                     <div class="application-fields">
                         <table class="application-selection">
                             <tr>
@@ -131,13 +131,44 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Review of application</p>
-                    <div class="application-fields">
+                    <h2 class="application-header">Review of application</h2>
+                    <div class="review">
+                        <div class="review-section">
+                            <h3>Contact Information</h3>
+                            <p>[[ contactForm.fullName ]]</p>
+                            <p>[[ contactForm.address ]]</p>
+                            <p>[[ contactForm.country ]]</p>
+                            <p>[[ contactForm.city ]]</p>
+                            <p>[[ contactForm.zipCode ]]</p>
+                        </div>
+                        <div class="review-section">
+                            <h3>Cover letter</h3>
+                            <p>[[ coverLetter ]]</p>
+                        </div>
+                        <div class="review-section">
+                            <h3>Work Experiences</h3>
+                            <div v-for="experience in experiences" class="review-experience">
+                                <p>[[ experience.workplace ]]</p>
+                                <p>[[ experience.role ]]</p>
+                                <p>[[ experience.start_date ]]</p>
+                                <p>[[ experience.end_date ]]</p>
+                            </div>
+                        </div>
+                        <div class="review-section">
+                            <h3>Recommendations</h3>
+                            <div v-for="recommendation in recommendations" class="review-recommendation">
+                                <p>[[ recommendation.name ]]</p>
+                                <p>[[ recommendation.email ]]</p>
+                                <p>[[ recommendation.phone_nr ]]</p>
+                                <p>[[ recommendation.role ]]</p>
+                                <p>[[ recommendation.contact_allowed ]]</p>
+                            </div>
+                        </div>
                         
                     </div>
                     <nav class="application-nav">
                         <button class="nav-button left" @click.prevent>Previous</button>
-                        <button class="submit-button right" @click.prevent="SubmitApplication()">Apply</button>
+                        <button type="submit" class="submit-button right" @click.prevent="SubmitApplication('{{ listing.pk }}')">Apply</button>
                     </nav>
                 </div>
             </form>

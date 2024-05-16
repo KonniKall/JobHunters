@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ListingsView, JobListingView, CreateJobListingView, JobListingApplicationView, ApplicationContactView, ApplicationExperiencesView, ApplicationRecommendationsView
+from .views import ListingsView, JobListingView, CreateJobListingView, JobListingApplicationView, ApplicationContactView, ApplicationExperiencesView, ApplicationRecommendationsView, ApplicationView
 
 from django.conf.urls import handler404
 
@@ -21,4 +21,6 @@ urlpatterns = [
     path('application/recommendations/', ApplicationRecommendationsView.as_view(), name='application-recommendations'),
     path('add/recommendation/<str:name>/<str:email>/<str:phone>/<str:role>/<str:contact_allowed>/', ApplicationRecommendationsView.as_view(), name='application-recommendation-add'),
     path('delete/recommendation/<str:recommendation>/', ApplicationRecommendationsView.as_view(), name='application-recommendation'),
+
+    path('add/application/<str:listing>/<str:cover_letter>/', ApplicationView.as_view(), name='submit-application'),
 ]

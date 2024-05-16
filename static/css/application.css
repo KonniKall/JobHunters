@@ -9,6 +9,7 @@
     grid-template-columns: repeat(5, 1fr);
     overflow-x: hidden;
     width: 650px;
+    overflow: hidden;
     
 }
 .application-header {
@@ -86,4 +87,10 @@ td > input {
 
 .left {
     justify-self: left;
+}
+
+.review {
+    max-height: 475px;
+    padding-block: 25px;
+    overflow-y: scroll;
 }

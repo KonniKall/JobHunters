@@ -1,6 +1,8 @@
 from django.urls import path
 
-from .views import SignInView, ProfileView, ApplicationsView, ApplicationView, JobListingsView, JobListingView, WorkplacesView, WorkplaceView
+from .views import SignInView, ProfileView, ApplicationsView, JobListingsView, JobListingView, WorkplacesView, WorkplaceView
+
+from listings.views import ApplicationView
 
 from django.contrib.auth import views as auth_views
 
