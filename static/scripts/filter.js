@@ -21,7 +21,7 @@ function sendRequest(url, method, data) {
           jobName: '',
           companyName: ''
         },
-        orderBy: '',
+        orderBy: 'due_date',
         filters: {
             category: '',
             alreadyApplied: false,

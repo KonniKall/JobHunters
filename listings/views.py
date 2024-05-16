@@ -267,9 +267,14 @@ class FilterView(View):
 
     def get(self, request, job_name, company_name, order, category, applied):
         filter_dict = {}
-        #listings = list(JobListing.objects.filter(user=request.user).values())
-        #listings = JobListing.objects.all()
+        if applied == 'true': applied = True
+        else: applied = False
         #category = '4'
+        if applied:
+            filter_dict['application__isnull'] = False
+        else:
+            filter_dict['application__isnull'] = True
+
         if job_name != 'none':
             filter_dict['title__icontains'] = job_name
         if company_name != 'none':
@@ -292,7 +297,12 @@ class FilterView(View):
         for job_listing in job_listings:
             user_list[job_listing.user.pk] = job_listing.user.username
 
-        job_listings = list(job_listings.values())
+        
+
+        
+        
+
+        job_listings = list(job_listings.distinct().values())
 
         print(job_listings)
         print(user_list)
