@@ -14,6 +14,7 @@ from .forms import JobListingCreationForm, ContactInfoForm, ApplicationForm, Exp
 import datetime
 
 from users.models import JobSeeker
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ class ListingsView(View):
         # listings = list(JobListing.objects.filter(user=request.user).values())
         listings = JobListing.objects.all()
 
-        # if is_ajax(request=request):
+        #if is_ajax(request=request):
         #     print(f"working2")
         #     return JsonResponse({"listings": listings}, status=200)
         #     # return {"listings": listings}
@@ -260,3 +261,50 @@ class ApplicationView(View):
         
         return JsonResponse({"error": "Not AJAX request."})
         return JsonResponse({"result": "ok"}, status=200)
+    
+
+class FilterView(View):
+
+    def get(self, request, job_name, company_name, order, category, applied):
+        filter_dict = {}
+        #listings = list(JobListing.objects.filter(user=request.user).values())
+        #listings = JobListing.objects.all()
+        #category = '4'
+        if job_name != 'none':
+            filter_dict['title__icontains'] = job_name
+        if company_name != 'none':
+            #companies = User.objects.filter(username__icontains=company_name)
+            filter_dict['user__username__icontains'] = company_name
+        if category != 'all':
+            filter_dict['category__icontains'] = category
+        #if applied == true:
+        print(filter_dict)
+        if filter_dict == {}:
+            job_listings = JobListing.objects.all()
+        else:
+            job_listings = JobListing.objects.filter(**filter_dict)
+
+        if order != 'none':
+            job_listings = job_listings.order_by(order)
+
+        job_listings = list(job_listings.values())
+
+        print(job_listings)
+
+        if is_ajax(request=request):
+             print(f"working2")
+             return JsonResponse({"job_listings": job_listings}, status=200)
+        context = {"job_listings": job_listings}
+        return render(request, "listings/job_listings.html", context)
+    
+
+    """    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    title = models.CharField(default="")
+
+    work_type = models.CharField(choices=WORK_TYPE_CHOICES)
+    location = models.CharField(choices=LOCATION_CHOICES)
+    category = models.CharField(choices=CATEGORY_CHOICES)
+
+    due_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(default=timezone.now)"""

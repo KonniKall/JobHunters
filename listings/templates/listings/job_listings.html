@@ -15,17 +15,17 @@
         <div id="menu">
             <div id="menu-subcontainer">
                 <div id="searches">
-                    <input type="search" class="search" id="job_search" name="job_search"
+                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.jobName" type="search" class="search" id="job_search" name="job_search"
                         placeholder="Search by job name" aria-label="Search by job name">
-                    <input type="search" class="search" id="company_search" name="company_search"
+                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.companyName" type="search" class="search" id="company_search" name="company_search"
                         placeholder="Search by company name" aria-label="Search by company name">
                 </div>
                 <hr class="menu-seperator">
                 <div id="order_by">
                     <label for="date_order">Order by</label>
-                    <select name="date_order" id="date_order">
+                    <select v-on:change="filterChange()" v-model="orderBy" name="date_order" id="date_order">
                         <option value="due_date">Due date of offering</option>
-                        <option value="by_offering">Date of offering</option>
+                        <option value="start_date">Date of offering</option>
                     </select>
                 </div>
                 <hr class="menu-seperator">
@@ -63,7 +63,11 @@
             </a>
             {% endfor %}
         </div>
+        <div v-for="listing in jobListings">
+            [[ listing.title ]]
+        </div>
     </div>
+    <script src="{% static 'scripts/filter.js' %}"></script>
 </body>
 
 </html>
