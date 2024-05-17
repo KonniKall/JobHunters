@@ -9,7 +9,7 @@ from is_ajax import is_ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 
-from .forms import UserSignInForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserSignInForm, UserUpdateForm, ProfileUpdateForm, UserRegisterForm
 from listings.forms import JobListingCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
@@ -256,3 +256,56 @@ class JobListingApplicationView(View):
         application.save()
         
         return redirect('my-job-listings')
+    
+
+class SignUpView(View):
+    def post(self, request):
+        print('working')
+        print(request.POST)
+        form = UserRegisterForm(data=request.POST)
+        if form.is_valid():
+            print('user created')
+            form.save() #býr til user
+            #HistoryObj = PlacedBetModel.objects.create(user=request.user)
+            #HistoryObj.save()
+            return redirect('sign-in')
+        else:
+            print(form.errors)
+            form = UserRegisterForm()
+            return render(request, 'users/sign-up.html', {'form': form})
+    def get(self, request):
+        form = UserRegisterForm()
+        return render(request, 'users/sign-up.html', {'form': form})
+    
+class UsernameCheckView(View):
+    def get(self, request, username):
+        
+        if User.objects.filter(username=username).exists():
+            username = False
+        else:
+            username = True
+
+        context = {
+            'user': username
+        }
+
+        return JsonResponse(context, status=200)
+    
+import re
+class EmailCheckView(View):
+    def get(self, request, email):
+        
+        regex = re.compile(r"([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])")
+
+        if re.fullmatch(regex, email):
+            print("Valid email")
+            email = True
+        else:
+            print("Invalid email")
+            email = False
+
+        context = {
+            'email': email
+        }
+
+        return JsonResponse(context, status=200)

@@ -79,7 +79,7 @@
                     </small>
                 </form>
 
-                <div class="or_split" style="pointer-events: none; margin-block: 1rem;">
+                <div class="or_split" style="pointer-events: none;">
                     <div class="or_split_line">
                         <div></div>
                         <div class="border-top pt-3"></div>
@@ -91,7 +91,17 @@
                         <div></div>
                         <div class="border-top pt-3"></div>
                     </div>
+                    
                 </div>
+
+                <div class="register-section">
+                    <div class="form-group" style="width: 80%;">
+                        <button class="login_button" onclick="window.location.href = '{% url 'sign-up' %}'"> 
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+                
 
                 {% comment %}
 
@@ -101,10 +111,10 @@
 
                 <a href='{% url "social:begin" "google-oauth2" %}'>Google</a>
                 
-                {% endcomment %}
+                
 
                 <div class="social_logins" style="padding-bottom: 6.5rem;">
-                    
+                {% endcomment %}
                     
                     
                 </div>

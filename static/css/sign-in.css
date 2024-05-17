@@ -348,7 +348,13 @@ input:-webkit-autofill{
   color: white;
 }
 */
-
-.GUI {
-  overflow-y: auto;
+.register-section{
+  display: grid;
+  justify-items: center;
+}
+.register-button {
+  width: fit-content;
+  height: fit-content;
+  background-color: red;
+  font-size: 16pt;
 }
