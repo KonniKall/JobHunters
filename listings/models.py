@@ -35,11 +35,15 @@ class Recommendation(models.Model):
 class JobListing(models.Model):
 
     CATEGORY_CHOICES = (
-        ("1", "One"),
-        ("2", "Two"),
-        ("3", "Three"),
-        ("4", "Four"),
-        ("5", "Five"),
+        ("Computer Science", "Computer Science"),
+        ("Biotechnology", "Biotechnology"),
+        ("Managing position", "Managing position"),
+        ("Cooking", "Cooking"),
+        ("Painting", "Painting"),
+        ("Arts", "Arts"),
+        ("Cinema", "Cinema"),
+        ("Social Media", "Social Media"),
+        ("Finance", "Finance"),
     )
 
     WORK_TYPE_CHOICES = (
