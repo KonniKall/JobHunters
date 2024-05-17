@@ -1,0 +1,116 @@
+{% load static %}
+
+{%block content%}
+    <html>
+      <head>
+        <title>HedgeSpace - Sign up</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+        
+        <!-- Vue and Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+   
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/sign-in.css' %}">
+
+        
+
+    </head>
+      <body>
+        <section class="signUpSection" id="sign_up" >
+        <div class="loginSectionTitle">
+            <p class="loginSectionTitleText">
+                Sign up
+            </p>
+        </div>
+            <form method="POST" style="padding-inline: 13%;">
+                {% csrf_token %}
+                {% comment %} 
+                    {{ form|crispy }}
+                {% endcomment %}
+
+                <div class="field" style="margin-bottom: 25px;">
+                    {{ form.username }}
+                    {{ form.username.help_text }}
+                    <label for="username" title="Username" data-title="Username" style="pointer-events: none; display: block;"></label>
+                    <div class="errorMessage" v-if="usernameCheck == false">
+                        <p style="margin-block: 9px;">Username is already in use.</p>
+                        <span>
+                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div> 
+
+                <div class="field" style="margin-bottom: 25px;">
+                    {{ form.email }}
+                    {{ form.email.help_text }}
+                    <label for="email" title="Email" data-title="Email" style="pointer-events: none; display: block;"></label>
+                    <div class="errorMessage" v-if="emailCheck == false">
+                        <p style="margin-block: 9px;">Email is invalid.</p>
+                        <span>
+                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="field" style="margin-bottom: 25px;">
+                    {{ form.password1 }}
+                    <label for="password1" title="Password" data-title="Password" style="pointer-events: none; display: block;"></label>
+                </div>
+
+                <div class="field" style="margin-bottom: 25px;">
+                    {{ form.password2 }}
+                    <label for="password2" title="Confirm Password" data-title="Confirm Password" style="pointer-events: none; display: block;"></label>
+                    <div class="errorMessage" v-if="passwordCheck == false">
+                        <p style="margin-block: 9px;">Passwords don't match.</p>
+                        <span>
+                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                {% if errors %}
+                    <div class="alert alert-danger">
+                        {{ errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <button class="login_button" type="submit"> 
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            <div style="padding-top: 1rem;">
+                <small class="text-muted" style="font-size: 10pt; padding-left: 9%;">
+                    Already have an account? <a class="ml-2" href="{% url 'sign-in' %}">Sign In</a>
+                </small>
+            </div>
+
+            
+
+            {% comment %}            
+            {% endcomment %}
+
+
+            <p style="margin-block: 1rem; text-align: center; justify-self: center; width: 242px; height: 12rem; padding-top: 2%;">By creating this account, you agree to our <a href="#" style="color:rgb(34, 123, 239)"> Terms of Service </a> & <a href="#" style="color:rgb(34, 123, 239)"> Privacy Policy. </a> </p>
+        
+        </section>
+        <script src="{% static 'scripts/sign-up.js' %}"></script>
+      </body>
+  </html>
+{% endblock content %}

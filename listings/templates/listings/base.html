@@ -39,11 +39,15 @@
       <img src="{{ profile.profile_img.url }}" alt="profile image" class="profile-img">
     </button>
     {% else %}
-    <button onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
+    <button class="sign-in-base" onclick="window.location.href = {% url 'sign-in' %}" method="get">Sign in</button>
     {% endif %}
   </div>
   <script src="{% static 'scripts/base.js' %}"></script>
   {% block content %}{% endblock %}
+  <div id="footer">
+    Copyright © 2024 Job Hunters
+
+  </div>
 
       <nav class="profile-dropdown">
         <p class="profile-dropdown-option" style="color: red; cursor: default;">{{ user.username }}</p>

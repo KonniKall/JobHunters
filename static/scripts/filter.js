@@ -63,7 +63,6 @@ function sendRequest(url, method, data) {
             vm.users = response.data.user_list
 
             for (jobListing in response.data.job_listings){
-              //console.log(response.data.job_listings[jobListing]['user_id'])
               vm.jobListings.push(response.data.job_listings[jobListing])
               vm.jobListings[jobListing].username = vm.users[response.data.job_listings[jobListing]['user_id']]
               vm.jobListings[jobListing].start_date = vm.jobListings[jobListing].start_date.split('T')[0]
@@ -71,7 +70,6 @@ function sendRequest(url, method, data) {
               vm.jobListings[jobListing].due_date = vm.jobListings[jobListing].due_date.split('T')[0]
               vm.jobListings[jobListing].due_date = vm.jobListings[jobListing].due_date.split('-')[1] + '/' + vm.jobListings[jobListing].due_date.split('-')[2] + '/' + vm.jobListings[jobListing].due_date.split('-')[0]
             } 
-            console.log(vm.jobListings)
           });
         },
 

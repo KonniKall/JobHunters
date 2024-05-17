@@ -28,19 +28,12 @@ from django.contrib.auth.models import User
 class ListingsView(View):
 
     def get(self, request):
-        # listings = list(JobListing.objects.filter(user=request.user).values())
         listings = JobListing.objects.all()
 
-        #if is_ajax(request=request):
-        #     print(f"working2")
-        #     return JsonResponse({"listings": listings}, status=200)
-        #     # return {"listings": listings}
         context = {"listings": listings}
         return render(request, "listings/job_listings.html", context)
 
     def post(self, request, name):
-        # filter = FilterModel.objects.filter(name=name)
-        # filter.delete()
 
         return JsonResponse({"result": "ok"}, status=200)
 
@@ -52,8 +45,9 @@ class JobListingView(View):
         company_listings = JobListing.objects.filter(user=listing.user)
         applied = False
 
-        if Application.objects.filter(user=request.user, job_listing=listing):
-            applied = True
+        if request.user.is_authenticated:
+            if Application.objects.filter(user=request.user, job_listing=listing):
+                applied = True
         if listing == None:
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
@@ -78,7 +72,6 @@ class CreateJobListingView(View):
         form = JobListingCreationForm(data=request.POST)
         # start_date = form('start_date')
         if form.is_valid():
-            print("working?")
             instance = form.save(commit=False)
             instance.user = request.user
             due_date = datetime.datetime.strptime(
@@ -181,7 +174,6 @@ class ApplicationContactView(View):
                 obj.save()
             except:
                 created.save()
-            print(obj.zip_code)
         return JsonResponse({"error": "Not AJAX request."})
 
 
@@ -229,8 +221,6 @@ class ApplicationRecommendationsView(View):
         recommendations = list(
             Recommendation.objects.filter(user=request.user).values()
         )
-        print(recommendations)
-        # application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
         context = {"recommendations": recommendations}
         return JsonResponse(context, status=200)
 
@@ -250,8 +240,6 @@ class ApplicationRecommendationsView(View):
                 "contact_allowed": contact_allowed,
             }
         )
-
-        print(form.is_valid())
 
         if is_ajax(request=request) and form.is_valid():
             obj = Recommendation.objects.create(
@@ -290,11 +278,15 @@ class ApplicationView(View):
         return render(request, "users/application.html", context)
 
     def post(self, request, listing, cover_letter):
+        
         contact_information = ContactInfo.objects.filter(user=request.user).first()
         work_experiences = WorkExperience.objects.filter(user=request.user)
         recommendations = Recommendation.objects.filter(user=request.user)
 
         listing = JobListing.objects.filter(pk=listing).first()
+
+        if Application.objects.filter(job_listing=listing, user=request.user):
+            return JsonResponse({'Forbidden': 'You have already applied for this listing'}, status=403)
 
         form = ApplicationForm(
             data={
@@ -304,8 +296,6 @@ class ApplicationView(View):
                 "recommendations": recommendations,
             }
         )
-
-        print(form.is_valid())
 
         if is_ajax(request=request) and form.is_valid():
             obj = Application.objects.create(
@@ -318,7 +308,6 @@ class ApplicationView(View):
             for recommendation in recommendations:
                 obj.recommendations.add(recommendation)
             obj.save()
-            return JsonResponse({"response": "201"})
 
         return JsonResponse({"error": "Not AJAX request."})
         return JsonResponse({"result": "ok"}, status=200)
@@ -336,8 +325,6 @@ class FilterView(View):
             filter_dict['user__username__icontains'] = company_name
         if category != 'all':
             filter_dict['category__icontains'] = category
-        #if applied == true:
-        print(filter_dict)
         if filter_dict == {}:
             job_listings = JobListing.objects.all()
         else:
@@ -351,14 +338,15 @@ class FilterView(View):
         else: applied = False
         to_be_removed = []
 
-        if applied:
-            for job_listing in job_listings:
-                if not Application.objects.filter(user=request.user, job_listing=job_listing).exists():
-                    to_be_removed.append(job_listing.id)
-        else:
-            for job_listing in job_listings:
-                if Application.objects.filter(user=request.user, job_listing=job_listing).exists():
-                    to_be_removed.append(job_listing.id)
+        if request.user.is_authenticated:
+            if applied:
+                for job_listing in job_listings:
+                    if not Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                        to_be_removed.append(job_listing.id)
+            else:
+                for job_listing in job_listings:
+                    if Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                        to_be_removed.append(job_listing.id)
 
         job_listings = job_listings.exclude(id__in=to_be_removed)
 
@@ -370,29 +358,12 @@ class FilterView(View):
         #Takes the values from job listings so they can be served
         job_listings = list(job_listings.distinct().values())
 
-        print(job_listings)
-        print(user_list)
-        
-
         context = {
             "job_listings": job_listings,
             "user_list": user_list
         }
 
         if is_ajax(request=request):
-             print(f"working2")
-             return JsonResponse(context, status=200)
+            return JsonResponse(context, status=200)
         
         return render(request, "listings/job_listings.html", context)
-    
-
-    """    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    title = models.CharField(default="")
-
-    work_type = models.CharField(choices=WORK_TYPE_CHOICES)
-    location = models.CharField(choices=LOCATION_CHOICES)
-    category = models.CharField(choices=CATEGORY_CHOICES)
-
-    due_date = models.DateTimeField(default=timezone.now)
-    start_date = models.DateTimeField(default=timezone.now)"""

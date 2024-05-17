@@ -17,11 +17,11 @@ COUNTRY_CHOICES = (
 
 class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    country = models.CharField(choices=COUNTRY_CHOICES)
-    zip_code = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=80, blank=True)
+    address = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=100, default='')
+    country = models.CharField(choices=COUNTRY_CHOICES, default='')
+    zip_code = models.CharField(max_length=100, default='')
 
     def __str__(self, *args, **kwargs):
         return f"{self.user.username} - {self.address}"
@@ -30,7 +30,6 @@ class ContactInfo(models.Model):
 class JobSeeker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bio = models.TextField(default="", blank=True)
-    files = models.CharField(max_length=100, blank=True)  # Breyta seinna
 
     def __str__(self, *args, **kwargs):
         return f"JobSeeker"
@@ -47,13 +46,12 @@ class Employer(models.Model):
         return f"Employer"
 
 
+
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_nr = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    profile_img = models.ImageField(default="default_profile_img.png")
-
-    time_posted = models.DateTimeField(default=timezone.now)
+    phone_nr = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
+    profile_img = models.ImageField(upload_to='profile-images', default="default_profile_img.png")
 
     def __str__(self, *args, **kwargs):
         return f"{self.user.username} - {self.email}"

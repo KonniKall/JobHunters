@@ -11,7 +11,7 @@ html {
 }
 
 #menu {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 105px);
     display: grid;
     grid-template-rows: 20% 5% 15% 5% 25%;
     background-color: #1c1c1c;
@@ -74,7 +74,7 @@ html {
     align-content: baseline;
 
     overflow-y: scroll;
-    max-height: calc(100vh - 80px);
+    max-height: calc(100vh - 105px);
     width: 100%;
 }
 

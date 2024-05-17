@@ -21,7 +21,6 @@ var header = new Vue({
   created() {
     var vm = this;
     var r = sendRequest("", "get").then(function (response) {
-      console.log("working");
     });
   },
   methods: {},

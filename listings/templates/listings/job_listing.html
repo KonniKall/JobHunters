@@ -17,9 +17,13 @@
             <div class="selcted-listing-main">
                 <div class="selcted-listing-info">
                     <h2>{{ listing.title }}</h2>
-                    <a class="selcted-listing-company-name" href="{% url 'workplaces' workplace=listing.user %}" class="company">
-                        {{ listing.user }}
-                    </a>
+                    <div class="company-details">
+                        <a class="selcted-listing-company-name" href="{% url 'workplaces' workplace=listing.user %}" class="company">
+                            {{ listing.user }}
+                        </a>
+                        <p>, {{ company.address}}</p>
+                    </div>
+                    
                     <div class="description">{{ listing.description |safe }}</div>
                 </div>
                 <div class="listing-apply">

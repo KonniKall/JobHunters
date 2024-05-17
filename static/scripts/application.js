@@ -45,8 +45,6 @@ function sendRequest(url, method, data) {
     created() {
       var vm = this;
       var r = sendRequest("/application/contact/", "get").then(function (response) {
-        console.log(response.data.contact)
-        console.log(response.data.contact[0]['full_name'])
         vm.contactForm['fullName'] = response.data.contact[0]['full_name']
         vm.contactForm['address'] = response.data.contact[0]['address']
         vm.contactForm['country'] = response.data.contact[0]['country']
@@ -58,21 +56,12 @@ function sendRequest(url, method, data) {
     },
     methods: {
         contactNext(){
-            //contactForm = this.$route.params.contact_form
-            console.log('w2')
-            //this.contactForm = JSON.parse(document.getElementById('json_data').textContent)
             var vm = this;
             sendRequest('/application/contact/' + vm.contactForm['fullName'] + '/' + vm.contactForm['address'] + '/' + vm.contactForm['country'] + '/' + vm.contactForm['city'] + '/' + vm.contactForm['zipCode'] + '/', 'post')
-              .then(function(response){
-                console.log(response)
-              })
         },
         coverLetter(){
             var vm = this;
             sendRequest('/application/cover-letter/' + vm.coverLetter + '/', 'post')
-              .then(function(response){
-                console.log(response)
-              })
         },
         addExperience(){
             var vm = this;
@@ -93,12 +82,7 @@ function sendRequest(url, method, data) {
             sendRequest('/delete/experience/' + experience + '/', 'delete')
               .then(function(response){
                 for (exper in vm.experiences) {
-                    //console.log(experience)
-                    //console.log()
-                    //console.log(vm.experiences)
                     if (vm.experiences[exper].id == experience){
-                        //console.log(vm.experiences[exper].id)
-                        //console.log(vm.experiences.indexOf(vm.experiences[exper]))
                         vm.experiences.pop(exper)
                     }
                 }
@@ -115,6 +99,10 @@ function sendRequest(url, method, data) {
                     
                     if (!contains){
                         vm.experiences.push(response.data.experiences[experience])
+                        vm.experiences[experience].start_date = vm.experiences[experience].start_date.split('T')[0]
+                        vm.experiences[experience].start_date = vm.experiences[experience].start_date.split('-')[1] + '/' + vm.experiences[experience].start_date.split('-')[2] + '/' + vm.experiences[experience].start_date.split('-')[0]
+                        vm.experiences[experience].end_date = vm.experiences[experience].end_date.split('T')[0]
+                        vm.experiences[experience].end_date = vm.experiences[experience].end_date.split('-')[1] + '/' + vm.experiences[experience].end_date.split('-')[2] + '/' + vm.experiences[experience].end_date.split('-')[0] 
                     }
                 }                    
             });
@@ -122,7 +110,6 @@ function sendRequest(url, method, data) {
         getRecommendations(){
             var vm = this;
             var r = sendRequest("/application/recommendations/", "get").then(function (response) {
-                console.log(response.data.recommendations)
                 for (recommendation in response.data.recommendations){
                     let contains = vm.recommendations.some(elem =>{
                         return JSON.stringify(response.data.recommendations[recommendation]) === JSON.stringify(elem);
