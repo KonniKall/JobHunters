@@ -1,9 +1,15 @@
 .profile-container {
-    width: 40vw;
-    height: 100vh;
+    width: fit-content;
+    height: max-content;
+
+    padding-bottom: 60px;
+    padding-inline: 15px;
     margin: auto auto;
-    padding: 0px 20px;
-    background-color: crimson;
+    margin-block: 40px;
+
+    background-color: #1c1c1c;
+    border-radius: 6px;
+    color: rgb(242, 238, 238);
 }
 
 .main-profile-img {
@@ -14,9 +20,14 @@
 .edit-btn {
     width: fit-content;
     float: right;
-    margin-right: 30px;
+    margin-right: 20px;
     padding: 5px 20px;
     border-radius: 10px;
-    background-color: aquamarine;
-    color: black;
+    background-color: rgb(72, 69, 69);
+    color: rgb(242, 238, 238);
+}
+
+.edit-btn:hover {
+    background-color: rgb(51, 48, 48);
+    color: rgb(165, 165, 173);
 }

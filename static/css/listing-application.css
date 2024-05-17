@@ -67,3 +67,7 @@ label {
 .approve:hover {
     color: rgb(36, 141, 18);
 }
+
+.review-section {
+    margin-bottom: 15px;
+}
