@@ -290,11 +290,15 @@ class ApplicationView(View):
         return render(request, "users/application.html", context)
 
     def post(self, request, listing, cover_letter):
+        
         contact_information = ContactInfo.objects.filter(user=request.user).first()
         work_experiences = WorkExperience.objects.filter(user=request.user)
         recommendations = Recommendation.objects.filter(user=request.user)
 
         listing = JobListing.objects.filter(pk=listing).first()
+
+        if Application.objects.filter(job_listing=listing, user=request.user):
+            return JsonResponse({'Forbidden': 'You have already applied for this listing'}, status=403)
 
         form = ApplicationForm(
             data={
@@ -318,7 +322,6 @@ class ApplicationView(View):
             for recommendation in recommendations:
                 obj.recommendations.add(recommendation)
             obj.save()
-            return JsonResponse({"response": "201"})
 
         return JsonResponse({"error": "Not AJAX request."})
         return JsonResponse({"result": "ok"}, status=200)
@@ -370,10 +373,6 @@ class FilterView(View):
         #Takes the values from job listings so they can be served
         job_listings = list(job_listings.distinct().values())
 
-        print(job_listings)
-        print(user_list)
-        
-
         context = {
             "job_listings": job_listings,
             "user_list": user_list
@@ -384,15 +383,3 @@ class FilterView(View):
              return JsonResponse(context, status=200)
         
         return render(request, "listings/job_listings.html", context)
-    
-
-    """    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    title = models.CharField(default="")
-
-    work_type = models.CharField(choices=WORK_TYPE_CHOICES)
-    location = models.CharField(choices=LOCATION_CHOICES)
-    category = models.CharField(choices=CATEGORY_CHOICES)
-
-    due_date = models.DateTimeField(default=timezone.now)
-    start_date = models.DateTimeField(default=timezone.now)"""

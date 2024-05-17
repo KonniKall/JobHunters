@@ -70,11 +70,6 @@ td > input {
 
 .sub-form {
     width: 650px;
-    -webkit-transition: 500ms;
-    -moz-transition: 500ms;
-    -ms-transition: 500ms;
-    -o-transition: 500ms;
-    transition: 500ms;
 }
 
 .nav-button {
@@ -91,7 +86,7 @@ td > input {
 }
 
 .review {
-    max-height: 475px;
+    max-height: 379px;
     padding-block: 25px;
     overflow-y: scroll;
 }
