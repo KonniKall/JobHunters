@@ -273,7 +273,8 @@ class WorkplaceView(View):
         if workplace == None:
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
-        context = {"workplace": workplace}
+        company_listings = JobListing.objects.filter(user=request.user)
+        context = {"workplace": workplace, "company_listings": company_listings}
         return render(request, "users/workplace.html", context)
 
     def post(self, request, name):
@@ -307,7 +308,7 @@ class JobListingApplicationView(View):
             return redirect("/users.views.custom_page_not_found_view")
         application.status = decision
         application.save()
-        
+         
         return redirect('my-job-listings')
     
 
