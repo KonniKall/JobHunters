@@ -20,7 +20,7 @@
                 <h4 class="location">{{ listing.location }}</h4>
                 <h4 class="start-date">{{ listing.start_date }}</h4>
             </div>
-            <a href="#" class="company">
+            <a href="{% url 'workplaces' workplace=listing.user %}" class="company">
                 <h2 class="company-name">{{ listing.user }}</h2>
                 <h3 class="address">{{ company.address }}</h3>
             </a>
