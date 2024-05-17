@@ -14,7 +14,8 @@
     <div class="profile-container">
         <form id="edit-form" method="POST">
             {% csrf_token %}
-            {{ form }}
+            {{ p_form }}
+            {{ ci_form }}
 
             <div class="buttons">
                 <a href="{% url 'profile' %}">Cancel</a>

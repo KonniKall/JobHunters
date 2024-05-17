@@ -9,7 +9,12 @@ from is_ajax import is_ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 
-from .forms import UserSignInForm, UserUpdateForm, ProfileUpdateForm
+from .forms import (
+    UserSignInForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
+    ContactInfoUpdateForm,
+)
 from listings.forms import JobListingCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
@@ -84,20 +89,31 @@ class EditProfileView(View):
     def get(self, request):
         contact_info = ContactInfo.objects.filter(user=request.user).first()
         profile = Profile.objects.filter(user=request.user).first()
-        form = ProfileUpdateForm()
+        p_form = ProfileUpdateForm()
+        ci_form = ContactInfoUpdateForm()
         if is_ajax(request=request):
             print(f"working2")
 
-        context = {"contact_info": contact_info, "profile": profile, "form": form}
+        context = {
+            "contact_info": contact_info,
+            "profile": profile,
+            "p_form": p_form,
+            "ci_form": ci_form,
+        }
         return render(request, "users/edit-profile.html", context)
 
     def post(self, request):
         profile = Profile.objects.filter(user=request.user).first()
-        form = ProfileUpdateForm(request.POST, instance=profile)
-        if form.is_valid():
-            profile = form.save(commit=False)
+        contact_info = ContactInfo.objects.filter(user=request.user).first()
+        p_form = ProfileUpdateForm(request.POST, instance=profile)
+        ci_form = ContactInfoUpdateForm(request.POST, instance=contact_info)
+        if p_form.is_valid() and ci_form.is_valid():
+            profile = p_form.save(commit=False)
             profile.user = request.user
             profile.save()
+            contact_i = ci_form.save(commit=False)
+            contact_i.user = request.user
+            contact_i.save()
 
         return redirect("profile")
 

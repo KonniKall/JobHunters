@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db import models
 from django.forms import fields
-from .models import Profile
+from .models import Profile, ContactInfo
 
 # from crispy_forms.helper import FormHelper
 
@@ -74,3 +74,9 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ["profile_img", "email", "phone_nr"]
+
+
+class ContactInfoUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ContactInfo
+        fields = ["full_name"]
