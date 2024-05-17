@@ -77,16 +77,10 @@ class CreateJobListingView(View):
     def post(self, request):
         form = JobListingCreationForm(data=request.POST)
         # start_date = form('start_date')
-        start_date = request.POST["start_date"]
-        print(start_date)
         if form.is_valid():
             print("working?")
             instance = form.save(commit=False)
             instance.user = request.user
-            start_date = datetime.datetime.strptime(
-                request.POST["start_date"], "%m/%d/%Y"
-            ).date()
-            instance.start_date = start_date
             due_date = datetime.datetime.strptime(
                 request.POST["due_date"], "%m/%d/%Y"
             ).date()

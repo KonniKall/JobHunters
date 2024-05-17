@@ -34,14 +34,6 @@ class Recommendation(models.Model):
 
 class JobListing(models.Model):
 
-    LOCATION_CHOICES = (
-        ("1", "One"),
-        ("2", "Two"),
-        ("3", "Three"),
-        ("4", "Four"),
-        ("5", "Five"),
-    )
-
     CATEGORY_CHOICES = (
         ("1", "One"),
         ("2", "Two"),
@@ -61,7 +53,7 @@ class JobListing(models.Model):
     title = models.CharField(default="")
     description = models.TextField(default="")
     work_type = models.CharField(choices=WORK_TYPE_CHOICES)
-    location = models.CharField(choices=LOCATION_CHOICES)
+    location = models.CharField(default='International')
     category = models.CharField(choices=CATEGORY_CHOICES)
 
     due_date = models.DateTimeField(default=timezone.now)
@@ -89,7 +81,7 @@ class Application(models.Model):
     recommendations = models.ManyToManyField(Recommendation, blank=True)
 
     job_listing = models.ForeignKey(
-        JobListing, on_delete=models.DO_NOTHING, default=None
+        JobListing, on_delete=models.CASCADE, default=None
     )
 
     def __str__(self, *args, **kwargs):

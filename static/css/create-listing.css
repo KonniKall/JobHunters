@@ -24,3 +24,24 @@ h2 {
     margin-top: 15px;
     cursor: pointer;
 }
+
+.delete-button {
+    width: fit-content;
+    border-radius: 12px;
+
+    padding-inline: 15px;
+    padding-block: 5.5px;
+
+    margin: 0;
+    margin-top: 15px;
+    margin-left: 20%;
+
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+
+    border: 0;
+    color: rgb(188, 49, 49);
+    background-color: rgb(72, 69, 69);
+    cursor: pointer;
+}

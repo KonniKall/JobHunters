@@ -15,11 +15,13 @@ urlpatterns = [
     path("profile/edit", EditProfileView.as_view(), name="edit-profile"),
     path('profile/applications/', ApplicationsView.as_view(), name='sent-applications'),
     path('profile/applications/<str:application>/', ApplicationView.as_view(), name='sent-applications'),
+    
 
     path('profile/job-listings/', JobListingsView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/', JobListingView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/<str:application>/', JobListingApplicationView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/<str:application>/<str:decision>/', JobListingApplicationView.as_view(), name='my-job-listings'),
+    path('delete/job-listing/<str:job_listing>/', JobListingView.as_view(), name='delete-job-listing'),
 
     path('workplaces/', WorkplacesView.as_view(), name='workplaces'),
     path('workplaces/<str:workplace>/', WorkplaceView.as_view(), name='workplaces'),

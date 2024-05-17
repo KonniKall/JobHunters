@@ -157,12 +157,7 @@ class JobListingView(View):
         #instance = get_object_or_404(MyModel, id=id)
         form = JobListingCreationForm(data=request.POST)
         print(form)
-        if form.is_valid():
-            print("working?")
-            start_date = datetime.datetime.strptime(
-                request.POST["start_date"], "%m/%d/%Y"
-            ).date()
-        
+        if form.is_valid():        
             due_date = datetime.datetime.strptime(
                 request.POST["due_date"], "%m/%d/%Y"
             ).date()
@@ -178,7 +173,6 @@ class JobListingView(View):
                     "work_type": request.POST["work_type"],
                     "location": request.POST["location"],
                     "category": request.POST["category"],
-                    "start_date": start_date,
                     "due_date": due_date
                 },
                 create_defaults={
@@ -188,7 +182,6 @@ class JobListingView(View):
                     "work_type": request.POST["work_type"],
                     "location": request.POST["location"],
                     "category": request.POST["category"],
-                    "start_date": start_date,
                     "due_date": due_date
                 },
             )
@@ -198,27 +191,12 @@ class JobListingView(View):
                 created.save()
 
         return redirect("my-job-listings")
-        """form = ExperienceForm(
-            data={
-                "workplace": workplace,
-                "role": role,
-                "start_date": start_date,
-                "end_date": end_date,
-            }
-        )
+    
+    def delete(self, request, job_listing):
+        job_listing = JobListing.objects.filter(user=request.user, pk=job_listing)
+        job_listing.delete()
+        return JsonResponse({"response": "deleted."})
 
-        if is_ajax(request=request) and form.is_valid():
-            obj = WorkExperience.objects.create(
-                user=request.user,
-                workplace=workplace,
-                role=role,
-                start_date=start_date,
-                end_date=end_date,
-            )
-            obj.save()
-            return JsonResponse({"response": "201"})"""
-
-        return JsonResponse({"error": "Not AJAX request."})
 
 
 class WorkplacesView(View):
