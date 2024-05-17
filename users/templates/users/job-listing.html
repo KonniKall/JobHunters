@@ -43,8 +43,8 @@
                 {% for application in applications %}
                     <a class="application-small" href="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk %}">
                         <div>
-                            <p class="application-small-employer">{{ application.user }}</p>
-                            <p class="application-small-title">{{ application.applied.month }}/{{ application.applied.day }}/{{ application.applied.year }}</p>
+                            <p class="application-small-title">{{ application.user }}</p>
+                            <p class="application-small-employer">{{ application.applied.month }}/{{ application.applied.day }}/{{ application.applied.year }}</p>
                         </div>
                         {% if application.status == "Approved" %}
                             <p class="application-small-status approved">{{ application.status }}</p>

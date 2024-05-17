@@ -12,8 +12,8 @@
             {% for application in applications %}
                 <a class="application-small" href="{% url 'sent-applications' application=application.pk %}">
                     <div>
-                        <p class="application-small-employer">{{ application.job_listing.user }}</p>
                         <p class="application-small-title">{{ application.job_listing.title }}</p>
+                        <p class="application-small-employer">{{ application.job_listing.user }}</p>
                     </div>
                     {% if application.status == "Approved" %}
                         <p class="application-small-status approved">{{ application.status }}</p>

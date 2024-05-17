@@ -63,9 +63,15 @@
     justify-self: center;
 }
 
-.application-small-employer {
+.application-small-title {
     font-size: 14pt;
-    border-radius: 8px;
+
+    width: 150px;
+    margin: 0 !important;
+}
+
+.application-small-employer {
+    font-size: 12pt;
 
     width: 150px;
     margin: 0 !important;
