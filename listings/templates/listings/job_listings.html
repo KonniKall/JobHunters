@@ -14,8 +14,8 @@
     <div id="container">
         <div id="menu">
             <div id="menu-subcontainer">
-                <div id="searches">
-                    <h4>Search:</h4>
+                <div class="menu-item" id="searches">
+                    <h4>Search</h4>
                     <label for="job_search">Job:</label>
                     <input @input="filterChange()" v-model="search.jobName" type="search" class="search" id="job_search" name="job_search"
                         placeholder="Search by job name" aria-label="Search by job name">
@@ -24,18 +24,18 @@
                         placeholder="Search by company name" aria-label="Search by workplace">
                 </div>
                 <hr class="menu-seperator">
-                <div id="order_by">
-                    <h4>Order by:</h4>
+                <div class="menu-item" id="order_by">
+                    <h4>Order by</h4>
                     <select v-on:change="filterChange()" v-model="orderBy" name="date_order" id="date_order">
                         <option value="due_date">Due date of offering</option>
                         <option value="start_date">Date of offering</option>
                     </select>
                 </div>
                 <hr class="menu-seperator">
-                <div id="filters">
-                    <h4>Filters:</h4>
+                <div class="menu-item" id="filters">
+                    <h4>Filters</h4>
                     <div>
-                        <label for="category">Category</label>
+                        <label for="category">Category:</label>
                         <select v-on:change="filterChange()" v-model="filters.category" name="category" id="category">
                             <option value="">All</option>
                             <option value="cate1">Make categories</option>
@@ -47,21 +47,22 @@
                         </select>
                     </div>
                     <div>
-                        <label for="already_applied">Already applied</label>
+                        <label for="already_applied">Already applied:</label>
                         <input v-on:change="filterChange()" v-model="filters.alreadyApplied" type="checkbox" id="already_applied" name="already_applied">
                     </div>
                 </div>
             </div>
         </div>
-        <div id="listings-container">
+        <div class="listings-container">
             <a v-for="listing in jobListings" class="listing" v-bind:href="'/listing/'+ listing.id">
                 <h5 class="company-name">[[ listing.username ]]</h5>
-                <h4 class="job-title">[[ listing.title ]]</h4>
+                <h4 class="job-title">[[ listing.title ]] - [[ listing.category ]]</h4>
                 <div class="dates">
-                    <!-- {{ listing.due_date.day }}
-                    {{ listing.due_date.month }} -->
-                    [[ listing.start_date ]]
-                    [[ listing.start_date ]]
+                    <label for="posted">Posted:</label>
+                    <p name="posted">[[ listing.start_date ]]</p>
+
+                    <label for="due">Due:</label>
+                    <p name="due">[[ listing.due_date ]]</p>
                 </div>
             </a>
         </div>

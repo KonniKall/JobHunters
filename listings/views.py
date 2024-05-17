@@ -328,13 +328,6 @@ class FilterView(View):
 
     def get(self, request, job_name, company_name, order, category, applied):
         filter_dict = {}
-        if applied == 'true': applied = True
-        else: applied = False
-        #category = '4'
-        if applied:
-            filter_dict['application__isnull'] = False
-        else:
-            filter_dict['application__isnull'] = True
 
         if job_name != 'none':
             filter_dict['title__icontains'] = job_name
@@ -353,16 +346,28 @@ class FilterView(View):
         if order != 'none':
             job_listings = job_listings.order_by(order)
 
-        user_list = {}
+        #Check if user has applied for job before
+        if applied == 'true': applied = True
+        else: applied = False
+        to_be_removed = []
 
+        if applied:
+            for job_listing in job_listings:
+                if not Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                    to_be_removed.append(job_listing.id)
+        else:
+            for job_listing in job_listings:
+                if Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                    to_be_removed.append(job_listing.id)
+
+        job_listings = job_listings.exclude(id__in=to_be_removed)
+
+        #Collects usernames of the users that posted the job listings
+        user_list = {}
         for job_listing in job_listings:
             user_list[job_listing.user.pk] = job_listing.user.username
 
-        
-
-        
-        
-
+        #Takes the values from job listings so they can be served
         job_listings = list(job_listings.distinct().values())
 
         print(job_listings)

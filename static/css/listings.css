@@ -11,19 +11,25 @@ html {
 }
 
 #menu {
-    flex: 1;
-    background-color: #011936;
+    height: calc(100vh - 80px);
+    display: grid;
+    grid-template-rows: 20% 5% 15% 5% 25%;
+    background-color: #1c1c1c;
+
+    padding-inline: 15px;
+    padding-block: 10px;
+    
+}
+
+@media screen and (max-height: 600px) {
+    #menu {
+        overflow-y: scroll;
+    }
 }
 
 #menu-subcontainer {
-    width: 80%;
-    background-color: #8BA6A9;
-    padding: 30px;
     margin: auto auto;
-    margin-top: 40px;
-    border: solid;
-    border-color: #5a696b;
-    border-radius: 20px;
+    padding-bottom: 20px;
 }
 /* #menu-subcontainer>label {
     font-size: 24px;
@@ -32,6 +38,7 @@ html {
 .menu-seperator {
     margin-top: 30px;
     margin-bottom: 30px;
+    width: 100%;
 }
 
 .search {
@@ -52,7 +59,6 @@ html {
 }
 
 #listings-container {
-    flex: 3;
     background-color: #465362;
     overflow-y: scroll;
     scrollbar-color: cyan darkslategrey;
@@ -62,16 +68,59 @@ html {
     padding: 10px;
 }
 
+.listings-container {
+    display: grid;
+    justify-items: center;
+
+    overflow-y: scroll;
+    max-height: calc(100vh - 80px);
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .listings-container {
+        overflow-y: scroll;
+    }
+}
+
+@media screen and (min-width: 520px) {
+    .listings-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (min-width: 690px) {
+    .listings-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 890px) {
+    .listings-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1190px) {
+    .listings-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (min-width: 1390px) {
+    .listings-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
 .listing {
-    height: 200px;
-    width: auto;
+    width: 170px;
+    height: 230px;
     margin: 30px 15px;
     padding: 20px;
-    background-color: #8BA6A9;
+    background-color: #1c1c1c;
     border: solid;
     border-width: 2px;
     border-radius: 20px;
-    border-color: #5a696b;
+    border-color: #141415;
 }
 
 .listing:hover {
@@ -84,7 +133,7 @@ html {
 }
 
 .company-name {
-    background-color: #afc2db;
+    background-color: rgb(72, 69, 69);
     text-align: center;
     width: fit-content;
     padding: 10px 20px;
@@ -99,4 +148,37 @@ html {
 .dates {
     text-align: center;
     width: fit-content;
+}
+
+.menu-item {
+    display: grid;
+    justify-content: left;
+    padding-left: 5%;
+}
+
+input {
+    width: max-content;
+    height: max-content;
+    padding-block: 2.5px;
+
+    color: rgb(14, 14, 14);
+    border-radius: 6px;
+    background-color: rgb(242, 238, 238);
+    border: 2px solid rgb(136, 136, 141);
+}
+
+select {
+    height: max-content;
+    padding-block: 2.5px;
+    border-radius: 6px;
+    background-color: rgb(242, 238, 238);
+    border: 2px solid rgb(136, 136, 141);
+}
+
+h4 {
+    color: rgb(242, 238, 238);
+}
+
+label {
+    color: rgb(242, 238, 238);
 }
