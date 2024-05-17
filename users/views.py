@@ -9,12 +9,8 @@ from is_ajax import is_ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 
-from .forms import (
-    UserSignInForm,
-    UserUpdateForm,
-    ProfileUpdateForm,
-    ContactInfoUpdateForm,
-)
+from .forms import UserSignInForm, UserUpdateForm, ProfileUpdateForm, ContactInfoUpdateForm, UserRegisterForm
+
 from listings.forms import JobListingCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
@@ -94,8 +90,18 @@ class EditProfileView(View):
             return redirect('index')
         contact_info = ContactInfo.objects.filter(user=request.user).first()
         profile = Profile.objects.filter(user=request.user).first()
-        p_form = ProfileUpdateForm()
-        ci_form = ContactInfoUpdateForm()
+        p_form = ProfileUpdateForm(initial={
+                "email": profile.email,
+                "phone_nr": profile.phone_nr,
+                "profile_img": profile.profile_img,
+            })
+        ci_form = ContactInfoUpdateForm(initial={
+                "full_name": contact_info.full_name,
+                "address": contact_info.address,
+                "city": contact_info.city,
+                "country": contact_info.country,
+                "zip_code": contact_info.zip_code,
+            })
         if is_ajax(request=request):
             print(f"working2")
 
@@ -105,12 +111,13 @@ class EditProfileView(View):
             "p_form": p_form,
             "ci_form": ci_form,
         }
+
         return render(request, "users/edit-profile.html", context)
 
     def post(self, request):
         profile = Profile.objects.filter(user=request.user).first()
         contact_info = ContactInfo.objects.filter(user=request.user).first()
-        p_form = ProfileUpdateForm(request.POST, instance=profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
         ci_form = ContactInfoUpdateForm(request.POST, instance=contact_info)
         if p_form.is_valid() and ci_form.is_valid():
             profile = p_form.save(commit=False)

@@ -46,11 +46,12 @@ class Employer(models.Model):
         return f"Employer"
 
 
+
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     phone_nr = models.CharField(max_length=100, blank=True)
     email = models.EmailField(max_length=100, blank=True)
-    profile_img = models.ImageField(default="default_profile_img.png")
+    profile_img = models.ImageField(upload_to='profile-images', default="default_profile_img.png")
 
     def __str__(self, *args, **kwargs):
         return f"{self.user.username} - {self.email}"
