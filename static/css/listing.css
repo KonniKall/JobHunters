@@ -132,8 +132,6 @@
     height: fit-content;
 
     padding-left: 10px;
-
-    grid-row: 2;
 }
 
 .selcted-listing-details {
@@ -203,4 +201,11 @@
 
 .apply:hover {
     background-color: rgb(91, 86, 86);
+}
+
+.company-details {
+    color: rgb(242, 238, 238);
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-row: 2;
 }
