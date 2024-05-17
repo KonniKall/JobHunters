@@ -1,15 +1,17 @@
 .container {
-    width: 80vw;
-    background-color: crimson;
+    padding-inline: 5%;
+    padding-bottom: 100px;
     margin: auto;
+    height: 100%;
+    overflow-y: scroll;
 }
 
-.listing {
+/*.listing {
     background-color: aquamarine;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, 1fr) auto;
-}
+} 
 
 .listing-info{
     background-color: brown;
@@ -50,22 +52,26 @@
     cursor: pointer;
     background-color: pink;
 }
+*/
 
 .description {
-    background-color: slategray;
-    grid-row: 4 / 5;
     grid-column: 1 / 4;
-    margin: 30px;
+    height: fit-content;
+    min-height: 70px;
+
+    margin-top: 7.5px;
+    margin-bottom: 10px;
+    padding: 5px;
+
+    color: rgb(242, 238, 238);
 }
 
 .extra-listings-container {
-    background-color: blueviolet;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    justify-items: center;
+    align-content: baseline;
 }
-
+/*
 .extra-listing {
     height: 200px;
     width: 300px;
@@ -76,4 +82,125 @@
     border-width: 2px;
     border-radius: 20px;
     border-color: #5a696b;
+}
+*/
+
+.selcted-listing {
+    display: grid;
+    grid-template-rows: max-content auto;
+
+    width: 100%;
+
+    margin-top: 40px;
+    padding: 15px;
+    border-radius: 12px;
+
+    background-color: #1c1c1c;
+    
+}
+.selcted-listing-main {
+    display: grid;
+    grid-template-columns: auto max-content;
+}
+
+.selcted-listing-info {
+    display: grid;
+    grid-template-rows: max-content auto;
+    
+    padding-inline: 15px;
+
+}
+
+.selcted-listing-info > h2 {
+    color: rgb(242, 238, 238);
+    margin: 0;
+}
+
+.listing-apply {
+    display: grid;
+
+    justify-items: center;
+    align-items: center;
+
+    padding-inline: 7.5px;
+    padding-block: 5px;
+
+    font-size: 16pt;
+}
+.selcted-listing-company-name {
+    width: fit-content;
+    height: fit-content;
+
+    padding-left: 10px;
+
+    grid-row: 2;
+}
+
+.selcted-listing-details {
+    padding-left: 15px;
+    color: rgb(242, 238, 238);
+}
+
+.detail {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 10px;
+}
+
+.other {
+    text-align: center;
+    color: rgb(242, 238, 238);
+    font-size: larger;
+}
+
+@media screen and (min-width: 320px) {
+    .extra-listings-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (min-width: 490px) {
+    .extra-listings-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 690px) {
+    .extra-listings-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .extra-listings-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (min-width: 1190px) {
+    .extra-listings-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+.apply {
+    width: fit-content;
+    border-radius: 12px;
+
+    padding-inline: 15px;
+    padding-block: 5.5px;
+
+    margin: 0;
+    margin-top: 15px;
+
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: center;
+
+    border: 0;
+    color: #0ea49a;
+    background-color: rgb(72, 69, 69);
+    cursor: pointer;
+}
+
+.apply:hover {
+    background-color: rgb(91, 86, 86);
 }

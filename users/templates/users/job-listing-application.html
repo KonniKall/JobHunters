@@ -4,7 +4,9 @@
 {%block content%}
 <html>
     <head>
+        <title>Job Hunters - Application Review</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create-listing.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/listing-application.css' %}">
     </head>
     <body>
@@ -59,23 +61,21 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="review-section">
-                    <h3>Status</h3>
-                    <label for="applied">Applied:</label>
-                    <p name="applied" class="applied">{{ application.applied.month }}/{{ application.applied.day }}/{{ application.applied.year }}</p>
-                    {% if application.status == "Approved" %}
-                        <p class="status approved">{{ application.status }}</p>
-                    {% elif application.status == "Denied" %}
-                        <p class="status denied">{{ application.status }}</p>
-                    {% elif application.status == "Pending" %}
-                        <p class="status pending">{{ application.status }}</p>
-                    {% endif %}
+                <div class="review-buttons">
+                    <form action="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk decision='Denied' %}" method="post" class="review-section">
+                        {% csrf_token %}
+                        <input type="submit" value="Reject" class="review-button reject" />
+                    </form>
+                    <form action="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk decision='Approved' %}" method="post" class="review-section">
+                        {% csrf_token %}
+                        <input type="submit" value="Approve" class="review-button approve" />
+                    </form>
                 </div>
-                
 
             </div>
         </div>
 
     </body>
+    
 </html>
-{% endblock content %}
+{% endblock %}

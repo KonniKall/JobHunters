@@ -4,15 +4,21 @@
 {%block content%}
 <html>
     <head>
+        <title>Job Hunters - Application</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     </head>
     <body>
         <div class="content">
             <h1>{{ listing.title }}</h1>
             <form method="POST" action="" class="application-form" id="application">
                 <div class="sub-form 1">
-                    <p class="application-header">Contact Information</p>
+                    <h2 class="application-header">Contact Information</h2>
                     <div class="application-fields">
                         {% csrf_token %} 
                         {% comment %} {{ contact_form.as_p }}
@@ -44,7 +50,7 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Cover letter</p>
+                    <h2 class="application-header">Cover letter</h2>
                     <div class="application-fields">
                         <textarea name="coverLetter" rows="4" cols="50" v-model="coverLetter"></textarea>
                     </div>
@@ -54,24 +60,33 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Work Experiences</p>
+                    <h2 class="application-header">Work Experiences</h2>
                     <div class="application-fields">
-                        <div class="application-selection">
-                            <div class="experiences" v-for="experience in experiences">
-                                    <div class="experience">
-                                        <p>[[ experience.workplace ]] - [[ experience.role ]]</p>
-                                        <p>From: [[ experience.start_date ]] To: [[ experience.end_date ]]</p>
-                                    </div>
-                                    <div class="experience-buttons">
-                                        <checkbox>Selected</checkbox>
-                                        <button>Remove</button>
-                                    </div>
-                                    
-                            </div>
-                            <div class="application-selection-bottom">
-                                <button>Add work experience</button>
-                            </div>
-                        </div>
+                        <table class="application-selection">
+                            <tr>
+                                <th>Workplace</th>
+                                <th>Role</th>
+                                <th>Start date</th>
+                                <th>End date</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr v-for="experience in experiences">
+                                <td>[[ experience.workplace ]]</td>
+                                <td>[[ experience.role ]]</td>
+                                <td>[[ experience.start_date ]]</td>
+                                <td>[[ experience.end_date ]]</td>
+                                <td><button @click.prevent="removeExperience(experience.id)">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td><input v-model="newExperience.workplace" type="text"></td>
+                                <td><input v-model="newExperience.role" type="text"></td>
+                                <td><input v-model="newExperience.startDate" id="datepicker" name="start_date" autocomplete="off"></td>
+                                <td><input v-model="newExperience.endDate" id="datepicker2" name="end_date" autocomplete="off"></td>
+                                <td><button @click.prevent="addExperience()">Add</button></td>
+                            </tr>
+                            
+
+                        </table>
                     </div>
                     
                     <nav class="application-nav">
@@ -80,15 +95,124 @@
                     </nav>
                 </div>
                 <div class="sub-form">
-                    <p class="application-header">Recommendations</p>
+                    <h2 class="application-header">Recommendations</h2>
+                    <div class="application-fields">
+                        <table class="application-selection">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Contact allowed</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr v-for="recommendation in recommendations">
+                                <td>[[ recommendation.name ]]</td>
+                                <td>[[ recommendation.email ]]</td>
+                                <td>[[ recommendation.phone_nr ]]</td>
+                                <td>[[ recommendation.role ]]</td>
+                                <td>[[ recommendation.contact_allowed ]]</td>
+                                <td><button @click.prevent="removeRecommendation(recommendation.id)">Remove</button></td>
+                            </tr>
+                            <tr>
+                                <td><input v-model="newRecommendation.name" type="text"></td>
+                                <td><input v-model="newRecommendation.email" type="text"></td>
+                                <td><input v-model="newRecommendation.phone" type="text"></td>
+                                <td><input v-model="newRecommendation.role" type="text"></td>
+                                <td><input v-model="newRecommendation.contactAllowed" type="checkbox"></td>
+                                <td><button @click.prevent="addRecommendation()">Add</button></td>
+                            </tr>
+                            
+
+                        </table>
+                    </div>
                     <nav class="application-nav">
                         <button class="nav-button left" @click.prevent="Recommendations()">Previous</button>
                         <button class="nav-button right" @click.prevent="Recommendations()">Next</button>
                     </nav>
                 </div>
+                <div class="sub-form">
+                    <h2 class="application-header">Review of application</h2>
+                    <div class="review">
+                        <div class="review-section">
+                            <h3>Contact Information</h3>
+                            <p>[[ contactForm.fullName ]]</p>
+                            <p>[[ contactForm.address ]]</p>
+                            <p>[[ contactForm.country ]]</p>
+                            <p>[[ contactForm.city ]]</p>
+                            <p>[[ contactForm.zipCode ]]</p>
+                        </div>
+                        <div class="review-section">
+                            <h3>Cover letter</h3>
+                            <p>[[ coverLetter ]]</p>
+                        </div>
+                        <div class="review-section">
+                            <h3>Work Experiences</h3>
+                            <div v-for="experience in experiences" class="review-experience">
+                                <p>[[ experience.workplace ]]</p>
+                                <p>[[ experience.role ]]</p>
+                                <p>[[ experience.start_date ]]</p>
+                                <p>[[ experience.end_date ]]</p>
+                            </div>
+                        </div>
+                        <div class="review-section">
+                            <h3>Recommendations</h3>
+                            <div v-for="recommendation in recommendations" class="review-recommendation">
+                                <p>[[ recommendation.name ]]</p>
+                                <p>[[ recommendation.email ]]</p>
+                                <p>[[ recommendation.phone_nr ]]</p>
+                                <p>[[ recommendation.role ]]</p>
+                                <p>[[ recommendation.contact_allowed ]]</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <nav class="application-nav">
+                        <button class="nav-button left" @click.prevent>Previous</button>
+                        <button type="submit" class="submit-button right" @click.prevent="SubmitApplication('{{ listing.pk }}')">Apply</button>
+                    </nav>
+                </div>
             </form>
         </div>
         <script src="{% static 'scripts/application.js' %}"></script>
+
+        <script>
+            $( function() {
+                $( "#datepicker" ).datepicker({
+                    onSelect: function(date){
+
+                        var selectedDate = new Date(date);
+                        var msecsInADay = 86400000;
+                        var endDate = new Date(selectedDate.getTime() + msecsInADay);
+                        application.$data.newExperience['startDate'] = date
+                
+                    //Set Minimum Date of EndDatePicker After Selected Date of StartDatePicker
+                        $("#datepicker2").datepicker( "option", "minDate", endDate );
+                        $("#datepicker2").datepicker( "option", "maxDate", '+50y' );
+                
+                    }
+                }
+              );
+            });
+        </script>
+        <script>
+            $( function() {
+              $( "#datepicker2" ).datepicker({
+                onSelect: function(date){
+
+                    var selectedDate = new Date(date);
+                    var msecsInADay = 86400000;
+                    var endDate = new Date(selectedDate.getTime() - msecsInADay);
+                    application.$data.newExperience['endDate'] = date
+            
+                //Set Minimum Date of EndDatePicker After Selected Date of StartDatePicker
+                    $("#datepicker").datepicker( "option", "maxDate", endDate );
+            
+                }
+                }
+              );
+            } );
+        </script>
 
         <script>
             let position = 0
@@ -97,9 +221,9 @@
                 console.log(position)
                 var application = $(".sub-form");
                 application.css({
-                    "-webkit-transform":"translateX(calc(" + position + "*-400px))",
-                    "-ms-transform":"translateX(calc(" + position + "*-400px))",
-                    "transform":"translateX(calc(" + position + "*-400px))"
+                    "-webkit-transform":"translateX(calc(" + position + "*-650px))",
+                    "-ms-transform":"translateX(calc(" + position + "*-650px))",
+                    "transform":"translateX(calc(" + position + "*-650px))"
                 });
             });
 
@@ -108,9 +232,9 @@
                 console.log(position)
                 var application = $(".sub-form");
                 application.css({
-                    "-webkit-transform":"translateX(calc(" + position + "*-400px))",
-                    "-ms-transform":"translateX(calc(" + position + "*-400px))",
-                    "transform":"translateX(calc(" + position + "*-400px))"
+                    "-webkit-transform":"translateX(calc(" + position + "*-650px))",
+                    "-ms-transform":"translateX(calc(" + position + "*-650px))",
+                    "transform":"translateX(calc(" + position + "*-650px))"
                 });
             });
         

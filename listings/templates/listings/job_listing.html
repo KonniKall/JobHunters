@@ -5,38 +5,72 @@
 <html>
 
 <head>
+    <title>Job Hunters - Listing</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/listing.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/listings.css' %}">
 </head>
 
 <body>
     <div class="container">
-        <div class="listing">
-            <div class="listing-info">
-                <h1 class="job-name">{{ listing.title }}</h1>
-                <h4 class="work-type">{{ listing.work_type }}</h4>
-                <h4 class="location">{{ listing.location }}</h4>
-                <h4 class="start-date">{{ listing.start_date }}</h4>
-            </div>
-            <div class="company">
-                <h2 class="company-name">{{ listing.user }}</h2>
-                <h3 class="address">{{ company.address }}</h3>
-            </div>
-            <button class="apply">Apply</button>
-            <div class="description">{{ listing.work_type }}</div>
-        </div>
-        <div class="extra-listings-container">
-            {% for listing in company_listings %}
-            <a class="extra-listing" href="{% url 'listing' listing=listing.pk %}">
-                <h5 class="company-name">{{ listing.user }}</h5>
-                <h4 class="job-title">{{ listing.title }}</h4>
-                <div class="dates">
-                    <!-- {{ listing.due_date.day }}
-                        {{ listing.due_date.month }} -->
-                    {{ listing.start_date.day }}
-                    {{ listing.start_date.month }}
+        <div class="selcted-listing">
+            <div class="selcted-listing-main">
+                <div class="selcted-listing-info">
+                    <h2>{{ listing.title }}</h2>
+                    <a class="selcted-listing-company-name" href="{% url 'workplaces' workplace=listing.user %}" class="company">
+                        {{ listing.user }}
+                    </a>
+                    <div class="description">{{ listing.description |safe }}</div>
                 </div>
-            </a>
+                <div class="listing-apply">
+                    
+                    {% if applied %}
+                        <button class="apply">Already applied</button>
+                    {% else %}
+                        <button class="apply"
+                            onclick="window.location.href = '{% url 'job-listing-application' listing=listing.pk %}'">Apply</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="selcted-listing-details">
+                <div class='detail'>
+                    <p>Category:</p>
+                    <p>{{ listing.category }}</p>
+                </div>
+                <div class='detail'>
+                    <p>Type:</p>
+                    <p>{{ listing.work_type }}</p>
+                </div>
+                <div class='detail'>
+                    <p>Location:</p>
+                    <p>{{ listing.location }}</p>
+                </div>
+                <div class='detail'>
+                    <p>Due:</p>
+                    <p>{{ listing.due_date.month }}/{{ listing.due_date.day }}/{{ listing.due_date.year }}</p>
+                </div>
+                <div class='detail'>
+                    <p>Posted:</p>
+                    <p>{{ listing.start_date.month }}/{{ listing.start_date.day }}/{{ listing.start_date.year }}</p>
+                </div>
+            </div>
+        </div>
+        <h4 class="other">Other listings by {{ listing.user }}</h4>
+        <div class="extra-listings-container">
+            
+            {% for listing in company_listings %}
+                <a class="listing" href="{% url 'listing' listing=listing.pk %}">
+                    <div>
+                        <h5 class="company-name">{{ listing.user }}</h5>
+                        <p class="location">{{ listing.location }}</p>
+                    </div>
+                    
+                    <h4 class="job-title">{{ listing.title }} - {{ listing.category }}</h4>
+                    <div class="dates">
+                        <label for="due">Due:</label>
+                        <p name="due">{{ listing.due_date.month }}/{{ listing.due_date.day }}/{{ listing.due_date.year }}</p>
+                    </div>
+                </a>
             {% endfor %}
         </div>
     </div>
