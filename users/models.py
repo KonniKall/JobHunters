@@ -30,7 +30,6 @@ class ContactInfo(models.Model):
 class JobSeeker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bio = models.TextField(default="", blank=True)
-    files = models.CharField(max_length=100, blank=True)  # Breyta seinna
 
     def __str__(self, *args, **kwargs):
         return f"JobSeeker"
@@ -49,11 +48,9 @@ class Employer(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_nr = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
+    #phone_nr = models.CharField(max_length=100)
+    #email = models.EmailField(max_length=100)
     profile_img = models.ImageField(default="default_profile_img.png")
-
-    time_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self, *args, **kwargs):
         return f"{self.user.username} - {self.email}"

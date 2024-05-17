@@ -4,7 +4,7 @@
 }
 
 .application-form {
-    background-color: green;
+    background-color: rgb(171, 171, 171);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     overflow-x: hidden;
@@ -13,7 +13,8 @@
     
 }
 .application-header {
-    background-color: blueviolet;
+    background-color: #1c1c1c;
+    color: rgb(242, 238, 238);
     font-size: 16pt;
     padding-inline: 5%;
 }
@@ -61,7 +62,7 @@ td > input {
 }
 
 .application-nav{
-    background-color: violet;
+    background-color: #1c1c1c;
     display: grid;
     grid-template-columns: repeat(2, 50%);
 
@@ -93,4 +94,8 @@ td > input {
     max-height: 475px;
     padding-block: 25px;
     overflow-y: scroll;
+}
+
+h1 {
+    color: rgb(242, 238, 238);
 }
