@@ -8,7 +8,8 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     overflow-x: hidden;
-    width: 400px;
+    width: 650px;
+    overflow: hidden;
     
 }
 .application-header {
@@ -42,6 +43,11 @@
     background-color: aqua;
     height: 30px;
 }
+
+td > input {
+    width: 80px;
+}
+
 .experience-buttons {
     background-color: darkolivegreen;
 }
@@ -62,7 +68,12 @@
 }
 
 .sub-form {
-    width: 400px;
+    width: 650px;
+    -webkit-transition: 500ms;
+    -moz-transition: 500ms;
+    -ms-transition: 500ms;
+    -o-transition: 500ms;
+    transition: 500ms;
 }
 
 .nav-button {
@@ -76,4 +87,10 @@
 
 .left {
     justify-self: left;
+}
+
+.review {
+    max-height: 475px;
+    padding-block: 25px;
+    overflow-y: scroll;
 }

@@ -4,13 +4,61 @@
 {%block content%}
 <html>
     <head>
+        <title>Job Hunters - Job Listing</title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/your-job-listings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create-listing.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+        <script>
+            $( function() {
+              $( "#datepicker" ).datepicker({
+                minDate: 0
+                }
+              );
+            } );
+            $( function() {
+              $( "#datepicker2" ).datepicker({
+                minDate: 0
+                }
+              );
+            } );
+        </script>
     </head>
     <body>
-        <div class="job-listing">
-      
+        <div class="content">
+            <form method="POST" class="job-listing-form" action="">
+                {% csrf_token %} 
+                {{ job_listing_form.as_p }} 
+                <p>Due date: <input autocomplete="off" type="text" id="datepicker" name="due_date" value="{{ due_date }}"></p>
+                <p>Start date: <input autocomplete="off" type="text" id="datepicker2" name="start_date" value="{{ start_date }}"></p>
+                <label for="submit"><a href="{% url 'my-job-listings' %}">Back</a></label>
+                <input name="submit" type="submit" value="Save">
+            </form> 
+            <h2 style="text-align:center;">Applications</h2>
+            <div class="applications">
+                {% for application in applications %}
+                    <a class="application-small" href="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk %}">
+                        <div>
+                            <p class="application-small-employer">{{ application.user }}</p>
+                            <p class="application-small-title">{{ application.applied.month }}/{{ application.applied.day }}/{{ application.applied.year }}</p>
+                        </div>
+                        {% if application.status == "Approved" %}
+                            <p class="application-small-status approved">{{ application.status }}</p>
+                        {% elif application.status == "Denied" %}
+                            <p class="application-small-status denied">{{ application.status }}</p>
+                        {% elif application.status == "Pending" %}
+                            <p class="application-small-status pending">{{ application.status }}</p>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
+
     </body>
+    
 </html>
 {% endblock %}

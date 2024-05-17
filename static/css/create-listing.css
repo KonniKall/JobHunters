@@ -2,8 +2,25 @@
     display: grid;
 }
 
-.job_listing_form {
-    background-color: red;
+.job-listing-form {
+    padding-top: 25px;
+    background-color: 1c1c1c;
     width: 65vw;
     justify-self: center;
+    color: rgb(242, 238, 238);
+}
+
+.form-fields {
+
+}
+
+h2 {
+    padding-top: 25px;
+    padding-left: 25px;
+    color: rgb(242, 238, 238);
+}
+
+.submit-button {
+    margin-top: 15px;
+    cursor: pointer;
 }

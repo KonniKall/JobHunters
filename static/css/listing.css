@@ -1,7 +1,9 @@
 .container {
-    width: 80vw;
+    padding-inline: 5%;
     background-color: crimson;
     margin: auto;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .listing {

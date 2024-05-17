@@ -1,12 +1,26 @@
 .job-listings-top {
-    background-color: blue;
+    background-color: #1c1c1c;
     width: 100vw;
     padding-inline: 5%;
     padding-block: 10px;
 }
 
 .create-button {
-    background-color: red;
+    background-color: rgb(72, 69, 69);
+    color: rgb(242, 238, 238);
+
+    padding-block: 7.5px;
+    padding-inline: 10px;
+
+    border-radius: 6px;
+    border: 0px;
+}
+
+.create-button:hover {
+    background-color: rgb(51, 48, 48);
+    color: rgb(204, 200, 200);
+    cursor: pointer;
+    
 }
 
 .job-listings {
@@ -42,8 +56,8 @@
     display: grid;
     grid-template-rows: max-content auto;
 
-    background-color: rgb(171, 171, 171);
-    color: black;
+    background-color: #1c1c1c;
+    color: rgb(242, 238, 238);
 
     border: none;
     border-radius: 8px;
@@ -55,15 +69,20 @@
 }
 
 .job-listing-small:hover {
-    
+    color: rgb(189, 184, 184);
 }
 
 .job-listing-small-header {
     font-size: 14pt;
     padding-bottom: 5px;
     
-    border-bottom: 1px solid red;
+    color: #4183c4;
+    border-bottom: 1px solid rgb(180, 176, 176);
     width: 100%;
+} 
+
+.job-listing-small:hover > .job-listing-small-header {
+    color: rgb(55, 112, 185);
 }
 
 .job-listing-small-details {
