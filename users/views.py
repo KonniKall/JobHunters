@@ -31,34 +31,19 @@ import datetime
 class SignInView(View):
 
     def get(self, request):
-        # listings = list(JobListing.objects.filter(user=request.user).values())
-        # listings = list(JobListing.objects.all)
-
-        if is_ajax(request=request):
-            print(f"working2")
-            # return JsonResponse({'listings': listings}, status=200)
         context = {}
         return render(request, "users/sign-in.html", context)
 
     def post(self, request):
         form = UserSignInForm(data=request.POST)
         if form.is_valid():
-            print("working?")
             usernameS = form.cleaned_data.get("username")
             passwordS = form.cleaned_data.get("password")
             messages.success(request, f"Signed in as {usernameS}.")
             user = authenticate(username=usernameS, password=passwordS)
             auth_login(request, user)
-            print("authenticated")
-            if is_ajax(request=request):
-                print("AJAX2")
 
             return HttpResponse(json.dumps({"message": "200"}))
-        else:
-            if is_ajax(request=request):
-                print(form.error_messages)
-                print(form.error_messages["invalid_login"])
-                print("AJAX")
 
         return HttpResponse(
             json.dumps({"message": "Incorrect username or password. Try again."})
@@ -68,12 +53,10 @@ class SignInView(View):
 class ProfileView(View):
 
     def get(self, request):
-        if not request.user.is_authenticated: 
+        if not request.user.is_authenticated:
             return redirect('index')
         contact_info = ContactInfo.objects.filter(user=request.user).first()
         profile = Profile.objects.filter(user=request.user).first()
-        if is_ajax(request=request):
-            print(f"working2")
 
         context = {"contact_info": contact_info, "profile": profile}
         return render(request, "users/profile.html", context)
@@ -102,8 +85,6 @@ class EditProfileView(View):
                 "country": contact_info.country,
                 "zip_code": contact_info.zip_code,
             })
-        if is_ajax(request=request):
-            print(f"working2")
 
         context = {
             "contact_info": contact_info,
@@ -193,7 +174,6 @@ class JobListingView(View):
             + "/"
             + str(job_listing.start_date.year)
         )
-        print(job_listing_due_date)
         context["job_listing_form"] = JobListingCreationForm(
             initial={
                 "title": job_listing.title,
@@ -208,10 +188,7 @@ class JobListingView(View):
         return render(request, "users/job-listing.html", context)
 
     def post(self, request, job_listing):
-        print(job_listing)
-        # instance = get_object_or_404(MyModel, id=id)
         form = JobListingCreationForm(data=request.POST)
-        print(form)
         if form.is_valid():
             due_date = datetime.datetime.strptime(
                 request.POST["due_date"], "%m/%d/%Y"
@@ -273,7 +250,7 @@ class WorkplaceView(View):
         if workplace == None:
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
-        company_listings = JobListing.objects.filter(user=request.user)
+        company_listings = JobListing.objects.filter(user=user)
         context = {"workplace": workplace, "company_listings": company_listings}
         return render(request, "users/workplace.html", context)
 
@@ -294,7 +271,6 @@ class JobListingApplicationView(View):
         application = Application.objects.filter(pk=application).first()
         listing = application.job_listing
         if listing.user != request.user:
-            print(listing.user)
             return redirect("/users.views.custom_page_not_found_view")
 
         context = {"application": application, "job_listing": listing}
@@ -304,7 +280,6 @@ class JobListingApplicationView(View):
         application = Application.objects.filter(pk=application).first()
         listing = application.job_listing
         if listing.user != request.user:
-            print(listing.user)
             return redirect("/users.views.custom_page_not_found_view")
         application.status = decision
         application.save()
@@ -317,17 +292,18 @@ class SignUpView(View):
         form = UserRegisterForm()
         return render(request, 'users/sign-up.html', {'form': form})
     def post(self, request):
-        print('working')
-        print(request.POST)
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
-            print('user created')
             form.save() #býr til user
-            #HistoryObj = PlacedBetModel.objects.create(user=request.user)
-            #HistoryObj.save()
+            the_user = User.objects.filter(username=request.POST['username']).first()
+            profile = Profile.objects.create(user=the_user)
+            profile.save()
+            job_seeker = JobSeeker.objects.create(user=the_user)
+            job_seeker.save()
+            contact = ContactInfo.objects.create(user=the_user)
+            contact.save()
             return redirect('sign-in')
         else:
-            print(form.errors)
             new_form = UserRegisterForm()
             return render(request, 'users/sign-up.html', {'errors':form.errors, 'form': new_form})
     
@@ -353,10 +329,8 @@ class EmailCheckView(View):
         regex = re.compile(r"([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])")
 
         if re.fullmatch(regex, email):
-            print("Valid email")
             email = True
         else:
-            print("Invalid email")
             email = False
 
         context = {
