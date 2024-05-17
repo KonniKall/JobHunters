@@ -138,7 +138,12 @@ class JobListingView(View):
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
         
-        context = {"job_listing": job_listing}
+        applications = Application.objects.filter(job_listing=job_listing)
+        
+        context = {
+            "job_listing": job_listing,
+            "applications": applications
+        }
         job_listing_due_date = str(job_listing.due_date.month).zfill(2) + '/' + str(job_listing.due_date.day).zfill(2) + '/' + str(job_listing.due_date.year)
         job_listing_start_date = str(job_listing.start_date.month).zfill(2) + '/' + str(job_listing.start_date.day).zfill(2) + '/' + str(job_listing.start_date.year)
         print(job_listing_due_date)
@@ -246,3 +251,22 @@ class WorkplaceView(View):
 def custom_page_not_found_view(request, exception=None):
 
     return render(request, "listings/404.html")
+
+
+
+class JobListingApplicationView(View):
+
+    def get(self, request, job_listing, application):
+        # Employer check
+        application = Application.objects.filter(pk=application).first()
+        listing = application.job_listing
+        if listing.user != request.user:
+            print(listing.user)
+            return redirect("/users.views.custom_page_not_found_view")
+
+        context = {"application": application}
+        return render(request, "users/job-listing-application.html", context)
+
+    def post(self, request, name):
+
+        return JsonResponse({"result": "ok"}, status=200)

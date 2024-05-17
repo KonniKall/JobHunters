@@ -1,0 +1,56 @@
+{% extends "listings/base.html" %}
+{% load static %}
+
+{%block content%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create-listing.css' %}">
+    </head>
+    <body>
+        <div class="content">
+            <div class="review">
+                <div class="review-section">
+                    <h3>Contact Information</h3>
+                    <label for="fullName">Full name:</label>
+                    <p name="fullName">{{ application.contact_information.full_name }}</p>
+                    <label for="address">Address:</label>
+                    <p name="address">{{ application.contact_information.address }}</p>
+                    <label for="country">Country:</label>
+                    <p name="country">{{ application.contact_information.country }}</p>
+                    <label for="city">City:</label>
+                    <p name="city">{{ application.contact_information.city }}</p>
+                    <label for="zipCode">Zip code:</label>
+                    <p name="zipCode">{{ application.contact_information.zip_code }}</p>
+                </div>
+                <div class="review-section">
+                    <h3>Cover letter</h3>
+                    <p>{{ application.cover_letter }}</p>
+                </div>
+                <div class="review-section">
+                    <h3>Work Experiences</h3>
+                    <div v-for="experience in application.work_experiences" class="review-experience">
+                        <p>{{ experience.workplace }}</p>
+                        <p>[[ experience.role ]]</p>
+                        <p>[[ experience.start_date ]]</p>
+                        <p>[[ experience.end_date ]]</p>
+                    </div>
+                </div>
+                <div class="review-section">
+                    <h3>Recommendations</h3>
+                    <div v-for="recommendation in recommendations" class="review-recommendation">
+                        <p>[[ recommendation.name ]]</p>
+                        <p>[[ recommendation.email ]]</p>
+                        <p>[[ recommendation.phone_nr ]]</p>
+                        <p>[[ recommendation.role ]]</p>
+                        <p>[[ recommendation.contact_allowed ]]</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </body>
+    
+</html>
+{% endblock %}
