@@ -46,6 +46,10 @@
     color: rgb(242, 238, 238) !important;
 }
 
+.navbar > a:hover {
+    color: rgb(193, 188, 188) !important;
+}
+
 .profile-button {
     justify-self: right;
     display: grid;
