@@ -152,6 +152,18 @@ function sendRequest(url, method, data) {
               })
             
         },
+        removeRecommendation(recommendation){
+            var vm = this;
+            sendRequest('/delete/recommendation/' + recommendation + '/', 'delete')
+              .then(function(response){
+                for (recomme in vm.recommendations) {
+                    if (vm.recommendations[recomme].id == recommendation){
+                        vm.recommendations.pop(recomme)
+                    }
+                }
+              })
+            
+        },
         SubmitApplication(listing){
             var vm = this;
             sendRequest('/add/application/' + listing + '/' + vm.coverLetter + '/', 'post')

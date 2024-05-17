@@ -6,6 +6,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/create-listing.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/listing-application.css' %}">
     </head>
     <body>
         <div class="content">
@@ -29,24 +30,47 @@
                 </div>
                 <div class="review-section">
                     <h3>Work Experiences</h3>
-                    <div v-for="experience in application.work_experiences" class="review-experience">
-                        <p>{{ experience.workplace }}</p>
-                        <p>[[ experience.role ]]</p>
-                        <p>[[ experience.start_date ]]</p>
-                        <p>[[ experience.end_date ]]</p>
-                    </div>
+                    {% for experience in application.work_experiences.all %}
+                        <div class="review-experience">
+                            <label for="workplace">Workplace:</label>
+                            <p name="workplace">{{ experience.workplace }}</p>
+                            <label for="role">Role:</label>
+                            <p name="role">{{ experience.role }}</p>
+                            <label for="start_date">Start date:</label>
+                            <p name="start_date">{{ experience.start_date }}</p>
+                            <label for="end_date">End date:</label>
+                            <p name="end_date">{{ experience.end_date }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="review-section">
                     <h3>Recommendations</h3>
-                    <div v-for="recommendation in recommendations" class="review-recommendation">
-                        <p>[[ recommendation.name ]]</p>
-                        <p>[[ recommendation.email ]]</p>
-                        <p>[[ recommendation.phone_nr ]]</p>
-                        <p>[[ recommendation.role ]]</p>
-                        <p>[[ recommendation.contact_allowed ]]</p>
-                    </div>
+                    {% for recommendation in application.recommendations.all %}
+                        <div class="review-recommendation">
+                            <label for="name">Name:</label>
+                            <p name="name">{{ recommendation.name }}</p>
+                            <label for="email">Email:</label>
+                            <p name="email">{{ recommendation.email }}</p>
+                            <label for="phone_nr">Phone:</label>
+                            <p name="phone_nr">{{ recommendation.phone_nr }}</p>
+                            <label for="role">Role:</label>
+                            <p name="role">{{ recommendation.role }}</p>
+                            <label for="contact_allowed">Contact allowed:</label>
+                            <p name="contact_allowed">{{ recommendation.contact_allowed }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-                
+                <div class="review-buttons">
+                    <form action="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk decision='Denied' %}" method="post" class="review-section">
+                        {% csrf_token %}
+                        <input type="submit" value="Reject" class="review-button reject" />
+                    </form>
+                    <form action="{% url 'my-job-listings' job_listing=job_listing.pk application=application.pk decision='Approved' %}" method="post" class="review-section">
+                        {% csrf_token %}
+                        <input type="submit" value="Approve" class="review-button approve" />
+                    </form>
+                </div>
+
             </div>
         </div>
 

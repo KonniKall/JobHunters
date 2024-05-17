@@ -264,9 +264,16 @@ class JobListingApplicationView(View):
             print(listing.user)
             return redirect("/users.views.custom_page_not_found_view")
 
-        context = {"application": application}
+        context = {"application": application, "job_listing": listing}
         return render(request, "users/job-listing-application.html", context)
 
-    def post(self, request, name):
-
-        return JsonResponse({"result": "ok"}, status=200)
+    def post(self, request, job_listing, application, decision):
+        application = Application.objects.filter(pk=application).first()
+        listing = application.job_listing
+        if listing.user != request.user:
+            print(listing.user)
+            return redirect("/users.views.custom_page_not_found_view")
+        application.status = decision
+        application.save()
+        
+        return redirect('my-job-listings')

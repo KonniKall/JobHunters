@@ -72,10 +72,15 @@ class JobListing(models.Model):
 
 
 class Application(models.Model):
+    STATUS_CHOICES = (
+        ("Pending", "Pending"),
+        ("Denied", "Denied"),
+        ("Approved", "Approved"),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cover_letter = models.TextField(default="")
     applied = models.DateTimeField(default=timezone.now)
-    status = models.CharField(default="Pending")
+    status = models.CharField(default="Pending", choices=STATUS_CHOICES)
 
     contact_information = models.ForeignKey(
         ContactInfo, on_delete=models.DO_NOTHING, default=None

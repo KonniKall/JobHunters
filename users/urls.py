@@ -19,6 +19,7 @@ urlpatterns = [
     path('profile/job-listings/', JobListingsView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/', JobListingView.as_view(), name='my-job-listings'),
     path('profile/job-listings/<str:job_listing>/<str:application>/', JobListingApplicationView.as_view(), name='my-job-listings'),
+    path('profile/job-listings/<str:job_listing>/<str:application>/<str:decision>/', JobListingApplicationView.as_view(), name='my-job-listings'),
 
     path('workplaces/', WorkplacesView.as_view(), name='workplaces'),
     path('workplaces/<str:workplace>/', WorkplaceView.as_view(), name='workplaces'),
