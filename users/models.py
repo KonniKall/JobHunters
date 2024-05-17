@@ -17,7 +17,7 @@ COUNTRY_CHOICES = (
 
 class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=80, blank=True)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     country = models.CharField(choices=COUNTRY_CHOICES)
@@ -48,8 +48,8 @@ class Employer(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    #phone_nr = models.CharField(max_length=100)
-    #email = models.EmailField(max_length=100)
+    phone_nr = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
     profile_img = models.ImageField(default="default_profile_img.png")
 
     def __str__(self, *args, **kwargs):
