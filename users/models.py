@@ -18,10 +18,10 @@ COUNTRY_CHOICES = (
 class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=80, blank=True)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    country = models.CharField(choices=COUNTRY_CHOICES)
-    zip_code = models.CharField(max_length=100)
+    address = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=100, default='')
+    country = models.CharField(choices=COUNTRY_CHOICES, default='')
+    zip_code = models.CharField(max_length=100, default='')
 
     def __str__(self, *args, **kwargs):
         return f"{self.user.username} - {self.address}"

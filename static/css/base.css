@@ -114,3 +114,17 @@
     width: 100vw;
     background-color: rgb(25, 24, 31);
 }
+
+.sign-in-base {
+    background-color: rgb(72, 69, 69);
+    color: #0ea49a;
+    border-radius: 6px;
+    border: 0;
+    padding-block: 5px;
+    padding-inline: 15px;
+    cursor: pointer;
+}
+
+.sign-in-base:hover {
+    background-color: rgb(87, 82, 82);
+}

@@ -28,19 +28,12 @@ from django.contrib.auth.models import User
 class ListingsView(View):
 
     def get(self, request):
-        # listings = list(JobListing.objects.filter(user=request.user).values())
         listings = JobListing.objects.all()
 
-        #if is_ajax(request=request):
-        #     print(f"working2")
-        #     return JsonResponse({"listings": listings}, status=200)
-        #     # return {"listings": listings}
         context = {"listings": listings}
         return render(request, "listings/job_listings.html", context)
 
     def post(self, request, name):
-        # filter = FilterModel.objects.filter(name=name)
-        # filter.delete()
 
         return JsonResponse({"result": "ok"}, status=200)
 
@@ -79,7 +72,6 @@ class CreateJobListingView(View):
         form = JobListingCreationForm(data=request.POST)
         # start_date = form('start_date')
         if form.is_valid():
-            print("working?")
             instance = form.save(commit=False)
             instance.user = request.user
             due_date = datetime.datetime.strptime(
@@ -182,7 +174,6 @@ class ApplicationContactView(View):
                 obj.save()
             except:
                 created.save()
-            print(obj.zip_code)
         return JsonResponse({"error": "Not AJAX request."})
 
 
@@ -230,8 +221,6 @@ class ApplicationRecommendationsView(View):
         recommendations = list(
             Recommendation.objects.filter(user=request.user).values()
         )
-        print(recommendations)
-        # application = list(FilterModel.objects.filter(user=request.user).exclude(name='Unsaved').values())
         context = {"recommendations": recommendations}
         return JsonResponse(context, status=200)
 
@@ -251,8 +240,6 @@ class ApplicationRecommendationsView(View):
                 "contact_allowed": contact_allowed,
             }
         )
-
-        print(form.is_valid())
 
         if is_ajax(request=request) and form.is_valid():
             obj = Recommendation.objects.create(
@@ -310,8 +297,6 @@ class ApplicationView(View):
             }
         )
 
-        print(form.is_valid())
-
         if is_ajax(request=request) and form.is_valid():
             obj = Application.objects.create(
                 user=request.user,
@@ -340,8 +325,6 @@ class FilterView(View):
             filter_dict['user__username__icontains'] = company_name
         if category != 'all':
             filter_dict['category__icontains'] = category
-        #if applied == true:
-        print(filter_dict)
         if filter_dict == {}:
             job_listings = JobListing.objects.all()
         else:
@@ -381,7 +364,6 @@ class FilterView(View):
         }
 
         if is_ajax(request=request):
-             print(f"working2")
-             return JsonResponse(context, status=200)
+            return JsonResponse(context, status=200)
         
         return render(request, "listings/job_listings.html", context)
