@@ -16,15 +16,15 @@
             <img src="{{ profile.profile_img.url }}" class="main-profile-img" alt="Profile image">
             <div>
                 <label for="name">Name: </label>
-                <input type="text" id="name" name="name" value="{{ contact_info.full_name }}">
+                <input type="text" id="name" name="name" value="{{ user.first_name }}">
             </div>
             <div>
                 <label for="email">Email: </label>
-                <input type="text" id="email" , name="email" value="{{ profile.email }}">
+                <input type="text" id="email" , name="email" value="{{ user.email }}">
             </div>
             <div>
                 <label for="phone-nr">Phone number: </label>
-                <input type="text" id="phone-nr" name="phone-nr" value="{{ profile.phone_nr }}">
+                <input type="text" id="phone-nr" name="phone-nr" value="{{ contact_info.phone_nr }}">
             </div>
             <div>
                 <label for="address">Address: </label>
