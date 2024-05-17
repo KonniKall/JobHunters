@@ -200,3 +200,7 @@
     background-color: rgb(72, 69, 69);
     cursor: pointer;
 }
+
+.apply:hover {
+    background-color: rgb(91, 86, 86);
+}

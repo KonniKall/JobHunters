@@ -29,11 +29,11 @@
                 {% csrf_token %} 
                 {{ job_listing_form.as_p }} 
                 <p>Due date: <input autocomplete="off" type="text" id="datepicker" name="due_date" value="{{ due_date }}"></p>
-                <label for="submit"><a href="{% url 'my-job-listings' %}">Back</a></label>
-                <input name="submit" type="submit" value="Save">
+                <input class="action-button save" name="submit" type="submit" value="Save">
+                <button class="action-button delete" id="deleteJobListing" onclick="window.location.href = '{% url 'my-job-listings' %}'" method="get" @click="deleteListing('{{ job_listing.pk }}')">Delete</button>
                 
             </form> 
-            <button class="delete-button" id="deleteJobListing" onclick="window.location.href = '{% url 'my-job-listings' %}'" method="get" @click="deleteListing('{{ job_listing.pk }}')">Delete</button>
+            
             <h2 style="text-align:center;">Applications</h2>
             <div class="applications">
                 {% for application in applications %}
