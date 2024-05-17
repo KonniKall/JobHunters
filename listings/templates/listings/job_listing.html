@@ -23,9 +23,15 @@
                 <h2 class="company-name">{{ listing.user }}</h2>
                 <h3 class="address">{{ company.address }}</h3>
             </a>
-            <button class="apply"
-                onclick="window.location.href = '{% url 'job-listing-application' listing=listing.pk %}'">Apply</button>
-            <div class="description">{{ listing.description |safe }}</div>
+            {% if applied %}
+                <button class="apply">Already applied</button>
+                <div class="description">{{ listing.description |safe }}</div>
+            {% else %}
+                <button class="apply"
+                    onclick="window.location.href = '{% url 'job-listing-application' listing=listing.pk %}'">Apply</button>
+                <div class="description">{{ listing.description |safe }}</div>
+            
+            {% endif %}
         </div>
         <div class="extra-listings-container">
             {% for listing in company_listings %}

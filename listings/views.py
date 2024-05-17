@@ -50,6 +50,10 @@ class JobListingView(View):
         listing = JobListing.objects.filter(pk=listing).first()
         company = Employer.objects.filter(user=listing.user).first()
         company_listings = JobListing.objects.filter(user=listing.user)
+        applied = False
+
+        if Application.objects.filter(user=request.user, job_listing=listing):
+            applied = True
         if listing == None:
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
@@ -57,7 +61,9 @@ class JobListingView(View):
             "listing": listing,
             "company": company,
             "company_listings": company_listings,
+            "applied": applied
         }
+
         return render(request, "listings/job_listing.html", context)
 
 
