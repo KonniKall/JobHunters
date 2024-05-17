@@ -71,6 +71,7 @@ html {
 .listings-container {
     display: grid;
     justify-items: center;
+    align-content: baseline;
 
     overflow-y: scroll;
     max-height: calc(100vh - 80px);
@@ -112,10 +113,14 @@ html {
 }
 
 .listing {
+    display: grid;
+    align-items: center;
+
     width: 170px;
     height: 230px;
     margin: 30px 15px;
-    padding: 20px;
+    padding-inline: 20px;
+    padding-block: 5px;
     background-color: #1c1c1c;
     border: solid;
     border-width: 2px;
@@ -135,14 +140,20 @@ html {
 .company-name {
     background-color: rgb(72, 69, 69);
     text-align: center;
-    width: fit-content;
+
+    height: fit-content;
+
     padding: 10px 20px;
+    margin-bottom: 0;
+
     border-radius: 10px;
+    font-size: 11pt;
 }
 
 .job-title {
     text-align: center;
     width: fit-content;
+    margin-block: 0;
 }
 
 .dates {
@@ -181,4 +192,9 @@ h4 {
 
 label {
     color: rgb(242, 238, 238);
+}
+
+.location {
+    text-align: center;
+    margin: 0;
 }

@@ -55,12 +55,13 @@
         </div>
         <div class="listings-container">
             <a v-for="listing in jobListings" class="listing" v-bind:href="'/listing/'+ listing.id">
-                <h5 class="company-name">[[ listing.username ]]</h5>
+                <div>
+                    <h5 class="company-name">[[ listing.username ]]</h5>
+                    <p class="location">[[ listing.location ]]</p>
+                </div>
+                
                 <h4 class="job-title">[[ listing.title ]] - [[ listing.category ]]</h4>
                 <div class="dates">
-                    <label for="posted">Posted:</label>
-                    <p name="posted">[[ listing.start_date ]]</p>
-
                     <label for="due">Due:</label>
                     <p name="due">[[ listing.due_date ]]</p>
                 </div>
