@@ -30,7 +30,6 @@ var sign_up = new Vue({
             vm = this;
             
             username = vm.username
-            console.log(username)
 
             if (username === ''){
                 var userField = document.querySelector("#id_username");
@@ -47,9 +46,7 @@ var sign_up = new Vue({
             setTimeout(() => {
                 sendRequest('user/' + username + '/', 'get')
                 .then(function(response){
-                    console.log('username attempted')
                     vm.usernameCheck = response.data.user
-                    console.log(vm.usernameCheck)
 
                     var userField = document.querySelector("#id_username");
                     if (vm.usernameCheck == false) {
@@ -58,7 +55,6 @@ var sign_up = new Vue({
                     else {
                         userField.style.borderBottom = `0px`;
                     }
-                    vm.sectionCheck()
                 })
             }, 500);
             
@@ -69,7 +65,6 @@ var sign_up = new Vue({
             vm = this;
             
             email = vm.email
-            console.log(email)
 
             if (email === ''){
                 var emailField = document.querySelector("#id_email");
@@ -79,9 +74,7 @@ var sign_up = new Vue({
             
             sendRequest('email/' + email + '/', 'get')
                 .then(function(response){
-                    console.log('email attempted')
                     vm.emailCheck = response.data.email
-                    console.log(vm.emailCheck)
 
                     var emailField = document.querySelector("#id_email");
                     if (vm.emailCheck == false) {
@@ -90,7 +83,6 @@ var sign_up = new Vue({
                     else {
                         emailField.style.borderBottom = `0px`;
                     }
-                    vm.sectionCheck()
             })
             
         },
@@ -107,18 +99,9 @@ var sign_up = new Vue({
                 passwordField.style.borderBottom = `0px`;
                 vm.passwordCheck = true
             }
-            this.sectionCheck()
         },
 
-        sectionCheck() {
-            var signUpSection = document.querySelector(".signUpSection");
-            timesX = 0
-            if (!vm.usernameCheck) timesX++
-            if (!vm.emailCheck) timesX++
-            if (!vm.passwordCheck) timesX++
-            signUpSection.style.height = `${98 + ((14/3) * timesX)}%`
-            console.log(timesX)
-        },
+       
         
     },
 })
