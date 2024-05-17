@@ -1,0 +1,18 @@
+.container {
+    width: 80vw;
+    background-color: rgb(201, 139, 151);
+    margin: auto;
+    height: 90vh;  
+    overflow-y: auto; 
+}
+
+
+
+
+.extra-listings-container {
+    background-color: blueviolet;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}

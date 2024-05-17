@@ -153,7 +153,7 @@ class WorkplacesView(View):
 class WorkplaceView(View):
 
     def get(self, request, workplace):
-        workplace = Employer.objects.filter(user=request.user, pk=workplace).first()
+        workplace = Employer.objects.filter(pk=workplace).first()
         if workplace == None:
             # Appendar við URL-in sem þarf að laga
             return redirect('/users.views.custom_page_not_found_view')
