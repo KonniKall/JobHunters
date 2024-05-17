@@ -77,11 +77,18 @@ function sendRequest(url, method, data) {
           });
         },
 
-        filterChange(){
-          var vm = this;
-          //vm.search['jobName'] = jobName
+      filterChange(){
+        var vm = this;
+        //vm.search['jobName'] = jobName
+        const timeoutId = window.setTimeout(() => {}, 0);
+        for (let id = timeoutId; id >= 0; id -= 1) {
+          window.clearTimeout(id);
+        }
+
+        setTimeout(() => {
           vm.jobListings = []
           vm.getJobListings()
+        }, 500);
         }
         
     },

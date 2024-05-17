@@ -15,9 +15,9 @@
         <div id="menu">
             <div id="menu-subcontainer">
                 <div id="searches">
-                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.jobName" type="search" class="search" id="job_search" name="job_search"
+                    <input @input="filterChange()" v-model="search.jobName" type="search" class="search" id="job_search" name="job_search"
                         placeholder="Search by job name" aria-label="Search by job name">
-                    <input @input="filterChange()" v-on:change="filterChange()" v-model="search.companyName" type="search" class="search" id="company_search" name="company_search"
+                    <input @input="filterChange()" v-model="search.companyName" type="search" class="search" id="company_search" name="company_search"
                         placeholder="Search by company name" aria-label="Search by company name">
                 </div>
                 <hr class="menu-seperator">
@@ -61,21 +61,6 @@
                     [[ listing.start_date ]]
                 </div>
             </a>
-            {% comment %}
-            {% for listing in listings %}
-            <a class="listing" href="{% url 'listing' listing=listing.pk %}">
-                <h5 class="company-name">{{ listing.user }}</h5>
-                <h4 class="job-title">{{ listing.title }}</h4>
-                <div class="dates">
-                    <!-- {{ listing.due_date.day }}
-                    {{ listing.due_date.month }} -->
-                    {{ listing.start_date.day }}
-                    {{ listing.start_date.month }}
-                </div>
-                <h4>{{ listing.work_type }}</h4>
-            </a>
-            {% endfor %}
-            {% endcomment %}
         </div>
     </div>
     <script src="{% static 'scripts/filter.js' %}"></script>
