@@ -71,3 +71,34 @@ label {
 .review-section {
     margin-bottom: 15px;
 }
+
+.status {
+    background-color: rgb(72, 69, 69);
+    color: rgb(243, 240, 240);
+    font-weight: bold;
+
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: 8px;
+
+    padding-block: 5px;
+    padding-inline: 7.5px;
+    justify-self: right;
+}
+
+.approved {
+    color: rgb(61, 205, 35);
+}
+
+.denied {
+    color: rgb(188, 49, 49);
+}
+
+.pending {
+    color: rgb(107, 106, 106);
+}
+
+h3 {
+    font-size: 20pt;
+}
