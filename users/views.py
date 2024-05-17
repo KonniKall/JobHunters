@@ -70,19 +70,17 @@ class ProfileView(View):
         if is_ajax(request=request):
             print(f"working2")
 
-        u_form = UserUpdateForm(instance=request.user)
+        # u_form = UserUpdateForm(instance=request.user)
 
-        profile = Profile.objects.filter(user=request.user).first()
-        p_form = ProfileUpdateForm(instance=profile)
+        # profile = Profile.objects.filter(user=request.user).first()
+        # p_form = ProfileUpdateForm(instance=profile)
 
-        profile_additional = Employer.objects.filter(user=request.user).first()
-        if profile_additional == None:
-            profile_additional = JobSeeker.objects.filter(user=request.user).first()
+        # profile_additional = Employer.objects.filter(user=request.user).first()
+        # if profile_additional == None:
+        #     profile_additional = JobSeeker.objects.filter(user=request.user).first()
         context = {
-            "u_form": u_form,
-            "p_form": p_form,
             "profile": profile,
-            "profile_additional": profile_additional,
+            "contact_info": contact_info,
         }
         return render(request, "users/profile.html", context)
 
