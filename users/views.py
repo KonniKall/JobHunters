@@ -66,6 +66,8 @@ class SignInView(View):
 class ProfileView(View):
 
     def get(self, request):
+        if not request.user.is_authenticated: 
+            return redirect('index')
         contact_info = ContactInfo.objects.filter(user=request.user).first()
         profile = Profile.objects.filter(user=request.user).first()
         if is_ajax(request=request):
@@ -73,6 +75,7 @@ class ProfileView(View):
 
         context = {"contact_info": contact_info, "profile": profile}
         return render(request, "users/profile.html", context)
+            
 
     def post(self, request):
 
@@ -81,6 +84,8 @@ class ProfileView(View):
 
 class EditProfileView(View):
     def get(self, request):
+        if not request.user.is_authenticated: 
+            return redirect('index')
         contact_info = ContactInfo.objects.filter(user=request.user).first()
         profile = Profile.objects.filter(user=request.user).first()
         if is_ajax(request=request):
@@ -259,6 +264,9 @@ class JobListingApplicationView(View):
     
 
 class SignUpView(View):
+    def get(self, request):
+        form = UserRegisterForm()
+        return render(request, 'users/sign-up.html', {'form': form})
     def post(self, request):
         print('working')
         print(request.POST)
@@ -271,11 +279,9 @@ class SignUpView(View):
             return redirect('sign-in')
         else:
             print(form.errors)
-            form = UserRegisterForm()
-            return render(request, 'users/sign-up.html', {'form': form})
-    def get(self, request):
-        form = UserRegisterForm()
-        return render(request, 'users/sign-up.html', {'form': form})
+            new_form = UserRegisterForm()
+            return render(request, 'users/sign-up.html', {'errors':form.errors, 'form': new_form})
+    
     
 class UsernameCheckView(View):
     def get(self, request, username):

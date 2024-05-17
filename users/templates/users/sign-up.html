@@ -83,6 +83,12 @@
                     </div>
                 </div>
 
+                {% if errors %}
+                    <div class="alert alert-danger">
+                        {{ errors }}
+                    </div>
+                {% endif %}
+
                 <div class="form-group">
                     <button class="login_button" type="submit"> 
                         Sign Up

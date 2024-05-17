@@ -52,8 +52,9 @@ class JobListingView(View):
         company_listings = JobListing.objects.filter(user=listing.user)
         applied = False
 
-        if Application.objects.filter(user=request.user, job_listing=listing):
-            applied = True
+        if request.user.is_authenticated:
+            if Application.objects.filter(user=request.user, job_listing=listing):
+                applied = True
         if listing == None:
             # Appendar við URL-in sem þarf að laga
             return redirect("/users.views.custom_page_not_found_view")
@@ -351,14 +352,15 @@ class FilterView(View):
         else: applied = False
         to_be_removed = []
 
-        if applied:
-            for job_listing in job_listings:
-                if not Application.objects.filter(user=request.user, job_listing=job_listing).exists():
-                    to_be_removed.append(job_listing.id)
-        else:
-            for job_listing in job_listings:
-                if Application.objects.filter(user=request.user, job_listing=job_listing).exists():
-                    to_be_removed.append(job_listing.id)
+        if request.user.is_authenticated:
+            if applied:
+                for job_listing in job_listings:
+                    if not Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                        to_be_removed.append(job_listing.id)
+            else:
+                for job_listing in job_listings:
+                    if Application.objects.filter(user=request.user, job_listing=job_listing).exists():
+                        to_be_removed.append(job_listing.id)
 
         job_listings = job_listings.exclude(id__in=to_be_removed)
 
