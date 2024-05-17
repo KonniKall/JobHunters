@@ -5,12 +5,42 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/your-job-listings.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create-listing.css' %}">
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+        <script>
+            $( function() {
+              $( "#datepicker" ).datepicker({
+                minDate: 0
+                }
+              );
+            } );
+            $( function() {
+              $( "#datepicker2" ).datepicker({
+                minDate: 0
+                }
+              );
+            } );
+        </script>
     </head>
     <body>
-        <div class="job-listing">
-      
+        <div class="content">
+            <form method="POST" class="job_listing_form" action="">
+                {% csrf_token %} 
+                {{ job_listing_form.as_p }} 
+                {{ job_listing_form.due_date }} 
+                {% comment %} { form.title }}{% endcomment %}
+                <p>Due date: <input type="text" id="datepicker" name="due_date" value="{{ due_date }}"></p>
+                <p>Start date: <input type="text" id="datepicker2" name="start_date" value="{{ start_date }}"></p>
+                <label for="submit"><a href="{% url 'my-job-listings' %}">Back</a></label>
+                <input name="submit" type="submit" value="Save">
+            </form> 
         </div>
+
     </body>
+    
 </html>
 {% endblock %}

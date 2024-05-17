@@ -1,12 +1,12 @@
 .job-listings-top {
-    background-color: blue;
+    background-color: rgb(51, 51, 51);
     width: 100vw;
     padding-inline: 5%;
     padding-block: 10px;
 }
 
 .create-button {
-    background-color: red;
+    background-color: rgb(182, 177, 177);
 }
 
 .job-listings {

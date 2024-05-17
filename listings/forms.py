@@ -33,7 +33,7 @@ class JobListingCreationForm(ModelForm):
 
     class Meta:
         model = JobListing
-        fields = ['title', 'work_type', 'location', 'category']#, 'due_date', 'start_date']
+        fields = ['title', 'description', 'work_type', 'location', 'category']#, 'due_date', 'start_date']
 
 class ContactInfoForm(ModelForm):
     #full_name = forms.CharField(

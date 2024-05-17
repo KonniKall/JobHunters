@@ -4,13 +4,13 @@
 
     height: 80px;    
     align-items: center;
-    background-color: green;
+    background-color: rgb(25, 24, 31);
 
     padding-inline: 20px;
 }
 
 .logo {
-    color: blue;
+    color: #0ea49a;
     background-color: transparent;
     
     width: fit-content;
@@ -43,7 +43,7 @@
 }
 
 .navbar > a {
-    color: rgb(232, 41, 41) !important;
+    color: rgb(242, 238, 238) !important;
 }
 
 .profile-button {
