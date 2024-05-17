@@ -79,4 +79,4 @@ class ProfileUpdateForm(forms.ModelForm):
 class ContactInfoUpdateForm(forms.ModelForm):
     class Meta:
         model = ContactInfo
-        fields = ["full_name"]
+        fields = ["full_name", "address", "city", "country", "zip_code"]
