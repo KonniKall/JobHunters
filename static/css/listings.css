@@ -162,9 +162,7 @@ html {
 }
 
 .menu-item {
-    display: grid;
     justify-content: left;
-    padding-left: 5%;
 }
 
 input {
