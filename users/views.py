@@ -120,24 +120,39 @@ class JobListingsView(View):
 
         return JsonResponse({"result": "ok"}, status=200)
     
+# class JobListingView(View):
+
+#     def get(self, request, job_listing):
+#         #Employer check
+#         if Employer.objects.filter(user=request.user).first() == None:
+#             return redirect('/users.views.custom_page_not_found_view')
+
+#         #Nota mögulega ehv annað en pk seinna
+#         job_listing = JobListing.objects.filter(user=request.user, pk=job_listing).first()
+#         if job_listing == None:
+#             # Appendar við URL-in sem þarf að laga
+#             return redirect('/users.views.custom_page_not_found_view')
+#         context = {'job_listing': job_listing}
+#         return render(request, "users/job-listing.html", context)
+
+#     def post(self, request, name):
+
+#         return JsonResponse({"result": "ok"}, status=200)
+    
 class JobListingView(View):
-
-    def get(self, request, job_listing):
-        #Employer check
-        if Employer.objects.filter(user=request.user).first() == None:
-            return redirect('/users.views.custom_page_not_found_view')
-
-        #Nota mögulega ehv annað en pk seinna
-        job_listing = JobListing.objects.filter(user=request.user, pk=job_listing).first()
-        if job_listing == None:
+    def get(self, request, listing):
+        listing = JobListing.objects.filter(pk=listing).first()
+        company = Employer.objects.filter(user=listing.user).first()
+        company_listings = JobListing.objects.filter(user=listing.user)
+        if listing == None:
             # Appendar við URL-in sem þarf að laga
-            return redirect('/users.views.custom_page_not_found_view')
-        context = {'job_listing': job_listing}
-        return render(request, "users/job-listing.html", context)
-
-    def post(self, request, name):
-
-        return JsonResponse({"result": "ok"}, status=200)
+            return redirect("/users.views.custom_page_not_found_view")
+        context = {
+            "listing": listing,
+            "company": company,
+            "company_listings": company_listings,
+        }
+        return render(request, "users/workplace.html", context)
     
 class WorkplacesView(View):
 
@@ -157,7 +172,12 @@ class WorkplaceView(View):
         if workplace == None:
             # Appendar við URL-in sem þarf að laga
             return redirect('/users.views.custom_page_not_found_view')
-        context = {'workplace': workplace}
+        # context = {'workplace': workplace}
+        company_listings = JobListing.objects.filter(user=workplace.user)
+        context = {
+            'workplace': workplace,
+            'company_listings': company_listings 
+        }
         return render(request, "users/workplace.html", context)
 
     def post(self, request, name):

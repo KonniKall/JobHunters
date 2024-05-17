@@ -10,9 +10,21 @@
 
 
 .extra-listings-container {
-    background-color: blueviolet;
+
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+}
+
+.extra-listing {
+    height: 200px;
+    width: 300px;
+    margin: 30px 15px;
+    padding: 20px;
+    background-color: #8BA6A9;
+    border: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    border-color: #5a696b;
 }
